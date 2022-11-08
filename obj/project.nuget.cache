@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tOyzawoS1afUR1It/WPNzvyRvgGveavOzD+bB401drOepLEK/8kZYIRU+zlxVvKmVYOFCZUYQPVV5fxSPu/huw==",
+  "dgSpecHash": "729UTf/HSTfYkb9HcOgnVTmNEPc8GrwR8J76+ovxJzVI79u1Ya87dbkpF5t7y3N7XJExEs1R0BPxPOt+1Hk4cA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada1\\Tareas Laboratorio\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+  "projectFilePath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yeuri\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\yeuri\\.nuget\\packages\\libsassbuilder\\2.0.1\\libsassbuilder.2.0.1.nupkg.sha512",
@@ -11,7 +11,6 @@
     "C:\\Users\\yeuri\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\6.0.0\\microsoft.aspnetcore.components.analyzers.6.0.0.nupkg.sha512",
     "C:\\Users\\yeuri\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\6.0.0\\microsoft.aspnetcore.components.forms.6.0.0.nupkg.sha512",
     "C:\\Users\\yeuri\\.nuget\\packages\\microsoft.aspnetcore.components.web\\6.0.0\\microsoft.aspnetcore.components.web.6.0.0.nupkg.sha512",
-    "C:\\Users\\yeuri\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\7.0.0\\microsoft.aspnetcore.identity.ui.7.0.0.nupkg.sha512",
     "C:\\Users\\yeuri\\.nuget\\packages\\microsoft.aspnetcore.metadata\\6.0.0\\microsoft.aspnetcore.metadata.6.0.0.nupkg.sha512",
     "C:\\Users\\yeuri\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\yeuri\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.0\\microsoft.data.sqlite.core.7.0.0.nupkg.sha512",
