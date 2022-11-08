@@ -5,3 +5,5 @@
 /bin/**
 /obj/**
 /.vs/**
+/.vs/PF2022_03_BlazorApp/**
+/obj/Debug/net6.0/**
