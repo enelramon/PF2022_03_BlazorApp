@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {}
+    "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada1\\Tareas Laboratorio\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {}
   },
   "projects": {
-    "D:\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {
+    "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada1\\Tareas Laboratorio\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+        "projectUniqueName": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada1\\Tareas Laboratorio\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
         "projectName": "PF2022_03_BlazorApp",
-        "projectPath": "D:\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
-        "packagesPath": "C:\\Users\\enelr\\.nuget\\packages\\",
-        "outputPath": "D:\\PF2022_03_BlazorApp\\obj\\",
+        "projectPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada1\\Tareas Laboratorio\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+        "packagesPath": "C:\\Users\\yeuri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada1\\Tareas Laboratorio\\PF2022_03_BlazorApp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\enelr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\yeuri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,6 +39,26 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[4.2.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
