@@ -1861,11 +1861,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+      "projectUniqueName": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
       "projectName": "PF2022_03_BlazorApp",
-      "projectPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+      "projectPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
       "packagesPath": "C:\\Users\\yeuri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\obj\\",
+      "outputPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\yeuri\\AppData\\Roaming\\NuGet\\NuGet.Config",

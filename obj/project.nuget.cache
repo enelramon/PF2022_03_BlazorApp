@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "729UTf/HSTfYkb9HcOgnVTmNEPc8GrwR8J76+ovxJzVI79u1Ya87dbkpF5t7y3N7XJExEs1R0BPxPOt+1Hk4cA==",
+  "dgSpecHash": "6ZdrBzrPe1D2MJ6ww1Nv0VJKzOufvKwUYuWbF8w9eXaWlbFz2LwGeyHUeO8zeWkRNpVBmQf0XYOg5f8Va/iOQw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+  "projectFilePath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yeuri\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\yeuri\\.nuget\\packages\\libsassbuilder\\2.0.1\\libsassbuilder.2.0.1.nupkg.sha512",
