@@ -1,0 +1,53 @@
+﻿ @page "/C_cliente"
+@inject ClienteBLL clienteBLL
+
+<EditForm Model="this">
+    <div class="card">
+
+        <div class="card-header">
+            <h4>Consulta de Clientes</h4>
+        </div>
+    </div>
+    <div class="card-body">           
+     <button   @onclick="Buscar" class="btn btn-outline-primary" > <i class="oi oi-magnifying-glass"/> Buscar </button>
+     </div>
+
+    <table class="table table-striped table-hover mt-4" style="cursor: pointer;">
+
+        <thead class="thead">
+            <tr class="table">
+                <th>ClienteId</th>
+                <th>Nombres</th>
+                <th>Direccion</th>
+                <th>Cedula</th> 
+                <th>Email</th> 
+                <th>Telefono</th> 
+                <th>Celulas</th> 
+            </tr>
+        </thead>
+         <tbody>
+
+            @foreach (var item in cliente )
+            {
+                <tr>
+                    <td>@item.ClienteId</td> 
+                    <td>@item.Nombres</td>
+                    <td>@item.Direccion</td>
+                    <td>@item.Cedula</td>
+                    <td>@item.Email</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Celular </td> 
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</EditForm>
+
+@code{
+     public List<Cliente> cliente { get; set; } = new List<Cliente>();
+
+        void Buscar(){
+            cliente = clienteBLL.GetClientes(o => true);
+        }
+}
