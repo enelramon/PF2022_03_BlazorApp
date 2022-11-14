@@ -7,3 +7,26 @@
 /.vs/**
 /.vs/PF2022_03_BlazorApp/**
 /obj/Debug/net6.0/**
+/obj/PF2022_03_BlazorApp.csproj.nuget.dgspec.json
+/obj/PF2022_03_BlazorApp.csproj.nuget.g.props
+/obj/PF2022_03_BlazorApp.csproj.nuget.g.targets
+/obj/project.assets.json
+/obj/project.nuget.cache
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+/.vs/ProjectEvaluation/pf2022_03_blazorapp.projects.v5.1
+/.vs/ProjectEvaluation/pf2022_03_blazorapp.metadata.v5.1
+/.vs/PF2022_03_BlazorApp/FileContentIndex/read.lock
+/.vs/Nueva carpeta/v17/.suo
+/.vs/Nueva carpeta/FileContentIndex/read.lock
+/.vs/Nueva carpeta/FileContentIndex/cdea3e1a-1de9-48ae-a891-742b1d1e191f.vsidx
+/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+/obj/Debug/net6.0/PF2022_03_BlazorApp.AssemblyInfo.cs
+/obj/Debug/net6.0/PF2022_03_BlazorApp.AssemblyInfoInputs.cache
+/obj/Debug/net6.0/PF2022_03_BlazorApp.assets.cache
+/obj/Debug/net6.0/PF2022_03_BlazorApp.csproj.AssemblyReference.cache
+/obj/Debug/net6.0/PF2022_03_BlazorApp.GeneratedMSBuildEditorConfig.editorconfig
+/obj/Debug/net6.0/PF2022_03_BlazorApp.GlobalUsings.g.cs
+/obj/Debug/net6.0/PF2022_03_BlazorApp.RazorAssemblyInfo.cache
+/obj/Debug/net6.0/PF2022_03_BlazorApp.RazorAssemblyInfo.cs
+/obj/Debug/net6.0/project.razor.vs.json

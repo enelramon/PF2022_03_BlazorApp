@@ -8,7 +8,7 @@ namespace PF2022_03_BlazorApp.DAL
         public DbSet<Tikets> tikets { get; set; }
 
         public Contexto(DbContextOptions<Contexto> options)
-       : base(options)
+        : base(options)
         {
         }
 
