@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {}
+    "C:\\Repos\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {
+    "C:\\Repos\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+        "projectUniqueName": "C:\\Repos\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
         "projectName": "PF2022_03_BlazorApp",
-        "projectPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
-        "packagesPath": "C:\\Users\\yeuri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yeuri\\OneDrive\\Escritorio\\Aplicada\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp\\obj\\",
+        "projectPath": "C:\\Repos\\PF2022_03_BlazorApp\\PF2022_03_BlazorApp.csproj",
+        "packagesPath": "C:\\Users\\nicole\\.nuget\\packages\\",
+        "outputPath": "C:\\Repos\\PF2022_03_BlazorApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yeuri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nicole\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -74,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
