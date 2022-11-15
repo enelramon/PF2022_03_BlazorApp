@@ -23,12 +23,14 @@ namespace PF202203BlazorApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Cedula")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Celular")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Direccion")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

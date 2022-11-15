@@ -10,7 +10,7 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF202203BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221113185734_Cliente")]
+    [Migration("20221115004201_Cliente")]
     partial class Cliente
     {
         /// <inheritdoc />
@@ -26,12 +26,14 @@ namespace PF202203BlazorApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Cedula")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Celular")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Direccion")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
