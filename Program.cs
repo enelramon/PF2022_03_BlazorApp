@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using PF2022_03_BlazorApp.DAL;
+using PF2022_03_BlazorApp.BLL;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddDbContext<Contexto>(Options =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<ClienteBLL>();
 
 var app = builder.Build();
 
