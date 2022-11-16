@@ -1,0 +1,124 @@
+﻿@page "/R_Prioridades"
+@page "/R_Prioridades/{PrioridadId:int}"
+
+
+@inject PrioridadesBLL prioridadesBLL
+
+<EditForm Model="prioridad" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="card">
+        <div class="card-header bi bi-pc-display">
+            <h3>Registro Prioridades</h3>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        </div>
+        <div class="card-body">
+
+            @*PrioridadId*@
+            <div class="form-row align-items-center">
+                <div class="container">
+                    <div class="form-group">
+                        <label>PrioridadId</label>
+                        <div class="input-group">
+                            <InputNumber @bind-Value="prioridad.PrioridadId" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-info input-group-text bi bi-google" @onclick="Buscar"> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Descripcion*@
+            <div class="form-group">
+                <div class="container">
+                    <label>Descripcion</label>
+                    <div class="form-group">
+                        <InputText @bind-Value="prioridad.Descripcion" class="col-8" />
+                        <ValidationMessage For="@(() => prioridad.Descripcion)" />
+                    </div>
+                </div>
+            </div>
+
+            @*Orden*@
+            <div class="form-group">
+                <div class="container">
+                    <label>Orden</label>
+                    <div class="imput-group">
+                        <InputText @bind-Value="prioridad.Orden" class="col-4" />
+                        <ValidationMessage For="@(() => prioridad.Orden)" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="form-group text-center" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary bi bi-person-plus-fill" @onclick="Nuevo"> Nuevo</button>
+                <button type="submit" class="btn btn-lg btn-success bi bi-save-fill"> Guardar</button>
+                <button type="button" class="btn btn-lg btn-danger bi bi-trash2-fill" @onclick="Eliminar">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int PrioridadId { get; set; }
+    public Prioridades prioridad { get; set; } = new Prioridades();
+
+    public List<Prioridades> lista { get; set; } = new List<Prioridades>();
+
+    protected override void OnInitialized()
+    {
+        if (PrioridadId > 0)
+        {
+            this.prioridad.PrioridadId = PrioridadId;
+            this.Buscar();
+        }
+    }
+    private void Buscar()
+    {
+        if (prioridad.PrioridadId > 0)
+        {
+            var encontrado = prioridadesBLL.Buscar(prioridad.PrioridadId);
+
+            if (encontrado != null)
+                this.prioridad = encontrado;
+        }
+    }
+    public void Guardar()
+    {
+
+        bool guardo;
+
+
+        guardo = prioridadesBLL.Guardar(prioridad);
+        if (guardo)
+        {
+            Nuevo();
+        }
+
+    }
+    public void Nuevo()
+    {
+        prioridad = new Prioridades();
+    }
+
+    public void Eliminar()
+    {
+        bool elimino;
+
+        elimino = prioridadesBLL.Eliminar(prioridad);
+
+        if (elimino)
+        {
+            Nuevo();
+        }
+    }
+
+
+}

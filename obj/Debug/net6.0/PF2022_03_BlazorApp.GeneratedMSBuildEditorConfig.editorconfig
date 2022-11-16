@@ -24,12 +24,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXENvbXBvbmVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Lopez Oly/Source/Repos/PF2022_03_BlazorApp/Pages/Consultas/C_Prioridades.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGFzXENfUHJpb3JpZGFkZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Lopez Oly/Source/Repos/PF2022_03_BlazorApp/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Lopez Oly/Source/Repos/PF2022_03_BlazorApp/Pages/Registros/Component.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm9zXENvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Lopez Oly/Source/Repos/PF2022_03_BlazorApp/Pages/Registros/R_Prioridades.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm9zXFJfUHJpb3JpZGFkZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Lopez Oly/Source/Repos/PF2022_03_BlazorApp/Pages/Registros/R_Sistemas.razor]

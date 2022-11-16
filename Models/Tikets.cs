@@ -7,6 +7,6 @@ namespace PF2022_03_BlazorApp.Models
         [Key]
         public int tiketId { get; set; }
 
-        public String Descripcion { get; set; }
+        public String ?Descripcion { get; set; }
     }
 }
