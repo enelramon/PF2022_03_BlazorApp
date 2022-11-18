@@ -1,0 +1,104 @@
+﻿@page "/C_Prioridades"
+@inject PrioridadesBLL prioridadesBLL
+
+
+<EditForm Model="lista">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h3>Consultas de Prioiridades</h3>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label>Filtro</label>
+                        <select class="form-control" @bind="Filtro">
+                            <option value="0">Selecione un Filtro de lo contrario generará la tabla completa</option>
+                            <option value="1">PrioridadId</option>
+                            <option value="2">Descripcion</option>
+                            <option value="3">Orden</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="input-group d-flex align-items-end">
+                            <label>Buscar</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" @bind="Criterio" />
+                                <button type="button" class="btn btn-info bi bi-binoculars" @onclick="Buscar">   Buscar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </form>
+        <table class="table table-primary table-striped">
+            <thead class="thead-green">
+                <tr class="table-info">
+                    <th>PrioridadId</th>
+                    <th>Descripcion</th>
+                    <th>Orden</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    <tr>
+                        <td>@item.PrioridadId</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Orden</td>
+                        <td><a href="R_Verduras/@item.PrioridadId">View</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public Prioridades prioridad { get; set; } = new Prioridades();
+    public List<Prioridades> lista { get; set; } = new List<Prioridades>();
+
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
+
+    public void Buscar()
+    {
+        lista = prioridadesBLL.GetList(o => true);
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "0":
+                    lista = prioridadesBLL.GetList(o => true);
+                    break;
+                case "1":
+                    lista = prioridadesBLL.GetList(o => o.PrioridadId.ToString() == (Criterio));
+                    break;
+                case "2":
+                    lista = prioridadesBLL.GetList(o => o.Descripcion.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "3":
+                    lista = prioridadesBLL.GetList(o => o.Orden.ToLower().Contains(Criterio.ToLower()));
+                    break;
+            }
+        }
+        else
+        {
+            lista = prioridadesBLL.GetList(o => true);
+        }
+
+    }
+}
