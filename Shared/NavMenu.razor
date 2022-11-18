@@ -9,31 +9,18 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="R_cliente">
-                <span class="oi oi-plus" aria-hidden="true"></span> Registro clientes
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="R_Prioridades">
-                <span class="oi oi-plus" aria-hidden="true"></span> Registro Prioridades
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="C_cliente">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Consultar clientes
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="C_Prioridades">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Consulta Prioridades
-            </NavLink>
-        </div>
+g        <RadzenPanelMenu class="rz-shadow-3">
+            <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
+                <RadzenPanelMenuItem Text="Cliente" Path="R_cliente" Icon="account_circle" />
+                <RadzenPanelMenuItem Text="Tiket" Path="tiket" Icon="view_agenda" />
+                <RadzenPanelMenuItem Text="Prioridad" Path="R_Prioridades" Icon="view_agenda" />
+            </RadzenPanelMenuItem>
+
+            <RadzenPanelMenuItem Text="Consultas" Icon="screen_search_desktop">
+                <RadzenPanelMenuItem Text="Clientes" Path="C_cliente" Icon="groups" />
+                <RadzenPanelMenuItem Text="C_Prioridades" Path="Prioridades" Icon="groups" />
+            </RadzenPanelMenuItem>
+        </RadzenPanelMenu>
     </nav>
 </div>
 
