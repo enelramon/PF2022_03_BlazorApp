@@ -16,43 +16,29 @@
 
             @*PrioridadId*@
             <div class="form-row align-items-center">
-                <div class="container">
-                    <div class="form-group">
-                        <label>PrioridadId</label>
-                        <div class="input-group">
-                            <InputNumber @bind-Value="prioridad.PrioridadId" />
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-info input-group-text bi bi-google" @onclick="Buscar"> </button>
-                            </div>
+                <div class="form-group">
+                    <label>PrioridadId</label>
+                    <div class="input-group">
+                        <InputNumber @bind-Value="prioridad.PrioridadId"  class="form-control"/>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-info input-group-text bi bi-google" @onclick="Buscar"> </button>
                         </div>
                     </div>
                 </div>
             </div>
 
             @*Descripcion*@
-            <div class="form-group">
-                <div class="container">
-                    <label>Descripcion</label>
-                    <div class="form-group">
-                        <InputText @bind-Value="prioridad.Descripcion" class="col-8" />
-                        <ValidationMessage For="@(() => prioridad.Descripcion)" />
-                    </div>
-                </div>
+            <div class="mb-3">
+                <label>Descripcion</label>
+                <InputText @bind-Value="prioridad.Descripcion" class="form-control" />
+                <ValidationMessage For="@(() => prioridad.Descripcion)" />
             </div>
 
             @*Orden*@
-            <div class="form-group">
-                <div class="container">
-                    <label>Orden</label>
-                    <div class="imput-group">
-                        <InputText @bind-Value="prioridad.Orden" class="col-4" />
-                        <ValidationMessage For="@(() => prioridad.Orden)" />
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-row">
+            <div class="mb-3">
+                <label>Orden</label>
+                <InputText @bind-Value="prioridad.Orden" class="form-control" />
+                <ValidationMessage For="@(() => prioridad.Orden)" />
             </div>
         </div>
         <div class="card-footer">

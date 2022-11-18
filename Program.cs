@@ -20,6 +20,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<ClienteBLL>();
 builder.Services.AddScoped<PrioridadesBLL>();
+builder.Services.AddScoped<TiketsBLL>();
 
 var app = builder.Build();
 

@@ -1,0 +1,141 @@
+﻿@page "/tiket"
+@page "/tiket/{tiketId:int}"
+
+@inject TiketsBLL tiketsbll
+@inject NotificationService notificationService
+
+<PageTitle>Tikets</PageTitle>
+
+<main>
+    <EditForm Model="tikets" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h1>Registro de Tikets</h1>
+            </div>
+
+            @*TiketId*@
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TiketId </label>
+                        <div class="input-group">
+                            <InputNumber @bind-Value="tikets.TiketId" class="form-control col-4" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar">
+                                    <i class="oi oi-magnifying-glass" /> Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-4">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Fecha </label>
+                    <InputDate class="form-control" @bind-Value="tikets.Fecha" />
+                    <ValidationMessage For="@(()=> tikets.Fecha)" />
+                </div>
+                <div class="mb-3 col-4">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> ClienteId </label>
+                    <InputNumber class="form-control" @bind-Value="tikets.ClienteId" />
+                    <ValidationMessage For="@(()=> tikets.ClienteId)" />
+                </div>
+                <div class="mb-3 col-4">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> SistemaId </label>
+                    <InputNumber class="form-control" @bind-Value="tikets.SistemaId" />
+                    <ValidationMessage For="@(()=> tikets.SistemaId)" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> PrioridadId </label>
+                    <InputNumber class="form-control" @bind-Value="tikets.PrioridadId" />
+                    <ValidationMessage For="@(()=> tikets.PrioridadId)" />
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TipoId </label>
+                    <InputNumber class="form-control" @bind-Value="tikets.TipoId" />
+                    <ValidationMessage For="@(()=> tikets.TipoId)" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Asunto </label>
+                    <InputTextArea class="form-control" @bind-Value="tikets.Asunto" />
+                    <ValidationMessage For="@(()=> tikets.Asunto)" />
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Descripción </label>
+                    <InputTextArea class="form-control" @bind-Value="tikets.Descripcion" />
+                    <ValidationMessage For="@(()=> tikets.Descripcion)" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TecnicoId </label>
+                    <InputNumber class="form-control" @bind-Value="tikets.TecnicoId" />
+                    <ValidationMessage For="@(()=> tikets.TecnicoId)" />
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Estado </label>
+                    <InputText class="form-control" @bind-Value="tikets.Estado" />
+                    <ValidationMessage For="@(()=> tikets.Estado)" />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="mb-3 text-center" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                    <i class="oi oi-file" /> Nuevo
+                </button>
+                <button type="submit" class="btn btn-lg btn-success">
+                    <i class="oi oi-document" /> Guardar
+                </button>
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                    <i class="oi oi-trash" /> Eliminar
+                </button>
+            </div>
+        </div>
+    </EditForm>
+</main>
+
+
+
+@code {
+    [Parameter]
+    public int tiketId { get; set; }
+
+    public Tikets tikets { get; set; } = new Tikets();
+
+    protected override void OnInitialized()
+    {
+        tikets.Fecha = DateTime.Now;
+        if (tiketId > 0)
+        {
+            this.tikets.TiketId = tiketId;
+            this.Buscar();
+        }
+    }
+    public void Nuevo()
+    {
+
+    }
+
+    public void Buscar()
+    {
+
+    }
+    public void Guardar()
+    {
+
+    }
+
+    public void Eliminar()
+    {
+
+    }
+}
