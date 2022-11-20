@@ -38,8 +38,8 @@ namespace PF2022_03_BlazorApp.BLL
         public bool Editar(Recordatorios recordatorios)
         {
             bool edito;
-            if (!Existe(recordatorios.RecordatorioId))
-                return edito = true && this.Insertar(recordatorios);
+            if (Existe(recordatorios.RecordatorioId))
+                return edito = true && this.Modificar(recordatorios);
             else
                 return edito = false;
         }
@@ -50,10 +50,19 @@ namespace PF2022_03_BlazorApp.BLL
             return contexto_.SaveChanges() > 0;
         }
 
-        public bool Eliminar(Recordatorios recordatorios)
+        private bool Eliminar(Recordatorios recordatorios)
         {
             contexto_.Entry(recordatorios).State = EntityState.Deleted;
             return contexto_.SaveChanges() > 0;
+        }
+
+        public bool Eliminacion(Recordatorios recordatorios)
+        {
+            bool elimino;
+            if (Existe(recordatorios.RecordatorioId))
+                return elimino = true && this.Eliminar(recordatorios);
+            else
+                return elimino = false;
         }
         public  Recordatorios? Buscar(int recordatorioId)
         {
