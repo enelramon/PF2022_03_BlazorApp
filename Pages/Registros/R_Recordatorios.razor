@@ -1,0 +1,218 @@
+@page "/R_Recordatorios"
+
+@inject RecordatoriosBLL recordatoriosBLL
+@inject NotificationService recordatorio
+
+<EditForm Model="Recordatorio" OnValidSubmit="GuardarRecordatorio">
+    <DataAnnotationsValidator />
+
+    <div class="d-block p-2 border border-4">
+        <div class="card-header text-center">
+            <h3>Registro Recordatorios</h3>
+        </div>
+
+        <div class="border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <form class="row gy-3">
+
+                    <div class="form-row align-items-center">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">RecordatorioId</label>
+                                <div class="input-group">
+                                    <InputNumber @bind-Value="Recordatorio.RecordatorioId" class="form-control col-4" />
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-primary input-group-text"
+                                            @onclick="BuscarRecordatorio">
+                                            <i class="oi oi-magnifying-glass" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Dia</label>
+                        <InputNumber @bind-Value="Recordatorio.Dia" class="form-control" />
+                        <ValidationMessage For="@(() => Recordatorio.Dia)" />
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">ProximaFecha</label>
+                        <InputDate @bind-Value="Recordatorio.FroximaFecha" class="form-control" />
+                        <ValidationMessage For="@(() => Recordatorio.FroximaFecha)" />
+                    </div>
+
+                    <div class="col-md-8">
+                        <textarea type="text" class="text-center form-control" @bind="Recordatorio.Descripcion" placeholder="Ingresa una descripcion"
+                        style="height: 90px"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <BSButton class="border border-3" Color="BSColor.Primary" @onclick="GuardarRecordatorio"><i class="oi oi-document" /> Guardar</BSButton>  
+                <BSButton class="border border-3" Color="BSColor.Success" @onclick="EditarRecordatorio"><i class="oi oi-pencil" /> Editar</BSButton> 
+                <BSButton class="border border-3" Color="BSColor.Danger" @onclick="EliminarRecordatorio"><i class="oi oi-trash" /> Eliminar</BSButton>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+            <div class="border border-3 btn-group" role="group">
+                <BSButton class="border border-3" Color="BSColor.Primary" @onclick="@(() => BSConsulta.ShowAsync())"><i class="oi oi-spreadsheet" /> Consultar Recordatorio</BSButton>
+                <BSButton class="border border-3" Color="BSColor.Primary" @onclick="@(() => BSChat.ShowAsync())"><i class="oi oi-person" /> Chat</BSButton> 
+            </div>
+        </div>
+    </div>
+
+    <BSModal @ref="BSConsulta" Size="Size.Large">
+        <BSModalHeader class="border border-4" @onclick="@(() => BSConsulta.HideAsync())">Consulta de
+            Recordatorios</BSModalHeader>
+        <div class="card-footer d-flex justify-content-center">
+            <div class="border border-3 btn-group" role="group">
+                <BSButton Color="BSColor.Secondary" @onclick="CargarRecordatorio">Actualizar Tabla</BSButton>
+            </div>
+        </div>
+        <BSModalBody>
+            <table class="table table-striped table-hover border border-4" style="cursor: pointer;">
+                <thead class="thead">
+                    <tr class="table">
+                        <th>RecordatorioId</th>
+                        <th>Dia</th>
+                        <th>FroximaFecha</th>
+                        <th>Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var recordar in ListaRecordatorios)
+                    {
+                        <tr>
+                            <td>@recordar.RecordatorioId</td>
+                            <td>@recordar.Dia</td>
+                            <td>@recordar.FroximaFecha</td>
+                            <td>@recordar.Descripcion</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </BSModalBody>
+    </BSModal>
+
+    <BSModal Size="Size.ExtraSmall" IsCentered="true" @ref="BSChat" IsBottom="true">
+        <BSModalHeader OnClick="@(() => BSChat.HideAsync())">Char</BSModalHeader>
+        <BSModalBody>
+        <p>
+            @* @foreach (var chatear in ListaRecordatorios)
+            { 
+                <tr>
+                    <RadzenNotification>@chatear.Descripcion</RadzenNotification>
+                </tr>
+            }  *@
+        </p>
+        </BSModalBody>
+        <BSModalFooter>
+            <BSButton class="border border-3" Color="BSColor.Primary" @onclick="Send"><i class="oi oi-play-circle" /></BSButton> 
+        </BSModalFooter>
+    </BSModal>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int RecordatorioId { get; set; }
+    private BSModal BSConsulta { get; set; } = new BSModal();    
+    private BSModal BSChat { get; set; } = new BSModal();  
+    private Recordatorios Recordatorio { get; set; } = new Recordatorios();
+    private bool isVisible { get; set; } = true;
+    private List<Recordatorios> ListaRecordatorios { get; set; } = new List<Recordatorios>();
+    private int countDate { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (RecordatorioId > 0)
+        {
+            this.Recordatorio.RecordatorioId = RecordatorioId;
+            this.BuscarRecordatorio();
+        }
+
+        ListaRecordatorios = recordatoriosBLL.GetRecordatorios(r => true);
+    }
+    private void BuscarRecordatorio()
+    {
+        if (Recordatorio.RecordatorioId > 0)
+        {
+            var encontrado = recordatoriosBLL.Buscar(Recordatorio.RecordatorioId);
+
+            if (encontrado != null)
+            {
+                this.Recordatorio = encontrado;
+                recordatorio.ShowNotification("Recordatorio encontrado", NotificationSeverity.Success);
+            }
+            else
+            {
+                recordatorio.ShowNotification("Recordatorio no encontrado", NotificationSeverity.Error);
+            }
+        }
+    }
+
+    private void Send()
+    {
+        @* if(recordatorios.Dia == recordatorios.FroximaFecha.Day)
+        {
+            recordatorio.ShowNotification(recordatorios.Descripcion);
+        } *@
+    }
+    
+    private void GuardarRecordatorio()
+    { 
+        bool guardo = recordatoriosBLL.Guardar(Recordatorio);
+
+        if(Recordatorio.Dia >= 32 || Recordatorio.Dia <= 0)
+        {
+            guardo = false;
+            recordatorio.ShowNotification("Recordatorio no guardado, verifique si hay casillas en blanco", NotificationSeverity.Error);
+        }
+        else
+        {
+            guardo = true;
+            Recordatorio = new Recordatorios();
+            recordatorio.ShowNotification("Recordatorio guardado", NotificationSeverity.Success);
+        } 
+    }
+
+    private void EliminarRecordatorio()
+    {
+        bool elimino = recordatoriosBLL.Eliminacion(Recordatorio);
+
+        if(elimino)
+        {
+            Recordatorio = new Recordatorios();
+            recordatorio.ShowNotification("Recordatorio eliminado", NotificationSeverity.Success);
+        }
+        else
+        {
+            recordatorio.ShowNotification("Recordatorio no eliminado", NotificationSeverity.Error);
+        }
+    }
+
+    private void EditarRecordatorio()
+    {
+        bool editar = recordatoriosBLL.Editar(Recordatorio);
+
+        if(editar)
+        {
+            Recordatorio = new Recordatorios();
+            recordatorio.ShowNotification("Recordatorio editado", NotificationSeverity.Success);
+        }
+        else
+        {
+            recordatorio.ShowNotification("Recordatorio no editado", NotificationSeverity.Error);
+        }
+    }
+
+    private void CargarRecordatorio()
+    { 
+        ListaRecordatorios = recordatoriosBLL.GetRecordatorios(r => true);
+    }
+}

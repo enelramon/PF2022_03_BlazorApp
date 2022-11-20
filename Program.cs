@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using PF2022_03_BlazorApp.DAL;
 using PF2022_03_BlazorApp.BLL;
 using Radzen;
+using BlazorStrap;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +18,13 @@ builder.Services.AddDbContext<Contexto>(Options =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddBlazorStrap();
 
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<ClienteBLL>();
 builder.Services.AddScoped<PrioridadesBLL>();
 builder.Services.AddScoped<TiketsBLL>();
+builder.Services.AddScoped<RecordatoriosBLL>();
 
 var app = builder.Build();
 
