@@ -62,3 +62,45 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+/* esto es un diseño css para la tabla de consulta si la quieren usar la pueden usar */
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  font-family: sans-serif;
+  min-width: 450px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background-color: rgb(153, 0, 130);
+  color: #ffffff;
+  text-align: middle;
+}
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+/* codigo css de mi boton buscar en tecnico consulta */
+.MiBotonTecnico{
+  display: inline-block;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;	
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: rgb(153, 0, 130);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
