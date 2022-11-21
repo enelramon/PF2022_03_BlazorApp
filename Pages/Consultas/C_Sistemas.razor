@@ -1,0 +1,65 @@
+@page "/sistemas"
+
+@inject SistemasBLL sistemasBLL
+
+<EditForm Model="sistemas">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h3>Consulta  de Sistemas</h3>
+
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="input-group d-flex align-items-end">
+                    <select class="form-control col-2" @bind="Filtro">
+                        <option value="1">SistemaId</option>
+                    </select>
+
+                    <button type="button" class="btn btn-warning" @onclick="Buscar">
+                        <i class="oi oi-magnifying-glass mr-2" /> Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+        <table class="table table-secondary">
+            <thead class="thead-dark">
+                <tr class="table-info">
+                    <th>SistemaId</th>
+                    <th>Descripcion</th>   
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var sistemas in listaSistemas)
+                {
+                    <tr>
+                        <td>@sistemas.SistemaID</td>
+                        <td>@sistemas.Descripcion</td>
+                        @* <td><a href="sistemas/@sistemas.SistemaID">Ver</a></td> *@
+                    </tr> 
+                }
+
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+@code {
+
+    public Sistemas sistemas { set; get; } = new Sistemas();
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
+    public List<Sistemas> listaSistemas { get; set; } = new List<Sistemas>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+    }
+    private void Buscar()
+    { 
+            listaSistemas =  sistemasBLL.GetSistemas(o => true);
+    }
+
+}
