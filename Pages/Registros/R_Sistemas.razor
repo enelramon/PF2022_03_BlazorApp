@@ -1,5 +1,178 @@
-﻿<h3>R_Sistemas</h3>
+@page "/sistema"
+@page "/sistema/{SistemaID:int}"
+
+
+@inject SistemasBLL sistemasBLL
+@inject NotificationService notificationService
+
+<EditForm Model="sistema" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="card">
+        <div class="card-header">
+            <h1>Registro de Sistemas </h1>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
+
+
+        </div>
+
+        <div class="card-body">
+
+
+            <div class="row justify-content-between">
+
+                <div class="col-3">
+                    <label>SistemaId</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" @bind-value="sistema.SistemaID"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i
+                                class="oi oi-magnifying-glass" /> </button>
+                    </div>
+
+                </div>
+            </div>
+
+
+            @* Descripcion *@
+            <label>Descripción </label>
+            <div class="input-group input-group-lg">
+
+                  
+                <InputText @bind-Value="sistema.Descripcion" class="form-control" />
+                 <ValidationMessage For="@(() => sistema.Descripcion )" />
+        
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="card-footer">
+
+        <div class="mb-3 text-center" display: inline-block>
+            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                <i class="oi oi-file" />Nuevo
+            </button>
+
+
+            <button type="submit" class="bi bi-file-earmark-text-fill btn btn-lg btn-success"> Guardar</button>
+             <button type="submit" class="bi bi-trash btn btn-lg btn-danger"> Eliminar</button>
+@* 
+            <button type="submit" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                <i class="oi oi-trash" /> Eliminar
+            </button> *@
+              
+       </div>
+    </div>
+</EditForm>
 
 @code {
+
+    [Parameter]
+
+
+    public int SistemaID { get; set; }
+    public Sistemas sistema { get; set; } = new Sistemas();
+   
+    public List<Sistemas> listSistemas { get; set; } = new List<Sistemas>();
+
+    public String mensaje { get; set; } = "";
+
+
+    protected override void OnInitialized()
+    {
+        if (SistemaID > 0)
+        {
+
+            this.sistema.SistemaID = SistemaID;
+            this.Buscar();
+
+        }
+
+        listSistemas = sistemasBLL.GetSistemas(o => true);
+
+    }
+
+    private void Buscar()
+    {
+        if (sistema.SistemaID > 0)
+        {
+            var encontrado = sistemasBLL.Buscar(sistema.SistemaID);
+
+            if (encontrado!= null)
+                this.sistema = encontrado;
+        }
+    }
+
+    public void Nuevo()
+    {
+        sistema = new Sistemas();
+        mensaje = "";
+    }
+
+
+    bool Validar()
+    {   
+        return true;
+    }
+
+
+
+    public void Guardar()
+    {
+        bool guardo;
+
+        guardo = sistemasBLL.Guardar(sistema);
+
+
+        if (guardo)
+        {
+        
+             ShowNotification(
+                new NotificationMessage
+                {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+                }); 
+
+             Nuevo();
+        }
+
+    }
+   
+
+    public void Eliminar()
+    {
+        bool elimino;
+
+        elimino = sistemasBLL.Eliminar(sistema);
+        
+
+        if (elimino)
+        {  
+        
+          ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Se elimino correctamente  "
+            });
+
+            Nuevo();
+        }  
+        
+    }
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+
+    }
 
 }
