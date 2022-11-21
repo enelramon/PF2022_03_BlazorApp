@@ -19,7 +19,9 @@ namespace PF2022_03_BlazorApp.DAL
         {
         }
 
-        //aqui
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
+        }
     }
 }
