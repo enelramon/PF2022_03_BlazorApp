@@ -34,18 +34,18 @@
             </thead>
             <tbody>
                 @foreach (var item in Informacion)
-            {
-                                        <tr class="styled-table tbody tr">
-                                            <td>@item.TecnicoId</td>
-                                            <td>@item.Nombres</td>
-                                            <td>@item.Direccion</td>
-                                            <td>@item.Cedula</td>
-                                            <td>@item.Email</td>
-                                            <td>@item.Telefono</td>
-                                            <td>@item.Celular</td>
-                                            <td>@item.usuario</td>
-                                            <td>@item.Clave</td>
-                                        </tr>
+                {
+                    <tr class="styled-table tbody tr">
+                    <td>@item.TecnicoId</td>
+                    <td>@item.Nombres</td>
+                    <td>@item.Direccion</td>
+                    <td>@item.Cedula</td>
+                    <td>@item.Email</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Celular</td>
+                    <td>@item.usuario</td>
+                    <td>@item.Clave</td>
+                    </tr>
             }
             </tbody>
             <h5>Conteo: @Informacion.Count()</h5>
