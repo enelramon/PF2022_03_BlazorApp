@@ -39,13 +39,13 @@
 
             @*Direccion*@
             <div class="form-group">
-                <label>Direccion</label>
+                <label>Dirección</label>
                 <InputText @bind-Value="tecnico.Direccion" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.Direccion)" />
             </div>
             @*Cedula*@
             <div class="form-group">
-                <label>Cedula</label>
+                <label>Cédula</label>
                 <InputText @bind-Value="tecnico.Cedula" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.Cedula)" />
             </div>
@@ -57,7 +57,7 @@
             </div>
             @*Telefono*@
             <div class="form-group">
-                <label>Telefono</label>
+                <label>Teléfono</label>
                 <InputText @bind-Value="tecnico.Telefono" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.Telefono)" />
             </div>
@@ -114,7 +114,6 @@
     {
         if (TecnicoId > 0)
         {
-
             this.tecnico.TecnicoId = TecnicoId;
             this.Buscar();
         }
@@ -126,18 +125,9 @@
         tecnico = new Tecnicos();
     }
 
-    bool Validar()
-    {
-        return tecnico.Nombres.Contains(".");
-    }
 
     public void Guardar()
     {
-        if (!Validar())
-        {
-            mensaje = "El nombre debe termina con punto final.";
-            return;
-        }
 
         bool guardo = tecnicosBLL.Guardar(tecnico);
 

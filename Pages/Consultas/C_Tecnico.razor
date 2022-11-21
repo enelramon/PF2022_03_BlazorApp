@@ -10,10 +10,7 @@
         <div class="card-body">
             <form>
                 <div>
-
-                     <button type="button" @onclick="Buscar" class="MiBotonTecnico" > <i class="oi oi-magnifying-glass"/> Buscar </button>
-
-
+                    <button type="button" @onclick="Buscar" class="MiBotonTecnico" > <i class="oi oi-magnifying-glass"/> Buscar </button>
                 </div>
             </form>
         </div>
@@ -34,8 +31,8 @@
             </thead>
             <tbody>
                 @foreach (var item in Informacion)
-                {
-                    <tr class="styled-table tbody tr">
+            {
+                <tr class="styled-table tbody tr">
                     <td>@item.TecnicoId</td>
                     <td>@item.Nombres</td>
                     <td>@item.Direccion</td>
@@ -45,7 +42,7 @@
                     <td>@item.Celular</td>
                     <td>@item.usuario</td>
                     <td>@item.Clave</td>
-                    </tr>
+                </tr>
             }
             </tbody>
             <h5>Conteo: @Informacion.Count()</h5>
@@ -56,8 +53,8 @@
 @code {
 
     public Tecnicos tecnico { set; get; } = new Tecnicos();
-    public string Filtro { get; set; }
-    public string Criterio { get; set; }
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
     public List<Tecnicos> Informacion { get; set; } = new List<Tecnicos>();
     public void Buscar()
     {
