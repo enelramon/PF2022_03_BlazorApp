@@ -1,0 +1,207 @@
+@page "/tecnico_registro"
+@page "/tecnico/{TecnicoId:int}"
+
+@inject TecnicosBLL tecnicosBLL
+@inject NotificationService notificationService
+
+<EditForm Model="tecnico" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="card shadow-lg">
+        <div class="card-header">
+            <h3>Registro De Tecnico</h3>
+
+        </div>
+        <div class="card-body">
+            @*TecnicoId*@
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <div class="form-group">
+                        <label>TecnicoId</label>
+                        <div class="input-group">
+                            <InputNumber @bind-Value="tecnico.TecnicoId" class="form-control col-4" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">
+                                    <i class="oi oi-magnifying-glass" /> Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Nombres*@
+            <div class="form-group">
+                <label>Nombre</label>
+                <InputText @bind-Value="tecnico.Nombres" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Nombres)" />
+            </div>
+
+            @*Direccion*@
+            <div class="form-group">
+                <label>Direccion</label>
+                <InputText @bind-Value="tecnico.Direccion" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Direccion)" />
+            </div>
+            @*Cedula*@
+            <div class="form-group">
+                <label>Cedula</label>
+                <InputText @bind-Value="tecnico.Cedula" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Cedula)" />
+            </div>
+            @*Email*@
+            <div class="form-group">
+                <label>Email</label>
+                <InputText @bind-Value="tecnico.Email" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Email)" />
+            </div>
+            @*Telefono*@
+            <div class="form-group">
+                <label>Telefono</label>
+                <InputText @bind-Value="tecnico.Telefono" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Telefono)" />
+            </div>
+             @*Celular*@
+            <div class="form-group">
+                <label>Celular</label>
+                <InputText @bind-Value="tecnico.Celular" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Celular)" />
+            </div>
+             @*usuario*@
+            <div class="form-group">
+                <label>usuario</label>
+                <InputText @bind-Value="tecnico.usuario" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.usuario)" />
+            </div>
+             @*Clave*@
+            <div class="form-group">
+                <label>Clave</label>
+                <InputText type="password" @bind-Value="tecnico.Clave" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Clave)" />
+            </div>
+        </div>
+        <h1>
+            <span class="text-danger">@mensaje</span>
+        </h1>
+
+        <div class="card-footer">
+            <div class="form-group text-center" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                    <i class="oi oi-file" /> Nuevo
+                </button>
+                <button type="submit" class="btn btn-lg btn-success">
+                    <i class="oi oi-document" /> Guardar
+                </button>
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                    <i class="oi oi-trash" /> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+
+
+
+@code
+{
+    [Parameter]
+    public int TecnicoId { get; set; }
+    public Tecnicos tecnico { get; set; } = new Tecnicos();
+    public String mensaje { get; set; } = "";
+
+    protected override void OnInitialized()
+    {
+        if (TecnicoId > 0)
+        {
+
+            this.tecnico.TecnicoId = TecnicoId;
+            this.Buscar();
+        }
+    }
+
+    public void Nuevo()
+    {
+        mensaje = "";
+        tecnico = new Tecnicos();
+    }
+
+    bool Validar()
+    {
+        return tecnico.Nombres.Contains(".");
+    }
+
+    public void Guardar()
+    {
+        if (!Validar())
+        {
+            mensaje = "El nombre debe termina con punto final.";
+            return;
+        }
+
+        bool guardo = tecnicosBLL.Guardar(tecnico);
+
+        if (guardo)
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+            });
+
+            Nuevo();
+        }
+    }
+    private void Buscar()
+    {
+        if (tecnico.TecnicoId > 0)
+        {
+            var encontrado = tecnicosBLL.Buscar(tecnico.TecnicoId);
+
+            if (encontrado != null)
+                this.tecnico = encontrado;
+        }
+        else
+        {
+            ShowNotification(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Warning,
+                    Summary = "No Existe este tecnico"
+                });
+        }
+    }
+
+    public void Eliminar()
+    {
+        bool elimino;
+
+        elimino = tecnicosBLL.Eliminacion(tecnico);
+        if (elimino)
+        {
+            Nuevo();
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Fue eliminado correctamente."
+            });
+        }
+        else
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "No fue Eliminado, intentar nuevamente o esta intentado eliminar sin datos."
+            });
+        }
+    }
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+
+    }
+}
