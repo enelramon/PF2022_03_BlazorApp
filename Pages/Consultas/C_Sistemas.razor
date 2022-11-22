@@ -57,9 +57,9 @@
         base.OnInitialized();
 
     }
-    private void Buscar()
+    public  async Task  Buscar()
     { 
-            listaSistemas =  sistemasBLL.GetSistemas(o => true);
+            listaSistemas =  await sistemasBLL.GetSistemas(o => true);
     }
 
-}
+} 

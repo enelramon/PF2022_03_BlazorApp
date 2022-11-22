@@ -14,39 +14,37 @@ namespace PF2022_03_BlazorApp.BLL
             _contexto = contexto;
         }
 
-        public bool Existe(int SistemaID)
+        public async Task <bool> Existe(int SistemaID)
         {
-            return _contexto.Sistemas.Any(S => S.SistemaID == SistemaID);
+            return  await _contexto.Sistemas.AnyAsync(S => S.SistemaID == SistemaID);
         }
 
-        public bool Guardar(Sistemas sistemas)
+        public async Task <bool> Guardar(Sistemas sistemas)
         {
-            if (!Existe(sistemas.SistemaID))
-                return this.Insertar(sistemas);
+            if (!await Existe(sistemas.SistemaID))
+                return await this.Insertar(sistemas);
             else
-                return this.Modificar(sistemas);
+                return await this.Modificar(sistemas);
         }
-        public bool Eliminar(Sistemas sistemas)
+        public async Task <bool> Eliminar(Sistemas sistemas)
         {
             _contexto.Entry(sistemas).State = EntityState.Deleted;
-            return _contexto.SaveChanges() > 0;
+            return await _contexto.SaveChangesAsync() > 0;
         }
 
-        private  bool Modificar(Sistemas sistemas)
+        private async Task <bool>  Modificar(Sistemas sistemas)
         {
             _contexto.Entry(sistemas).State = EntityState.Modified;
-            return _contexto.SaveChanges() > 0;
+            return await _contexto.SaveChangesAsync() > 0;
         }
 
-       
-
-        public bool Insertar(Sistemas sistemas)
+        public async Task <bool> Insertar(Sistemas sistemas)
         {
             _contexto.Sistemas.Add(sistemas);
-            return _contexto.SaveChanges() > 0;
+            return await _contexto.SaveChangesAsync() > 0;
         }
 
-        public Sistemas? Buscar (int SistemaID)
+        public  async Task <Sistemas?> Buscar(int SistemaID)
         {
             return _contexto.Sistemas
                 .Where(s => s.SistemaID == SistemaID)
@@ -54,7 +52,7 @@ namespace PF2022_03_BlazorApp.BLL
                 .SingleOrDefault();
  
         }
-        public  List<Sistemas> GetSistemas(Expression<Func<Sistemas, bool>> Criterio)
+         public async Task <List<Sistemas>> GetSistemas  (Expression<Func<Sistemas, bool>> Criterio)
         {
             return _contexto.Sistemas
                 .AsTracking()

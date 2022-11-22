@@ -9,7 +9,7 @@ main {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-image: linear-gradient( rgb(34, 30, 30), rgba(112, 163, 192, 0.311) ),url(https://www.upn.edu.pe/sites/default/files/media/posgrado-maestria/ingenieria-de-sistemas.jpg );
 }
 
 .top-row {

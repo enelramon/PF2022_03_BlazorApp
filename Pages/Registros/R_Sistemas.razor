@@ -11,15 +11,9 @@
     <div class="card">
         <div class="card-header">
             <h1>Registro de Sistemas </h1>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-
-
-
         </div>
 
         <div class="card-body">
-
 
             <div class="row justify-content-between">
 
@@ -28,11 +22,9 @@
                     <div class="input-group mb-3">
                         <input type="number" class="form-control" @bind-value="sistema.SistemaID"
                             aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i
-                                class="oi oi-magnifying-glass" /> </button>
+                        <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                     </div>
-
-                </div>
+               </div>
             </div>
 
 
@@ -40,19 +32,13 @@
             <label>Descripción </label>
             <div class="input-group input-group-lg">
 
-                  
                 <InputText @bind-Value="sistema.Descripcion" class="form-control" />
-                 <ValidationMessage For="@(() => sistema.Descripcion )" />
-        
+                <ValidationMessage For="@(() => sistema.Descripcion )" />
 
             </div>
         </div>
 
     </div>
-
-
-
-
 
     <div class="card-footer">
 
@@ -61,15 +47,10 @@
                 <i class="oi oi-file" />Nuevo
             </button>
 
-
             <button type="submit" class="bi bi-file-earmark-text-fill btn btn-lg btn-success"> Guardar</button>
-             <button type="submit" class="bi bi-trash btn btn-lg btn-danger"> Eliminar</button>
-@* 
-            <button type="submit" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                <i class="oi oi-trash" /> Eliminar
-            </button> *@
-              
-       </div>
+            <button type="submit" class="bi bi-trash btn btn-lg btn-danger"> Eliminar</button>
+
+        </div>
     </div>
 </EditForm>
 
@@ -80,38 +61,37 @@
 
     public int SistemaID { get; set; }
     public Sistemas sistema { get; set; } = new Sistemas();
-   
+
     public List<Sistemas> listSistemas { get; set; } = new List<Sistemas>();
 
     public String mensaje { get; set; } = "";
 
 
-    protected override void OnInitialized()
+    protected async override Task  OnInitializedAsync()
     {
         if (SistemaID > 0)
         {
-
             this.sistema.SistemaID = SistemaID;
-            this.Buscar();
+            await this.Buscar();
 
         }
 
-        listSistemas = sistemasBLL.GetSistemas(o => true);
+        listSistemas =  await sistemasBLL.GetSistemas(o => true);
 
     }
 
-    private void Buscar()
+    private async Task  Buscar()
     {
         if (sistema.SistemaID > 0)
         {
-            var encontrado = sistemasBLL.Buscar(sistema.SistemaID);
+            var encontrado = await sistemasBLL.Buscar(sistema.SistemaID);
 
-            if (encontrado!= null)
+            if (encontrado != null)
                 this.sistema = encontrado;
         }
     }
 
-    public void Nuevo()
+    public  async Task  Nuevo()
     {
         sistema = new Sistemas();
         mensaje = "";
@@ -119,55 +99,49 @@
 
 
     bool Validar()
-    {   
+    {
         return true;
     }
 
-
-
-    public void Guardar()
+    private async Task   Guardar()
     {
         bool guardo;
 
-        guardo = sistemasBLL.Guardar(sistema);
-
+        guardo = await sistemasBLL.Guardar(sistema);
 
         if (guardo)
         {
-        
-             ShowNotification(
-                new NotificationMessage
-                {
-                Severity = NotificationSeverity.Success,
-                Summary = "Guardado correctamente"
-                }); 
 
-             Nuevo();
-        }
-
-    }
-   
-
-    public void Eliminar()
-    {
-        bool elimino;
-
-        elimino = sistemasBLL.Eliminar(sistema);
-        
-
-        if (elimino)
-        {  
-        
-          ShowNotification(
+            ShowNotification(
             new NotificationMessage
             {
                 Severity = NotificationSeverity.Success,
-                Summary = "Se elimino correctamente  "
+                Summary = "Guardado correctamente"
             });
 
             Nuevo();
-        }  
-        
+        }
+    }
+
+    private async Task  Eliminar()
+    {
+        bool elimino;
+
+        elimino = await sistemasBLL.Eliminar(sistema);
+
+        if (elimino)
+        {
+
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Se elimino correctamente "
+            });
+
+            Nuevo();
+        }
+
     }
     void ShowNotification(NotificationMessage message)
     {

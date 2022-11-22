@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Pages\\Registros",
+    "\\Shared"
   ],
-  "SelectedNode": "\\PF2022_03_BlazorApp.sln",
+  "SelectedNode": "\\PF2022_03_BlazorApp.csproj",
   "PreviewInSolutionExplorer": false
 }
