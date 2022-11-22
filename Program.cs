@@ -5,7 +5,7 @@ using PF2022_03_BlazorApp.DAL;
 using PF2022_03_BlazorApp.BLL;
 using Radzen;
 using BlazorStrap;
-
+using PF2022_03_BlazorApp.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +28,7 @@ builder.Services.AddScoped<RecordatoriosBLL>();
 builder.Services.AddScoped<SistemasBLL>();
 builder.Services.AddScoped<TecnicosBLL>();
 
+builder.Services.AddScoped<ICounterViewModel, CounterViewModel>();
 
 var app = builder.Build();
 
