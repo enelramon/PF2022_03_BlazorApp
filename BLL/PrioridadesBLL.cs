@@ -12,42 +12,42 @@ namespace PF2022_03_BlazorApp.BLL
         {
             _contexto = contexto;
         }
-        public bool Guardar(Prioridades prioridad)
+        public async Task<bool> Guardar(Prioridades prioridad)
         {
-            if (!Existe(prioridad.PrioridadId))
-                return this.Insertar(prioridad);
+            if (!await Existe(prioridad.PrioridadId))
+                return await this.Insertar(prioridad);
             else
-                return this.Modificar(prioridad);
+                return await this.Modificar(prioridad);
 
         }
-        public bool Existe(int prioridadId)
+        public async Task<bool> Existe(int prioridadId)
         {
-            return _contexto.Prioridades.Any(o => o.PrioridadId == prioridadId);
+            return await _contexto.Prioridades.AnyAsync(o => o.PrioridadId == prioridadId);
         }
 
-        private bool Insertar(Prioridades prioridad)
+        private async Task<bool> Insertar(Prioridades prioridad)
         {
-            _contexto.Prioridades.Add(prioridad);
-            return _contexto.SaveChanges() > 0;
+            await _contexto.Prioridades.AddAsync(prioridad);
+            return await _contexto.SaveChangesAsync() > 0;
         }
-        public bool Modificar(Prioridades prioridad)
+        public async Task<bool> Modificar(Prioridades prioridad)
         {
             _contexto.Entry(prioridad).State = EntityState.Modified;
-            return _contexto.SaveChanges() > 0;
+            return await _contexto.SaveChangesAsync() > 0;
         }
-        public Prioridades? Buscar(int prioridadId)
+        public async Task<Prioridades?> Buscar(int prioridadId)
         {
             return _contexto.Prioridades
-                    .Where(o => o.PrioridadId == prioridadId)
+            .Where(o => o.PrioridadId == prioridadId)
             .AsNoTracking()
             .SingleOrDefault();
 
         }
 
-        public bool Eliminar(Prioridades prioridad)
+        public async Task <bool> Eliminar(Prioridades prioridad)
         {
             _contexto.Entry(prioridad).State = EntityState.Deleted;
-            return _contexto.SaveChanges() > 0;
+            return await _contexto.SaveChangesAsync() > 0;
         }
         public List<Prioridades> GetList(Expression<Func<Prioridades, bool>> Criterio)
         {

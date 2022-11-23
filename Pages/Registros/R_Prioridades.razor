@@ -8,20 +8,22 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="card">
-        <div class="card-header bi bi-pc-display">
+        <div class="card-header">
             <h3>Registro Prioridades</h3>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
         </div>
         <div class="card-body">
 
             @*PrioridadId*@
             <div class="form-row align-items-center">
                 <div class="form-group">
-                    <label>PrioridadId</label>
-                    <div class="input-group">
-                        <InputNumber @bind-Value="prioridad.PrioridadId"  class="form-control"/>
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-info input-group-text bi bi-google" @onclick="Buscar"> </button>
+                    <div class="containe col-3">
+                        <label>PrioridadId</label>
+                        <div class="input-group">
+                            <InputNumber @bind-Value="prioridad.PrioridadId" class="form-control" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-info input-group-text bi bi-google" @onclick="Buscar"> </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,30 +60,30 @@
 
     public List<Prioridades> lista { get; set; } = new List<Prioridades>();
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
         if (PrioridadId > 0)
         {
             this.prioridad.PrioridadId = PrioridadId;
-            this.Buscar();
+            await this.Buscar();
         }
     }
-    private void Buscar()
+    private async Task Buscar()
     {
         if (prioridad.PrioridadId > 0)
         {
-            var encontrado = prioridadesBLL.Buscar(prioridad.PrioridadId);
+            var encontrado = await prioridadesBLL.Buscar(prioridad.PrioridadId);
 
             if (encontrado != null)
                 this.prioridad = encontrado;
         }
     }
-    public void Guardar()
+    public async Task Guardar()
     {
 
         bool guardo;
 
-        guardo = prioridadesBLL.Guardar(prioridad);
+        guardo = await prioridadesBLL.Guardar(prioridad);
         if (guardo)
         {
             notificacion.ShowNotification("Guardado correctamente.");
@@ -93,16 +95,16 @@
         }
 
     }
-    public void Nuevo()
+    public async Task Nuevo()
     {
         prioridad = new Prioridades();
     }
 
-    public void Eliminar()
+    public async Task Eliminar()
     {
         bool elimino;
 
-        elimino = prioridadesBLL.Eliminar(prioridad);
+        elimino = await prioridadesBLL.Eliminar(prioridad);
 
         if (elimino)
         {
