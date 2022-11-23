@@ -4,6 +4,7 @@
 
 @inject SistemasBLL sistemasBLL
 @inject NotificationService notificationService
+@inject ICounterViewModel counterViewModel
 
 <EditForm Model="sistema" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
@@ -51,6 +52,14 @@
             <button type="submit" class="bi bi-trash btn btn-lg btn-danger"> Eliminar</button>
 
         </div>
+        <div class="row">
+            <p role="status">Current count: @(counterViewModel.GetCount())</p>
+
+            <button class="btn btn-primary" @onclick="@counterViewModel.IncrementCount">Click me</button>
+
+        </div>
+
+  
     </div>
 </EditForm>
 
