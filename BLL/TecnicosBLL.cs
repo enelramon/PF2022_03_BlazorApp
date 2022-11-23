@@ -10,6 +10,20 @@ public class TecnicosBLL
     {
         _contexto = contexto;
     }
+    public async Task<bool> Existe(int tecnicoId)
+    {
+        return await _contexto.Tecnicos.AnyAsync(o => o.TecnicoId == tecnicoId);
+    }
+    private async Task<bool> Insertar(Tecnicos tecnico)
+    {
+        _contexto.Tecnicos.Add(tecnico);
+        return await _contexto.SaveChangesAsync() > 0;
+    }
+    private async Task<bool> Modificar(Tecnicos tecnico)
+    {
+        _contexto.Entry(tecnico).State = EntityState.Modified;
+        return await _contexto.SaveChangesAsync() > 0;
+    }
     public async Task<bool> Guardar(Tecnicos tecnico)
     {
         if (!await Existe(tecnico.TecnicoId))
@@ -17,25 +31,6 @@ public class TecnicosBLL
         else
             return await this.Modificar(tecnico);
     }
-
-    public async Task<bool> Existe(int tecnicoId)
-    {
-        return await _contexto.Tecnicos.AnyAsync(o => o.TecnicoId == tecnicoId);
-    }
-
-    private async Task<bool> Insertar(Tecnicos tecnico)
-    {
-        _contexto.Tecnicos.Add(tecnico);
-        return await _contexto.SaveChangesAsync() > 0;
-    }
-
-    private async Task<bool> Modificar(Tecnicos tecnico)
-    {
-        _contexto.Entry(tecnico).State = EntityState.Modified;
-        return await _contexto.SaveChangesAsync() > 0;
-    }
-
-
     public async Task<bool> Eliminar(Tecnicos tecnico)
     {
         _contexto.Entry(tecnico).State = EntityState.Deleted;
@@ -49,7 +44,6 @@ public class TecnicosBLL
         else
             return elimino = false;
     }
-
     public async Task<Tecnicos?> Buscar(int tecnicoId)
     {
         return await _contexto.Tecnicos

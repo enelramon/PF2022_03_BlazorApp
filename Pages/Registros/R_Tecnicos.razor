@@ -119,32 +119,6 @@
             await this.Buscar();
         }
     }
-
-    public void Nuevo()
-    {
-        mensaje = "";
-        tecnico = new Tecnicos();
-    }
-
-
-
-    public async Task Guardar()
-    {
-
-        bool guardo = await tecnicosBLL.Guardar(tecnico);
-
-        if (guardo)
-        {
-            ShowNotification(
-            new NotificationMessage
-            {
-                Severity = NotificationSeverity.Success,
-                Summary = "Guardado correctamente"
-            });
-
-            Nuevo();
-        }
-    }
     private async Task Buscar()
     {
         if (tecnico.TecnicoId > 0)
@@ -162,6 +136,30 @@
                 Severity = NotificationSeverity.Warning,
                 Summary = "No Existe este tecnico"
             });
+        }
+    }
+
+    public void Nuevo()
+    {
+        mensaje = "";
+        tecnico = new Tecnicos();
+    }
+
+    public async Task Guardar()
+    {
+
+        bool guardo = await tecnicosBLL.Guardar(tecnico);
+
+        if (guardo)
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+            });
+
+            Nuevo();
         }
     }
 
