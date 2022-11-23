@@ -8,11 +8,11 @@ using PF2022_03_BlazorApp.DAL;
 
 #nullable disable
 
-namespace PF202203BlazorApp.Migrations
+namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221120024815_Recordatorios")]
-    partial class Recordatorios
+    [Migration("20221122174420_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,9 +88,24 @@ namespace PF202203BlazorApp.Migrations
                     b.ToTable("Recordatorios");
                 });
 
-            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Tikets", b =>
+            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Sistemas", b =>
                 {
-                    b.Property<int>("TiketId")
+                    b.Property<int>("SistemaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SistemaID");
+
+                    b.ToTable("Sistemas");
+                });
+
+            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Tickets", b =>
+                {
+                    b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -123,9 +138,49 @@ namespace PF202203BlazorApp.Migrations
                     b.Property<int>("TipoId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("TiketId");
+                    b.HasKey("TicketId");
 
-                    b.ToTable("tikets");
+                    b.ToTable("tickets");
+                });
+
+            modelBuilder.Entity("Tecnicos", b =>
+                {
+                    b.Property<int>("TecnicoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cedula")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Celular")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Clave")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombres")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("usuario")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TecnicoId");
+
+                    b.ToTable("Tecnicos");
                 });
 #pragma warning restore 612, 618
         }

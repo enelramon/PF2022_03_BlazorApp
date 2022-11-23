@@ -7,7 +7,7 @@ using PF2022_03_BlazorApp.DAL;
 
 #nullable disable
 
-namespace PF202203BlazorApp.Migrations
+namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
     partial class ContextoModelSnapshot : ModelSnapshot
@@ -101,9 +101,9 @@ namespace PF202203BlazorApp.Migrations
                     b.ToTable("Sistemas");
                 });
 
-            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Tikets", b =>
+            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Tickets", b =>
                 {
-                    b.Property<int>("TiketId")
+                    b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -136,9 +136,9 @@ namespace PF202203BlazorApp.Migrations
                     b.Property<int>("TipoId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("TiketId");
+                    b.HasKey("TicketId");
 
-                    b.ToTable("tikets");
+                    b.ToTable("tickets");
                 });
 
             modelBuilder.Entity("Tecnicos", b =>

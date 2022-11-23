@@ -1,4 +1,5 @@
-  @page "/R_cliente"
+@page "/R_cliente"
+
 @inject NotificationService notificacion
 @inject ClienteBLL clienteBLL
 
@@ -20,81 +21,83 @@
                         <div class="input-group-append">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-primary input-group-text"
-                                    @onclick="Buscar">Buscar</button>
+                                        @onclick="Buscar">
+                                    Buscar
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-         @*Nombre*@
-            <div class="col-5">
-                <label>Nombre </label>
-                <InputText @bind-Value="cliente.Nombres" class="form-control" />
-                <ValidationMessage For="@(() => cliente.Nombres)" />
-            </div>
+                @*Nombre*@
+                <div class="col-5">
+                    <label>Nombre </label>
+                    <InputText @bind-Value="cliente.Nombres" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Nombres)" />
+                </div>
 
-             @*Direccion*@
-            <div class="col-5">
-                <label>Direccion </label>
-                <InputText @bind-Value="cliente.Direccion" class="form-control" />
-                <ValidationMessage For="@(() => cliente.Direccion)" />
-            </div>
+                @*Direccion*@
+                <div class="col-5">
+                    <label>Direccion </label>
+                    <InputText @bind-Value="cliente.Direccion" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Direccion)" />
+                </div>
 
-             @*Cedula*@
-            <div class="col-3">
-                <label>Cedula </label>
-                <InputText @bind-Value="cliente.Cedula" class="form-control" />
-                <ValidationMessage For="@(() => cliente.Cedula)" />
-            </div>
+                @*Cedula*@
+                <div class="col-3">
+                    <label>Cedula </label>
+                    <InputText @bind-Value="cliente.Cedula" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Cedula)" />
+                </div>
 
-              @*Email*@
-            <div class="col-5">
-                <label>Email </label>
-                <InputText @bind-Value="cliente.Email" class="form-control" />
-                <ValidationMessage For="@(() => cliente.Email)" />
-            </div>
+                @*Email*@
+                <div class="col-5">
+                    <label>Email </label>
+                    <InputText @bind-Value="cliente.Email" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Email)" />
+                </div>
 
-              @*Telefono*@
-            <div class="col-3">
-                <label>Telefono </label>
-                <InputText @bind-Value="cliente.Telefono" class="form-control" />
-                <ValidationMessage For="@(() => cliente.Telefono)" />
-            </div>
+                @*Telefono*@
+                <div class="col-3">
+                    <label>Telefono </label>
+                    <InputText @bind-Value="cliente.Telefono" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Telefono)" />
+                </div>
 
-             @*Celular*@
-            <div class="col-3">
-                <label>Celular </label>
-                <InputText @bind-Value="cliente.Celular" class="form-control" />
-                <ValidationMessage For="@(() => cliente.Celular)" />
+                @*Celular*@
+                <div class="col-3">
+                    <label>Celular </label>
+                    <InputText @bind-Value="cliente.Celular" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Celular)" />
+                </div>
+
+
+                <div class="card-footer">
+                    <div class="mb-3 text-center" display: inline-block>
+                        <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                            <i class="oi oi-file" /> Nuevo
+                        </button>
+                        <button type="submit" class="btn btn-lg btn-success">
+                            <i class="oi oi-document" /> Guardar
+                        </button>
+                        <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                            <i class="oi oi-trash" /> Eliminar
+                        </button>
+                    </div>
+
+                </div>
             </div>
-            
-                   
- <div class="card-footer">
-        <div class="mb-3 text-center" display: inline-block>
-            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                <i class="oi oi-file" /> Nuevo
-            </button>
-            <button type="submit" class="btn btn-lg btn-success">
-                <i class="oi oi-document" /> Guardar
-            </button>
-            <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                <i class="oi oi-trash" /> Eliminar
-            </button>
         </div>
-
-    </div>
-    </div>
-    </div>
     </div>
 
 </EditForm>
 @code {
- [Parameter]
+    [Parameter]
     public int ClienteID { get; set; }
 
-    public Cliente cliente {get; set;} = new Cliente();
+    public Cliente cliente { get; set; } = new Cliente();
 
-    public List<Cliente> lista {get; set;} = new List<Cliente>();
+    public List<Cliente> lista { get; set; } = new List<Cliente>();
 
     protected override void OnInitialized()
     {
@@ -105,19 +108,19 @@
         }
     }
 
-     public void Nuevo()
+    public void Nuevo()
     {
         cliente = new Cliente();
         notificacion.ShowNotification("Nueva plantilla.", NotificationSeverity.Success);
 
     }
 
-  bool Validar()
+    bool Validar()
     {
         return cliente.Direccion.Contains(".");
     }
 
-     void Guardar()
+    void Guardar()
     {
 
         bool guardado = clienteBLL.Guardar(cliente);
@@ -127,13 +130,14 @@
             Nuevo();
             notificacion.ShowNotification("Guardado correctamente.");
         }
-        else{
+        else
+        {
             notificacion.ShowNotification("No fue guardado, intentelo de nuevo.", NotificationSeverity.Error);
 
         }
-      
+
     }
-     void Buscar()
+    void Buscar()
     {
         if (cliente.ClienteId > 0)
         {
@@ -142,26 +146,26 @@
             if (encontrado != null)
             {
                 this.cliente = encontrado;
-            notificacion.ShowNotification("Registro encontrado", NotificationSeverity.Success);
+                notificacion.ShowNotification("Registro encontrado", NotificationSeverity.Success);
 
-            
+
             }
             else
             {
-            notificacion.ShowNotification("Registro no encontrado", NotificationSeverity.Warning);
-            
+                notificacion.ShowNotification("Registro no encontrado", NotificationSeverity.Warning);
+
             }
         }
     }
-        void Eliminar()
+    void Eliminar()
     {
 
-        var elimino =  clienteBLL.Eliminar(cliente);
+        var elimino = clienteBLL.Eliminar(cliente);
         if (elimino)
         {
             Nuevo();
             notificacion.ShowNotification("Eliminado correctamente.");
-        
+
         }
         else
         {

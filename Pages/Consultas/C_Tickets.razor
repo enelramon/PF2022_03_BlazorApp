@@ -1,0 +1,107 @@
+﻿@page "/C_tickets"
+
+@inject TicketsBLL ticketsBLL
+
+
+<EditForm Model="lista">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h3>Consulta de tickets</h3>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form>
+
+            <div class="row">
+                <div class="col">
+                    <label>Filtro</label>
+                    <select class="form-control" @bind="Filtro">
+                        <option>Elija una Opción</option>
+                        <option value="1">Estado</option>
+                        <option value="2">TicketId</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <div class="input-group d-flex align-items-end">
+                        <label>Buscar</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" @bind="Criterio" />
+                            <button type="button" class="btn btn-info bi bi-binoculars" @onclick="Buscar">   Buscar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-primary table-striped">
+            <thead class="thead-green">
+                <tr class="table-info">
+                    <th>TicketsId</th>
+                    <th>Fecha</th>
+                    <th>ClienteId</th>
+                    <th>SistemaId</th>
+                    <th>TipoId</th>
+                    <th>PrioridadId</th>
+                    <th>Asunto</th>
+                    <th>Descripcion</th>
+                    <th>TecnicoId</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    <tr>
+                        <td>@item.TicketId</td>
+                        <td>@item.Fecha</td>
+                        <td>@item.ClienteId</td>
+                        <td>@item.SistemaId</td>
+                        <td>@item.TipoId</td>
+                        <td>@item.PrioridadId</td>
+                        <td>@item.Asunto</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.TecnicoId</td>
+                        <td>@item.Estado</td>
+                        <td><a href="ticket/@item.TicketId">Ver</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public Tickets ticket { get; set; } = new Tickets();
+    public List<Tickets> lista { get; set; } = new List<Tickets>();
+
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
+
+    public async Task Buscar()
+    {
+
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "1":
+                    lista = await ticketsBLL.GetTickets(t => t.Estado.ToLower() == (Criterio.ToLower()));
+                    break;
+                case "2":
+                    lista = await ticketsBLL.GetTickets(t => t.TicketId.ToString() == (Criterio));
+                    break;
+            }
+        }
+        else
+        {
+            lista = await ticketsBLL.GetTickets(t => true);
+        }
+
+    }
+}

@@ -2,10 +2,10 @@
 
 namespace PF2022_03_BlazorApp.Models
 {
-    public class Tikets
+    public class Tickets
     {
         [Key]
-        public int TiketId { get; set; }
+        public int TicketId { get; set; }
 
         [Required(ErrorMessage = "La fecha es requerida")]
         public DateTime Fecha { get; set; }
@@ -22,7 +22,7 @@ namespace PF2022_03_BlazorApp.Models
         [Required(ErrorMessage = "La Prioridad es requeridad")]
         public int PrioridadId { get; set; }
 
-        [Required(ErrorMessage = "El Asunto es requerido ")]
+       [Required(ErrorMessage = "El Asunto es requerido ")]
         public string? Asunto { get; set; }
 
         [Required(ErrorMessage = "La descripcion es requerida")]
