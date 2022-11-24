@@ -1,0 +1,213 @@
+﻿@page "/crearticket"
+@page "/crearticket/{ticketId:int}"
+
+@inject TicketsBLL ticketsbll
+@inject ClienteBLL clienteBLL
+@inject PrioridadesBLL prioridadesBLL
+@inject SistemasBLL sistemasBLL
+@inject TecnicosBLL tecnicosBLL
+@inject NotificationService notificacion
+
+
+<EditForm Model="ticket" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="card shadow-lg">
+        <div class="d-block p-2 border border-4">
+            <div class="card-header">
+                <h1>Registro de Tickets</h1>
+            </div>
+
+            <div class="border border-4 card card-body">
+
+                @*TicketId*@
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TicketId </label>
+                            <div class="input-group">
+                                <InputNumber @bind-Value="ticket.TicketId" class="form-control col-4" />
+                                <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar">
+                                    <i class="oi oi-magnifying-glass" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="mb-3 col-4">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Fecha </label>
+                        <InputDate class="form-control" @bind-Value="ticket.Fecha" />
+                        <ValidationMessage For="@(()=> ticket.Fecha)" />
+                    </div>
+                    <div class="mb-3 col-4">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> ClienteId </label>
+                        <InputSelect class="form-select" @bind-Value="ticket.ClienteId">
+                            @foreach (Cliente cliente in listacliente)
+                            {
+                                <option value="@cliente.ClienteId">@cliente.Nombres</option>
+                            }
+                        </InputSelect>
+                    </div>
+                    <div class="mb-3 col-4">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> SistemaId </label>
+                        <InputSelect class="form-select" @bind-Value="ticket.SistemaId">
+                            @foreach (Sistemas sistema in listasistemas)
+                            {
+                                <option value="@sistema.SistemaID">@sistema.Descripcion</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(()=> ticket.SistemaId)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> PrioridadId </label>
+                        <InputSelect class="form-select" @bind-Value="ticket.PrioridadId">
+                            @foreach (Prioridades prioridad in listaPrioridad)
+                            {
+                                <option value="@prioridad.PrioridadId">@prioridad.Descripcion</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(()=> ticket.PrioridadId)" />
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TipoId </label>
+                        <InputNumber class="form-control" @bind-Value="ticket.TipoId" />
+                        <ValidationMessage For="@(()=> ticket.TipoId)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Asunto </label>
+                        <InputTextArea class="form-control" @bind-Value="ticket.Asunto" />
+                        <ValidationMessage For="@(()=> ticket.Asunto)" />
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Descripción </label>
+                        <InputTextArea class="form-control" @bind-Value="ticket.Descripcion" />
+                        <ValidationMessage For="@(()=> ticket.Descripcion)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TécnicoId </label>
+                        <InputSelect class="form-select" @bind-Value="@ticket.TecnicoId">
+                            @foreach (Tecnicos tecnico in listatecnicos)
+                            {
+                                <option value="@tecnico.TecnicoId">@tecnico.Nombres</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(()=> ticket.TecnicoId)" />
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Estado </label>
+                        <InputText readonly="true" class="form-control" @bind-Value="ticket.Estado" />
+                        <ValidationMessage For="@(()=> ticket.Estado)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <BSButton class="border border-3" Color="BSColor.Primary" @onclick="Nuevo"><i class="oi oi-document" /> Nuevo</BSButton>
+            <BSButton class="border border-3" Color="BSColor.Success" @onclick="Guardar"><i class="oi oi-pencil" /> Guardar</BSButton>
+            <BSButton class="border border-3" Color="BSColor.Danger" @onclick="Eliminar"><i class="oi oi-trash" /> Eliminar</BSButton>
+        </div>
+    </div>
+</EditForm>
+
+
+
+@code {
+    [Parameter]
+    public int ticketId { get; set; }
+
+    public Tickets ticket { get; set; } = new Tickets();
+    public DateTime FechaActual { get; set; } = DateTime.Now;
+    public List<Cliente> listacliente { get; set; } = new List<Cliente>();
+    public List<Sistemas> listasistemas { get; set; } = new List<Sistemas>();
+    public List<Prioridades> listaPrioridad { get; set; } = new List<Prioridades>();
+    public List<Tecnicos> listatecnicos { get; set; } = new List<Tecnicos>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ticket.Fecha = FechaActual;
+        listacliente = clienteBLL.GetClientes(c => true);
+        listasistemas = await sistemasBLL.GetSistemas(s => true);
+        listaPrioridad = prioridadesBLL.GetList(p => true);
+        listatecnicos = await tecnicosBLL.GetList(t => true);
+
+        if (ticketId > 0)
+        {
+            this.ticket.TicketId = ticketId;
+            await this.Buscar();
+        }
+    }
+    public async Task Buscar()
+    {
+        if (ticket.TicketId > 0)
+        {
+            var encontrado = await ticketsbll.Buscar(ticket.TicketId);
+
+            if (encontrado != null)
+            {
+                this.ticket = encontrado;
+            }
+        }
+    }
+    public void Nuevo()
+    {
+        ticket = new Tickets();
+        ticket.Fecha = FechaActual;
+    }
+    public async Task Guardar()
+    {
+        bool guardo;
+
+        if (!Validar())
+        {
+            Nuevo();
+            notificacion.ShowNotification("Fecha de creacion menor fecha actual.", NotificationSeverity.Error);
+        }
+        ticket.Estado = "En Espera";
+        guardo = await ticketsbll.Guardar(ticket);
+        
+        if (guardo)
+        {
+            
+            Nuevo();
+            notificacion.ShowNotification("Guardo correctamente.", NotificationSeverity.Success);
+        }
+    }
+
+    public async Task Eliminar()
+    {
+        bool eliminado;
+
+        eliminado = await ticketsbll.Eliminar(ticket);
+
+        if (eliminado)
+        {
+            Nuevo();
+            notificacion.ShowNotification("Eliminado correctamente.", NotificationSeverity.Error);
+        }
+
+    }
+    public bool Validar()
+    {
+        if (ticket.Fecha.Date < FechaActual.Date)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+}

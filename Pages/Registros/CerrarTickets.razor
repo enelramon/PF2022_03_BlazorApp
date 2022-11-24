@@ -1,0 +1,118 @@
+﻿@page "/cerrartickets"
+@page "/cerrartickets/{ticketId:int}"
+
+@inject TicketsBLL ticketsbll
+@inject NotificationService notificacion
+
+
+<EditForm Model="ticket" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="card shadow-lg">
+        <div class="d-block p-2 border border-4">
+            <div class="card-header">
+                <h1>Registro de Tickets</h1>
+            </div>
+
+            <div class="border border-4 card card-body">
+                @*TicketId*@
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TicketId </label>
+                            <div class="input-group">
+                                <InputNumber @bind-Value="ticket.TicketId" class="form-control col-4" />
+                                <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar">
+                                    <i class="oi oi-magnifying-glass" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 col-6">
+                <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Estado </label>
+                <InputText readonly="true" class="form-control" @bind-Value="ticket.Estado" />
+                <ValidationMessage For="@(()=> ticket.Estado)" />
+            </div>
+            <p>Solo Presionar el boton si el estado del ticket se encuentra En espera</p>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <BSButton class="border border-3" Color="BSColor.Success" @onclick="Guardar"><i class="oi oi-pencil" />Atendido</BSButton>
+        </div>
+    </div>
+</EditForm>
+
+
+
+@code {
+    [Parameter]
+    public int ticketId { get; set; }
+
+    public Tickets ticket { get; set; } = new Tickets();
+    public DateTime FechaActual { get; set; } = DateTime.Now;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ticket.Fecha = FechaActual;
+
+        if (ticketId > 0)
+        {
+            this.ticket.TicketId = ticketId;
+            await this.Buscar();
+        }
+    }
+    public async Task Buscar()
+    {
+        if (ticket.TicketId > 0)
+        {
+            var encontrado = await ticketsbll.Buscar(ticket.TicketId);
+
+            if (encontrado != null)
+            {
+                this.ticket = encontrado;
+            }
+        }
+    }
+    public void Nuevo()
+    {
+        ticket = new Tickets();
+
+    }
+    public async Task Guardar()
+    {
+        bool guardo;
+
+        if (!Validar())
+        {
+            Nuevo();
+            notificacion.ShowNotification("Error el ticked que intenta modificar ya ha sido atendido.", NotificationSeverity.Error);
+        }
+
+        ticket.Estado = "Atendido";
+        guardo = await ticketsbll.Guardar(ticket);
+
+        if (guardo)
+        {
+            Nuevo();
+            notificacion.ShowNotification("Guardo correctamente.", NotificationSeverity.Success);
+        }
+    }
+
+    public bool Validar()
+    {
+        if (ticket.Estado == "Atendido")
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+}
