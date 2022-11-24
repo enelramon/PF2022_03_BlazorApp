@@ -1,12 +1,12 @@
- using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PF2022_03_BlazorApp.Models
 {
-    public class Cliente
+    public class Clientes
     {
         [Key]
-        
+
         public int ClienteId { get; set; }
 
         [Required(ErrorMessage = "El nombre es requerido")]
@@ -16,6 +16,7 @@ namespace PF2022_03_BlazorApp.Models
         [Required(ErrorMessage = "La dirección es requerida")]
 
         public string? Direccion { get; set; }
+        public DateTime Fecha { get; set; }
 
         [RegularExpression(@"^\d{3}-\d{7}-\d{1}$")]
         [Required(ErrorMessage = "Favor de Ingresar cedula.Ejemplo 042-4277567-7")]
@@ -25,13 +26,13 @@ namespace PF2022_03_BlazorApp.Models
         [EmailAddress(ErrorMessage = "digite correctamente el Email.")]
 
         public string? Email { get; set; }
-         
+
         [RegularExpression(@"^\d{3}-\d{3}-\d{4}$")]
         [Phone(ErrorMessage = "Digite correctamente el numero Telefonico. Ejemplo 809-244-9957")]
 
         public string? Telefono { get; set; }
 
-         [RegularExpression(@"^\d{3}-\d{3}-\d{4}$")]
+        [RegularExpression(@"^\d{3}-\d{3}-\d{4}$")]
         [Phone(ErrorMessage = "Digite correctamente el numero de su celular. Ejemplo 809-244-9957")]
 
         public string? Celular { get; set; }

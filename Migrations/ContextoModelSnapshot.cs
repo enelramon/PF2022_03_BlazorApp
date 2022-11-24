@@ -17,7 +17,7 @@ namespace PF2022_03_BlazorApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
 
-            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Cliente", b =>
+            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Clientes", b =>
                 {
                     b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd()
@@ -37,6 +37,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Nombres")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -46,7 +49,7 @@ namespace PF2022_03_BlazorApp.Migrations
 
                     b.HasKey("ClienteId");
 
-                    b.ToTable("Cliente");
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("PF2022_03_BlazorApp.Models.Prioridades", b =>
@@ -56,9 +59,11 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Orden")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("PrioridadId");
