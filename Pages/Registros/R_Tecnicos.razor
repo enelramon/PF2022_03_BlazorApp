@@ -1,4 +1,4 @@
-@page "/tecnico_registro"
+@page "/tecnico"
 @page "/tecnico/{TecnicoId:int}"
 
 @inject TecnicosBLL tecnicosBLL
@@ -39,13 +39,13 @@
 
             @*Direccion*@
             <div class="form-group">
-                <label>Direccion</label>
+                <label>Dirección</label>
                 <InputText @bind-Value="tecnico.Direccion" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.Direccion)" />
             </div>
             @*Cedula*@
             <div class="form-group">
-                <label>Cedula</label>
+                <label>Cédula</label>
                 <InputText @bind-Value="tecnico.Cedula" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.Cedula)" />
             </div>
@@ -57,23 +57,23 @@
             </div>
             @*Telefono*@
             <div class="form-group">
-                <label>Telefono</label>
+                <label>Teléfono</label>
                 <InputText @bind-Value="tecnico.Telefono" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.Telefono)" />
             </div>
-             @*Celular*@
+            @*Celular*@
             <div class="form-group">
                 <label>Celular</label>
                 <InputText @bind-Value="tecnico.Celular" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.Celular)" />
             </div>
-             @*usuario*@
+            @*usuario*@
             <div class="form-group">
-                <label>usuario</label>
+                <label>Usuario</label>
                 <InputText @bind-Value="tecnico.usuario" class="form-control" />
                 <ValidationMessage For="@(() => tecnico.usuario)" />
             </div>
-             @*Clave*@
+            @*Clave*@
             <div class="form-group">
                 <label>Clave</label>
                 <InputText type="password" @bind-Value="tecnico.Clave" class="form-control" />
@@ -100,9 +100,6 @@
     </div>
 </EditForm>
 
-
-
-
 @code
 {
     [Parameter]
@@ -110,13 +107,35 @@
     public Tecnicos tecnico { get; set; } = new Tecnicos();
     public String mensaje { get; set; } = "";
 
-    protected override void OnInitialized()
+    private List<Tecnicos> ListaTecnicos { get; set; } = new List<Tecnicos>();
+
+    protected async override Task OnInitializedAsync()
     {
+        ListaTecnicos = await tecnicosBLL.GetList(t => true);
+
         if (TecnicoId > 0)
         {
-
             this.tecnico.TecnicoId = TecnicoId;
-            this.Buscar();
+            await this.Buscar();
+        }
+    }
+    private async Task Buscar()
+    {
+        if (tecnico.TecnicoId > 0)
+        {
+            var encontrado = await tecnicosBLL.Buscar(tecnico.TecnicoId);
+
+            if (encontrado != null)
+                this.tecnico = encontrado;
+        }
+        else
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Warning,
+                Summary = "No Existe este tecnico"
+            });
         }
     }
 
@@ -126,20 +145,10 @@
         tecnico = new Tecnicos();
     }
 
-    bool Validar()
+    public async Task Guardar()
     {
-        return tecnico.Nombres.Contains(".");
-    }
 
-    public void Guardar()
-    {
-        if (!Validar())
-        {
-            mensaje = "El nombre debe termina con punto final.";
-            return;
-        }
-
-        bool guardo = tecnicosBLL.Guardar(tecnico);
+        bool guardo = await tecnicosBLL.Guardar(tecnico);
 
         if (guardo)
         {
@@ -153,31 +162,12 @@
             Nuevo();
         }
     }
-    private void Buscar()
-    {
-        if (tecnico.TecnicoId > 0)
-        {
-            var encontrado = tecnicosBLL.Buscar(tecnico.TecnicoId);
 
-            if (encontrado != null)
-                this.tecnico = encontrado;
-        }
-        else
-        {
-            ShowNotification(
-                new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Warning,
-                    Summary = "No Existe este tecnico"
-                });
-        }
-    }
-
-    public void Eliminar()
+    public async Task Eliminar()
     {
         bool elimino;
 
-        elimino = tecnicosBLL.Eliminacion(tecnico);
+        elimino = await tecnicosBLL.Eliminacion(tecnico);
         if (elimino)
         {
             Nuevo();
@@ -202,6 +192,5 @@
     void ShowNotification(NotificationMessage message)
     {
         notificationService.Notify(message);
-
     }
 }

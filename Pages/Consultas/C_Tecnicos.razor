@@ -1,0 +1,67 @@
+@page "/consulta_tecnico"
+@inject TecnicosBLL tecnicosBLL;
+
+<EditForm Model="Informacion">
+    <DataAnnotationsValidator />
+    <div class="card-header">
+        <h4>Consulta de Tecnicos</h4>
+    </div>
+
+    <div class="card-body">
+        <form>
+            <div>
+
+                <button type="button" @onclick="Buscar" class="MiBotonTecnico"> <i class="oi oi-magnifying-glass" />
+                    Buscar </button>
+            </div>
+        </form>
+    </div>
+    <table class="styled-table">
+        <thead class="styled-table thead tr">
+            <tr class="styled-table tbody tr">
+                <th>TecnicoId</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Cédula</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Celular</th>
+                <th>Usuario</th>
+                <th>Clave</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Informacion)
+            {
+                <tr class="styled-table tbody tr">
+                    <td>@item.TecnicoId</td>
+                    <td>@item.Nombres</td>
+                    <td>@item.Direccion</td>
+                    <td>@item.Cedula</td>
+                    <td>@item.Email</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Celular</td>
+                    <td>@item.usuario</td>
+                    <td>@item.Clave</td>
+                    <td><a href="tecnico/@item.TecnicoId">Ver</a></td>
+                </tr>
+            }
+        </tbody>
+        <h6>Conteo: @Informacion.Count()</h6>
+    </table>
+
+</EditForm>
+
+@code {
+
+    public Tecnicos tecnico { set; get; } = new Tecnicos();
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
+    public List<Tecnicos> Informacion { get; set; } = new List<Tecnicos>();
+    public async Task Buscar()
+    {
+        Informacion = await tecnicosBLL.GetList(o => true);
+    }
+
+}
