@@ -3,7 +3,6 @@
 
 <EditForm Model="this">
     <div class="card">
-
         <div class="card-header">
             <h4>Consulta de Clientes</h4>
         </div>
@@ -26,7 +25,7 @@
                     <label>Buscar</label>
                     <div class="input-group">
                         <input type="text" class="form-control" @bind="Criterio" />
-                        <button type="button" class="btn btn-info bi bi-binoculars" @onclick="Buscar"> Buscar</button>
+                        <button type="button" class="btn btn-outline-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass"/> Buscar</button>
                     </div>
 
                 </div>
@@ -63,7 +62,6 @@
                     <td><a href="R_Clientes/@item.ClienteId.">Ver</a></td>
                 </tr>
             }
-
         </tbody>
     </table>
 </EditForm>
@@ -73,7 +71,6 @@
     public List<Clientes> lista { get; set; } = new List<Clientes>();
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
-
 
     protected override void OnInitialized()
     {

@@ -11,7 +11,7 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221124162605_R_Clientes")]
+    [Migration("20221124163413_R_Clientes")]
     partial class R_Clientes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

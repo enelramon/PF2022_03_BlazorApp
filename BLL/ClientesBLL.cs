@@ -5,7 +5,6 @@ using PF2022_03_BlazorApp.Models;
 
 namespace PF2022_03_BlazorApp.BLL
 {
-
     public class ClientesBLL
     {
          private Contexto _contexto;
