@@ -6,13 +6,11 @@ namespace PF2022_03_BlazorApp.DAL
     public class Contexto : DbContext
     {
         public DbSet<Tikets> tikets { get; set; }
-        public DbSet<Cliente> Cliente {get; set;}
+        public DbSet<Clientes> Clientes {get; set;}
         public DbSet<Prioridades> Prioridades { get; set; }
         public DbSet<Recordatorios> Recordatorios { get; set; }
         public DbSet<Sistemas> Sistemas { get; set; }
         public DbSet<Tecnicos> Tecnicos { get; set; }
-
-
 
         public Contexto(DbContextOptions<Contexto> options)
         : base(options)

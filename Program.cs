@@ -21,7 +21,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazorStrap();
 
 builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<ClienteBLL>();
+builder.Services.AddScoped<ClientesBLL>();
 builder.Services.AddScoped<PrioridadesBLL>();
 builder.Services.AddScoped<TiketsBLL>();
 builder.Services.AddScoped<RecordatoriosBLL>();

@@ -1,53 +1,172 @@
- @page "/C_cliente"
-@inject ClienteBLL clienteBLL
+@page "/C_Clientes"
+@inject ClientesBLL clienteBLL
 
 <EditForm Model="this">
     <div class="card">
-
         <div class="card-header">
             <h4>Consulta de Clientes</h4>
         </div>
     </div>
-    <div class="card-body">           
-     <button   @onclick="Buscar" class="btn btn-outline-primary" > <i class="oi oi-magnifying-glass"/> Buscar </button>
-     </div>
+    <form>
+        <div class="input-group d-flex align-items-end">
+            <label>Filtro</label>
+            <select class="form-control" @bind="Filtro">
+                <option value="0">Selecione una</option>
+                <option value="1">ClienteId</option>
+                <option value="2">Nombres</option>
+                <option value="3">Cedula</option>
+                <option value="4">Dirrecion</option>
+                <option value="5">Celular</option>
+                <option value="6">Telefono</option>
+                <option value="7">Email</option>
+            </select>
+            <div class="col-ms">
+                <div class="input-group d-flex align-items-end">
+                    <label>Buscar</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" @bind="Criterio" />
+                        <button type="button" class="btn btn-outline-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass"/> Buscar</button>
+                    </div>
 
-    <table class="table table-striped table-hover mt-4" style="cursor: pointer;">
+                </div>
+            </div>
+        </div>
+    </form>
 
-        <thead class="thead">
-            <tr class="table">
+    <table class="table table-striped table-hover mt-4 table-striped" style="cursor: pointer;">
+        <thead class="thead-green">
+            <tr class="table-info">
                 <th>ClienteId</th>
                 <th>Nombres</th>
-                <th>Direccion</th>
-                <th>Cedula</th> 
-                <th>Email</th> 
-                <th>Telefono</th> 
-                <th>Celular</th> 
+                <th>Dirección</th>
+                <th>Fecha</th>
+                <th>Cédula</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Celular</th>
             </tr>
         </thead>
-         <tbody>
+        <tbody>
 
-            @foreach (var item in cliente )
+            @foreach (var item in lista)
             {
                 <tr>
-                    <td>@item.ClienteId</td> 
+                    <td>@item.ClienteId</td>
                     <td>@item.Nombres</td>
                     <td>@item.Direccion</td>
+                    <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
                     <td>@item.Cedula</td>
                     <td>@item.Email</td>
                     <td>@item.Telefono</td>
-                    <td>@item.Celular </td> 
+                    <td>@item.Celular </td>
+                    <td><a href="R_Clientes/@item.ClienteId.">Ver</a></td>
                 </tr>
             }
-
         </tbody>
     </table>
 </EditForm>
 
-@code{
-     public List<Cliente> cliente { get; set; } = new List<Cliente>();
+@code {
+    public Clientes cliente { get; set; } = new Clientes();
+    public List<Clientes> lista { get; set; } = new List<Clientes>();
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
 
-        void Buscar(){
-            cliente = clienteBLL.GetClientes(o => true);
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    public async Task Buscar()
+    {
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "0":
+                    lista = await clienteBLL.GetClientes(o => true);
+                    break;
+                case "1":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.ClienteId.ToString() == (Criterio));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+
+                case "2":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.Nombres.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+
+                case "3":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.Cedula.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+
+                case "4":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.Direccion.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+
+                case "5":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.Celular.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+
+                case "6":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.Telefono.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+
+                case "7":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.Email.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+            }
         }
+        else
+        {
+            lista = await clienteBLL.GetClientes(o => true);
+        }
+    }
 }
