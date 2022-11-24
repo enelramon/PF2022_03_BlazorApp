@@ -2,33 +2,33 @@
 
 namespace PF2022_03_BlazorApp.Models
 {
-    public class Tikets
+    public class Tickets
     {
         [Key]
-        public int TiketId { get; set; }
+        public int TicketId { get; set; }
 
-        [Required(ErrorMessage = "La fecha es requerida")]
+        [Required(ErrorMessage = "La Fecha es requerida")]
         public DateTime Fecha { get; set; }
 
-        [Required(ErrorMessage = "el id del del cliente es Requerido ")]
+        [Required(ErrorMessage = "Debe ingresar el id de un cliente ")]
         public int ClienteId { get; set; }
 
-        [Required(ErrorMessage = "El id de sistemas es requerido ")]
+        [Required(ErrorMessage = "Debe ingresar el id de un Sistema  ")]
         public int SistemaId { get; set; }
 
-        [Required(ErrorMessage = "El tipoId es requerido")]
+        [Required(ErrorMessage = "Debe ingresar un tipo ")]
         public int TipoId { get; set; }
 
-        [Required(ErrorMessage = "La Prioridad es requeridad")]
+        [Required(ErrorMessage = "Debe ingresar la prioridad")]
         public int PrioridadId { get; set; }
 
         [Required(ErrorMessage = "El Asunto es requerido ")]
         public string? Asunto { get; set; }
 
-        [Required(ErrorMessage = "La descripcion es requerida")]
+        [Required(ErrorMessage = "La descripción es requerida")]
         public string? Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El Id del Tecnico es requirido")]
+        [Required(ErrorMessage = "El Id del Técnico es requirido")]
         public int TecnicoId { get; set; }
 
         public string? Estado { get; set; }

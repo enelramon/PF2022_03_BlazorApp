@@ -23,7 +23,7 @@ builder.Services.AddBlazorStrap();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<ClientesBLL>();
 builder.Services.AddScoped<PrioridadesBLL>();
-builder.Services.AddScoped<TiketsBLL>();
+builder.Services.AddScoped<TicketsBLL>();
 builder.Services.AddScoped<RecordatoriosBLL>();
 builder.Services.AddScoped<SistemasBLL>();
 builder.Services.AddScoped<TecnicosBLL>();
