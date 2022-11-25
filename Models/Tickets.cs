@@ -23,14 +23,14 @@ namespace PF2022_03_BlazorApp.Models
         public int PrioridadId { get; set; }
 
         [Required(ErrorMessage = "El Asunto es requerido ")]
-        public string? Asunto { get; set; }
+        public string Asunto { get; set; }
 
         [Required(ErrorMessage = "La descripción es requerida")]
-        public string? Descripcion { get; set; }
+        public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "El Id del Técnico es requirido")]
         public int TecnicoId { get; set; }
 
-        public string? Estado { get; set; }
+        public string Estado { get; set; }
     }
 }
