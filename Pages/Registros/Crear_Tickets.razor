@@ -115,7 +115,9 @@
     <div class="card-footer d-flex justify-content-center">
         <div class="btn-group" role="group">
             <BSButton class="border border-3" Color="BSColor.Primary" @onclick="Nuevo"><i class="oi oi-document" /> Nuevo</BSButton>
-            <BSButton class="border border-3" Color="BSColor.Success" @onclick="Guardar"><i class="oi oi-pencil" /> Guardar</BSButton>
+            <button type="submit" class="btn btn-lg btn-success">
+                <i class="oi oi-document" /> Guardar
+            </button>
             <BSButton class="border border-3" Color="BSColor.Danger" @onclick="Eliminar"><i class="oi oi-trash" /> Eliminar</BSButton>
         </div>
     </div>
@@ -175,27 +177,33 @@
             Nuevo();
             notificacion.ShowNotification("Fecha de creacion menor fecha actual.", NotificationSeverity.Error);
         }
-        ticket.Estado = "En Espera";
-        guardo = await ticketsbll.Guardar(ticket);
-        
-        if (guardo)
+        else
         {
-            
-            Nuevo();
-            notificacion.ShowNotification("Guardo correctamente.", NotificationSeverity.Success);
+
+            ticket.Estado = "En Proceso";
+            guardo = await ticketsbll.Guardar(ticket);
+
+            if (guardo)
+            {
+
+                Nuevo();
+                notificacion.ShowNotification("Guardo correctamente.", NotificationSeverity.Success);
+            }
         }
     }
 
     public async Task Eliminar()
     {
         bool eliminado;
-
-        eliminado = await ticketsbll.Eliminar(ticket);
-
-        if (eliminado)
+        if (ticket.TicketId > 0)
         {
-            Nuevo();
-            notificacion.ShowNotification("Eliminado correctamente.", NotificationSeverity.Error);
+            eliminado = await ticketsbll.Eliminar(ticket);
+
+            if (eliminado)
+            {
+                Nuevo();
+                notificacion.ShowNotification("Eliminado correctamente.", NotificationSeverity.Error);
+            }
         }
 
     }

@@ -48,7 +48,7 @@ namespace PF2022_03_BlazorApp.BLL
         {
             return await _contexto.tickets
              .Where(t => t.TicketId == ticketId)
-            .AsNoTracking()
+            .AsTracking()
             .SingleOrDefaultAsync();
 
         }
@@ -56,7 +56,7 @@ namespace PF2022_03_BlazorApp.BLL
         public async Task<List<Tickets>> GetTickets(Expression<Func<Tickets, bool>> Criterio)
         {
             return await _contexto.tickets
-                .AsNoTracking()
+                .AsTracking()
                 .Where(Criterio)
                 .ToListAsync();
         }

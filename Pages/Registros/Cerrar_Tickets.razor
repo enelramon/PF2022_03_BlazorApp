@@ -92,14 +92,17 @@
             Nuevo();
             notificacion.ShowNotification("Error el ticked que intenta modificar ya ha sido atendido.", NotificationSeverity.Error);
         }
-
-        ticket.Estado = "Atendido";
-        guardo = await ticketsbll.Guardar(ticket);
-
-        if (guardo)
+        else
         {
-            Nuevo();
-            notificacion.ShowNotification("Guardo correctamente.", NotificationSeverity.Success);
+
+            ticket.Estado = "Atendido";
+            guardo = await ticketsbll.Guardar(ticket);
+
+            if (guardo)
+            {
+                Nuevo();
+                notificacion.ShowNotification("Guardo correctamente.", NotificationSeverity.Success);
+            }
         }
     }
 
