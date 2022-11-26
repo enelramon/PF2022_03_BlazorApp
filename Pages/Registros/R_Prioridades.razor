@@ -3,52 +3,74 @@
 
 @inject NotificationService notificacion
 @inject PrioridadesBLL prioridadesBLL
+@inject ICounterViewModel counterViewModel
 
 <EditForm Model="prioridad" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="card">
-        <div class="card-header">
+    <div class="rz-border-radius-4 shadow d-block p-2 border border-4">
+        <div class="rz-border-radius-4 shadow card-header text-center">
             <h3>Registro Prioridades</h3>
         </div>
-        <div class="card-body">
 
-            @*PrioridadId*@
-            <div class="form-row align-items-center">
-                <div class="form-group">
-                    <div class="containe col-3">
-                        <label>PrioridadId</label>
-                        <div class="input-group">
-                            <InputNumber @bind-Value="prioridad.PrioridadId" class="form-control" />
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-info input-group-text bi bi-google" @onclick="Buscar"> </button>
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <form class="row gy-3">
+                    @*PrioridadId*@
+                    <div class="form-row align-items-center">
+                        <div class="containe col-3">
+                            <div class="form-group">
+                                <label class="form-label">PrioridadId</label>
+                                <div class="input-group">
+                                    <InputNumber @bind-Value="prioridad.PrioridadId" placeholder="Ingrese un ID" class="rz-border-radius-4 shadow form-control col-4 " />
+                                    <div class="input-group-append">
+                                        <button type="button" class="rz-border-radius-4 shadow btn btn-primary input-group-text"
+                                                @onclick="Buscar">
+                                            <i class="oi oi-magnifying-glass" />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            @*Descripcion*@
-            <div class="mb-3">
-                <label>Descripcion</label>
-                <InputText @bind-Value="prioridad.Descripcion" class="form-control" />
-                <ValidationMessage For="@(() => prioridad.Descripcion)" />
-            </div>
+                    @*Descripcion*@
+                    <div class="mb-3">
 
-            @*Orden*@
-            <div class="mb-3">
-                <label>Orden</label>
-                <InputText @bind-Value="prioridad.Orden" class="form-control" />
-                <ValidationMessage For="@(() => prioridad.Orden)" />
+                        <label class="form-label">Descripcion</label>
+                        <InputText @bind-Value="prioridad.Descripcion" placeholder="Ingrese una Descripción"
+                                   class="rz-border-radius-4 shadow shadow form-control" />
+
+                        <ValidationMessage For="@(() => prioridad.Descripcion)" />
+                    </div>
+
+                    @*Orden*@
+                    <div class="col align-self-center">
+                        <textarea type="text" class="rz-border-radius-4 shadow text-center form-control shadow"
+                                  @bind="prioridad.Orden" placeholder="Detalles de la orden"
+                                  style="height: 50px"></textarea>
+                        <ValidationMessage For="@(() => prioridad.Orden)" />
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="card-footer">
-            <div class="form-group text-center" display: inline-block>
-                <button type="button" class="btn btn-lg btn-primary bi bi-person-plus-fill" @onclick="Nuevo"> Nuevo</button>
-                <button type="submit" class="btn btn-lg btn-success bi bi-save-fill"> Guardar</button>
-                <button type="button" class="btn btn-lg btn-danger bi bi-trash2-fill" @onclick="Eliminar">Eliminar</button>
+        <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-primary"
+                        @onclick="Nuevo">
+                    <i class="oi oi-document" /> Nuevo
+                </button>
+                <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-success bi bi-save-fill">
+                    Guardar
+                </button>
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
+                        @onclick="Eliminar">
+                    <i class="oi oi-trash" />
+                    Eliminar
+                </button>
             </div>
         </div>
+
     </div>
 </EditForm>
 
