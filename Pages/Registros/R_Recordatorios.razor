@@ -9,7 +9,7 @@
 <EditForm Model="Recordatorio" OnValidSubmit="GuardarRecordatorio">
     <DataAnnotationsValidator />
 
-    <div class="rz-border-radius-4 shadow d-block p-2 border border-4">
+    <div class="rz-border-radius-4 shadow bg-white d-block p-2 border border-4">
         <div class="rz-border-radius-4 shadow card-header text-center">
             <h3>Registro Recordatorios</h3>
         </div>
@@ -17,7 +17,8 @@
         <div class="rz-border-radius-4 shadow border border-4 card card-body">
             <div class="container overflow-hidden">
                 <form class="row gy-3">
-
+                    
+                    @*RecordatorioId*@
                     <div class="form-row align-items-center">
                         <div class="col">
                             <div class="form-group">
@@ -38,6 +39,7 @@
                         </div>
                     </div>
 
+                    @*Dia*@
                     <div class="col-md-2">
                         <label class="form-label">Dia</label>
                         <InputNumber @bind-Value="Recordatorio.Dia" placeholder="Ingrese un dia"
@@ -45,6 +47,7 @@
                         <ValidationMessage For="@(() => Recordatorio.Dia)" />
                     </div>
 
+                    @*ProximaFecha*@
                     <div class="col-md-2">
                         <label class="form-label">ProximaFecha</label>
                         <InputDate @bind-Value="Recordatorio.FroximaFecha"
@@ -52,6 +55,7 @@
                         <ValidationMessage For="@(() => Recordatorio.FroximaFecha)" />
                     </div>
 
+                    @*ClienteId*@
                     <div class="col-md-3">
                         <label class="form-label">ClienteId</label>
                         <div class="input-group mb-3">
@@ -67,6 +71,7 @@
                         </div>
                     </div>
 
+                    @*Descripción*@
                     <div class="col-md-5">
                         <textarea type="text" class="rz-border-radius-4 shadow text-center form-control shadow"
                             @bind="Recordatorio.Descripción" placeholder="Ingresa una descripcion"
@@ -78,13 +83,13 @@
         </div>
         <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
             <div class="btn-group" role="group">
-                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-primary"
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-primary"
                     @onclick="GuardarRecordatorio"> <i class="oi oi-document" />
                     Guardar</button>
-                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-success"
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-success"
                     @onclick="EditarRecordatorio"> <i class="oi oi-pencil" />
                     Editar</button>
-                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-danger"
                     @onclick="EliminarRecordatorio"><i class="oi oi-trash" />
                     Eliminar</button>
             </div>
@@ -92,14 +97,18 @@
 
         <div class="rz-border-radius-4 border border-4 shadow card-footer d-flex justify-content-center">
             <div class="btn-group" role="group">
-                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-danger"
                     @onclick="@(() => BSChat.ShowAsync())"><i class="oi oi-person" />
                     Chat</button>
             </div>
         </div>
 
         <BSModal Size="Size.ExtraSmall" IsCentered="true" @ref="BSChat">
+            
+            @*Mensajes*@
             <BSModalHeader class="shadow border border-4" OnClick="@(() => BSChat.HideAsync())">Mensajes</BSModalHeader>
+            
+            @*Generar Mensajes*@
             <BSModalBody class="border border-4">
                 <div class="card card-body">
                     <div class="container overflow-hidden">
@@ -125,17 +134,20 @@
                     </div>
                 </div>
             </BSModalBody>
+
             <BSModalFooter class="border border-4">
                 <form class="input-group align-items-end card-body">
                     <div class="container overflow-hidden">
+
+                        @*Filtro*@
                         <div class="row gy-3">
                             <div class="col-md-6">
                                 <label>Filtro</label>
                                 <select class="rz-border-radius-4 border border-4 shadow form-control" @bind="Filtro">
-                                    <option value="0" disabled>Seleccione un filtro</option>
-                                    <option value=1>ClienteId</option>
-                                    <option value=2>Todos Los Mensajes</option>
-                                    <option value=3>ProximaFecha</option>
+                                    <option>Seleccionar filtro</option>
+                                    <option value="1">ClienteId</option>
+                                    <option value="2">RecordatorioId</option>
+                                    <option value="3">ProximaFecha</option>
                                 </select>
                             </div>
 
@@ -143,9 +155,8 @@
                                 <div class="form-group">
                                     <label>Buscar</label>
                                     <div class="input-group">
-                                        <input type="text"
-                                            class="rz-border-radius-4 shadow border border-4 form-control"
-                                            @bind="Criterio" />
+                                        <input type="text" class="rz-border-radius-4 shadow border border-4 form-control"
+                                           placeholder="Ingresar criterio" @bind="Criterio"/>
                                         <div class="input-group-append">
                                             <button type="button"
                                                 class="rz-border-radius-4 shadow border border-4input-group-text btn btn-primary"
@@ -167,7 +178,7 @@
     [Parameter]
     public int RecordatorioId { get; set; }
     public int ClienteId { get; set; }
-    public int Filtro;
+    public string? Filtro;
     public string? Criterio;
     private BSModal BSChat { get; set; } = new BSModal();
     private Clientes clientes { get; set; } = new Clientes();
@@ -195,14 +206,14 @@
         {
             switch (Filtro)
             {
-                case 1:
+                case "1":
                     chat = await recordatoriosBLL.GetRecordatorios(r => r.ClienteId.ToString() == (Criterio));
                     break;
-                case 2:
-                    chat = await recordatoriosBLL.GetRecordatorios(c => true);
+                case "2":
+                    chat = await recordatoriosBLL.GetRecordatorios(r => r.RecordatorioId.ToString() == (Criterio));
                     break;
-                case 3:
-                    chat = await recordatoriosBLL.GetRecordatorios(r => r.FroximaFecha.Day.ToString() == (Criterio));
+                case "3":
+                    chat = await recordatoriosBLL.GetRecordatorios(r => r.FroximaFecha.Day.ToString() == (Criterio) || r.FroximaFecha.Month.ToString() == (Criterio) || r.FroximaFecha.Minute.ToString() == (Criterio) || r.FroximaFecha.Second.ToString() == (Criterio));
                     break;
             }
         }
