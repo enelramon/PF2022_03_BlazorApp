@@ -15,68 +15,67 @@ namespace PF2022_03_BlazorApp.BLL
             contexto_ = contexto;
         }
 
-        public bool Existe(int recordatorioId)
+        public async Task<bool> Existe(int recordatorioId, int dia)
         {
-            return  contexto_.Recordatorios.Any(r => r.RecordatorioId == recordatorioId);
+            return await contexto_.Recordatorios.AnyAsync(r => r.RecordatorioId == recordatorioId || r.Dia == dia);
         }
-        public bool Guardar(Recordatorios recordatorios)
+        public async Task<bool> Guardar(Recordatorios recordatorios)
         {
             bool guardo;
-            if (!Existe(recordatorios.RecordatorioId))
-                return guardo = true && this.Insertar(recordatorios);
+            if (!await Existe(recordatorios.RecordatorioId, recordatorios.Dia))
+                return guardo = true && await this.Insertar(recordatorios);
             else
                 return guardo = false;
         }
 
-        private  bool Insertar(Recordatorios recordatorios)
+        private async Task<bool> Insertar(Recordatorios recordatorios)
         {
-            contexto_.Recordatorios.Add(recordatorios);
-            int cantidad = contexto_.SaveChanges();
-            return cantidad > 0;
+            await contexto_.Recordatorios.AddAsync(recordatorios);
+            return await contexto_.SaveChangesAsync() > 0;
         }
 
-        public bool Editar(Recordatorios recordatorios)
+        public async Task<bool> Editar(Recordatorios recordatorios)
         {
             bool edito;
-            if (Existe(recordatorios.RecordatorioId))
-                return edito = true && this.Modificar(recordatorios);
+            if (await Existe(recordatorios.RecordatorioId, recordatorios.Dia))
+                return edito = true && await this.Modificar(recordatorios);
             else
                 return edito = false;
         }
 
-        private bool Modificar(Recordatorios recordatorios)
+        private async Task<bool> Modificar(Recordatorios recordatorios)
         {
             contexto_.Entry(recordatorios).State = EntityState.Modified;
-            return contexto_.SaveChanges() > 0;
+            return await contexto_.SaveChangesAsync() > 0;
         }
 
-        private bool Eliminar(Recordatorios recordatorios)
+        private async Task<bool> Eliminar(Recordatorios recordatorios)
         {
             contexto_.Entry(recordatorios).State = EntityState.Deleted;
-            return contexto_.SaveChanges() > 0;
+            return await contexto_.SaveChangesAsync() > 0;
         }
 
-        public bool Eliminacion(Recordatorios recordatorios)
+        public async Task<bool> Eliminacion(Recordatorios recordatorios)
         {
             bool elimino;
-            if (Existe(recordatorios.RecordatorioId))
-                return elimino = true && this.Eliminar(recordatorios);
+            if (await Existe(recordatorios.RecordatorioId, recordatorios.Dia))
+                return elimino = true && await this.Eliminar(recordatorios);
             else
                 return elimino = false;
         }
-        public  Recordatorios? Buscar(int recordatorioId)
+        public async Task<Recordatorios?> Buscar(int recordatorioId, int dia)
         {
-            return contexto_.Recordatorios
-                .Where(r => r.RecordatorioId == recordatorioId)
+            return await contexto_.Recordatorios
+                .Where(r => r.RecordatorioId == recordatorioId || r.Dia == dia)
                 .AsTracking()
-                .SingleOrDefault(); 
+                .SingleOrDefaultAsync(); 
         }
         
-        public  List<Recordatorios> GetRecordatorios(Expression<Func<Recordatorios, bool>> Criterio){
-            return  contexto_.Recordatorios
+        public async Task<List<Recordatorios>> GetRecordatorios(Expression<Func<Recordatorios, bool>> Criterio){
+            return await contexto_.Recordatorios
                 .AsTracking()
                 .Where(Criterio)
-                .ToList();
+                .ToListAsync();
         }
     }
 }
