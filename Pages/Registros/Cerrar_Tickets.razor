@@ -21,7 +21,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TicketId </label>
                             <div class="input-group">
-                                <InputNumber @bind-Value="ticket.TicketId" class="form-control col-4" />
+                                <InputNumber @bind-Value="ticket.TicketId" class=" rz-border-radius-4 shadow form-control col-4" />
                                 <button type="button" class="btn btn-primary input-group-text"
                                         @onclick="Buscar">
                                     <i class="oi oi-magnifying-glass" />
@@ -33,15 +33,19 @@
             </div>
             <div class="mb-3 col-6">
                 <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Estado </label>
-                <InputText readonly="true" class="form-control" @bind-Value="ticket.Estado" />
+                <InputText readonly="true" class=" rz-border-radius-4 shadow form-control" @bind-Value="ticket.Estado" />
                 <ValidationMessage For="@(()=> ticket.Estado)" />
             </div>
-            <p>Solo Presionar el boton si el estado del ticket se encuentra En espera</p>
+            <p>Solo Presionar el boton si el estado del ticket se encuentra Pendiente</p>
         </div>
     </div>
     <div class="card-footer d-flex justify-content-center">
         <div class="btn-group" role="group">
-            <BSButton class="border border-3" Color="BSColor.Success" @onclick="Guardar"><i class="oi oi-pencil" />Atendido</BSButton>
+            <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-primary"
+                    @onclick="Guardar">
+                <i class="oi oi-document" />
+                Guardar
+            </button>
         </div>
     </div>
 </EditForm>
