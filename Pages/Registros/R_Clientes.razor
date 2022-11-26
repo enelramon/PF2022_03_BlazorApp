@@ -6,12 +6,12 @@
 
 <EditForm Model="cliente" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-    <div class="shadow d-block p-2 border border-4">
-        <div class="card-header text-center">
+    <div class="rz-border-radius-4 shadow d-block p-2 border border-4">
+        <div class="rz-border-radius-4 shadow card-header text-center">
             <h3>Registro de Clientes</h3>
         </div>
 
-        <div class="border border-4 card card-body">
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
             <div class="container overflow-hidden">
                 <form class="row gy-3">
                     @*ClienteId*@
@@ -19,10 +19,10 @@
                         <div class="col-ms">
                             <label>ClienteId</label>
                             <div class="input-group mb-3">
-                                <InputNumber @bind-Value="cliente.ClienteId" class="form-control col-4" />
+                                <InputNumber @bind-Value="cliente.ClienteId" class="rz-border-radius-4 shadow form-control col-4 form-control" />
                                 <div class="input-group-append">
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary input-group-text"
+                                        <button type="button" class="rz-border-radius-4 shadow form-control col-4 btn btn-primary  "
                                             @onclick="Buscar">Buscar</button>
                                     </div>
                                 </div>
@@ -32,69 +32,74 @@
                         @*Nombre*@
                         <div class="col-ms">
                             <label>Nombres </label>
-                            <InputText @bind-Value="cliente.Nombres" class="form-control" />
+                            <InputText @bind-Value="cliente.Nombres" placeholder="Ingrese su nombre"
+                            class="rz-border-radius-4 shadow form-control col-4 form-control" />
                             <ValidationMessage For="@(() => cliente.Nombres)" />
                         </div>
 
                         @*Direccion*@
                         <div class="col-ms">
                             <label>Dirección </label>
-                            <InputText @bind-Value="cliente.Direccion" class="form-control" />
+                            <InputText @bind-Value="cliente.Direccion" placeholder="Ingrese su dirección"
+                            class="rz-border-radius-4 shadow form-control col-4 form-control" />
                             <ValidationMessage For="@(() => cliente.Direccion)" />
                         </div>
 
                         @*Fecha*@
                         <div class="col-ms">
                             <label>Fecha </label>
-                            <InputDate @bind-Value="cliente.Fecha" class="form-control" />
+                            <InputDate @bind-Value="cliente.Fecha" 
+                            class="rz-border-radius-4 shadow form-control col-4 form-control" />
                             <ValidationMessage For="@(() => cliente.Fecha)" />
                         </div>
 
                         @*Cedula*@
                         <div class="col-ms">
                             <label>Cédula </label>
-                            <InputText @bind-Value="cliente.Cedula" class="form-control" />
+                            <InputText @bind-Value="cliente.Cedula" placeholder="Ejemplo 042-4277567-7"
+                            class="rz-border-radius-4 shadow form-control col-4 form-control" />
                             <ValidationMessage For="@(() => cliente.Cedula)" />
                         </div>
 
                         @*Email*@
                         <div class="col-ms">
                             <label>Email </label>
-                            <InputText @bind-Value="cliente.Email" class="form-control" />
+                            <InputText @bind-Value="cliente.Email" placeholder="Nombre@gmail.com"
+                            class="rz-border-radius-4 shadow form-control col-4 form-control" />
                             <ValidationMessage For="@(() => cliente.Email)" />
                         </div>
 
                         @*Telefono*@
                         <div class="col-ms">
                             <label>Teléfono </label>
-                            <InputText @bind-Value="cliente.Telefono" class="form-control" />
+                            <InputText @bind-Value="cliente.Telefono" placeholder="Ejemplo 809-875-9684"
+                            class="rz-border-radius-4 shadow form-control col-4 form-control" />
                             <ValidationMessage For="@(() => cliente.Telefono)" />
                         </div>
 
                         @*Celular*@
                         <div class="col-ms">
                             <label>Celular </label>
-                            <InputText @bind-Value="cliente.Celular" class="form-control" />
+                            <InputText @bind-Value="cliente.Celular" placeholder="Ejemplo 809-875-9684"
+                            class="rz-border-radius-4 shadow form-control col-4 form-control" />
                             <ValidationMessage For="@(() => cliente.Celular)" />
                         </div>
-
                     </div>
                 </form>
             </div>
             <div class="card-footer">
                 <div class="mb-3 text-center" display: inline-block>
-                    <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                        <i class="oi oi-file" /> Nuevo
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-primary" @onclick="Nuevo">
+                        <i class="oi oi-document" /> Nuevo
                     </button>
-                    <button type="submit" class="btn btn-lg btn-success">
-                        <i class="oi oi-document" /> Guardar
+                    <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-success">
+                        <i class="bi bi-save-fill" /> Guardar
                     </button>
-                    <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger" @onclick="Eliminar">
                         <i class="oi oi-trash" /> Eliminar
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -109,6 +114,7 @@
 
     protected async override Task OnInitializedAsync()
     {
+        cliente.Fecha = DateTime.Now;
         if (ClienteId > 0)
         {
             this.cliente.ClienteId = ClienteId;

@@ -11,7 +11,7 @@
         <div class="input-group d-flex align-items-end">
             <label>Filtro</label>
             <select class="form-control" @bind="Filtro">
-                <option value="0">Selecione una</option>
+                <option value="0">Filtrar todo</option>
                 <option value="1">ClienteId</option>
                 <option value="2">Nombres</option>
                 <option value="3">Cedula</option>
@@ -19,15 +19,16 @@
                 <option value="5">Celular</option>
                 <option value="6">Telefono</option>
                 <option value="7">Email</option>
+                <option value="8">Fecha</option>
             </select>
             <div class="col-ms">
                 <div class="input-group d-flex align-items-end">
                     <label>Buscar</label>
                     <div class="input-group">
                         <input type="text" class="form-control" @bind="Criterio" />
-                        <button type="button" class="btn btn-outline-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass"/> Buscar</button>
+                        <button type="button" class="btn btn-outline-primary" @onclick="Buscar"> <i
+                                class="oi oi-magnifying-glass" /> Buscar</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -156,6 +157,18 @@
                     if (Criterio != null)
                     {
                         lista = await clienteBLL.GetClientes(o => o.Email.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        lista = await clienteBLL.GetClientes(o => true);
+                    }
+                    break;
+
+                case "8":
+                    if (Criterio != null)
+                    {
+                        lista = await clienteBLL.GetClientes(o => o.Fecha.Day.ToString() == (Criterio) || o.Fecha.Month.ToString() == (Criterio)
+                        || o.Fecha.Year.ToString() == (Criterio));
                     }
                     else
                     {
