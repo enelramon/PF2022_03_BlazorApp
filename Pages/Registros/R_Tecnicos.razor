@@ -6,104 +6,121 @@
 
 <EditForm Model="tecnico" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-
-    <div class="card shadow-lg">
-        <div class="card-header">
-            <h3>Registro De Tecnico</h3>
-
+    <div class="rz-border-radius-4 shadow d-block p-2 border border-4 bg-white">
+        <div class="rz-border-radius-4 shadow card-header text-center">
+            <h3>Registro de Técnicos</h3>
         </div>
-        <div class="card-body">
-            @*TecnicoId*@
-            <div class="form-row align-items-center">
-                <div class="col">
-                    <div class="form-group">
-                        <label>TecnicoId</label>
-                        <div class="input-group">
-                            <InputNumber @bind-Value="tecnico.TecnicoId" class="form-control col-4" />
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">
-                                    <i class="oi oi-magnifying-glass" /> Buscar
-                                </button>
+
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <form class="row gy-3">
+                    @*TecnicoId*@
+                    <div class="form-row align-items-center">
+                        <div class="col-ms">
+                            <label>TecnicoId</label>
+                            <div class="input-group mb-3">
+                                <InputNumber @bind-Value="tecnico.TecnicoId"
+                                    class="rz-border-radius-4 shadow form-control" />
+                                <div class="input-group-append">
+                                    <div class="input-group-append">
+                                        <button type="button"
+                                            class="rz-border-radius-4 shadow form-control col-4 btn btn-primary  "
+                                            @onclick="Buscar">Buscar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        @*Nombre*@
+                        <div class="col-ms">
+                            <label>Nombres </label>
+                            <InputText @bind-Value="tecnico.Nombres" placeholder="Ingrese su nombre"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Nombres)" />
+                        </div>
+
+                        @*Dirección*@
+                        <div class="col-ms">
+                            <label>Dirección </label>
+                            <InputText @bind-Value="tecnico.Direccion" placeholder="Ingrese su dirección"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Direccion)" />
+                        </div>
+
+                        @*Fecha*@
+                        <div class="col-ms">
+                            <label>Fecha </label>
+                            <InputDate @bind-Value="tecnico.Fecha" class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Fecha)" />
+                        </div>
+
+                        @*Cédula*@
+                        <div class="col-ms">
+                            <label>Cédula </label>
+                            <InputText @bind-Value="tecnico.Cedula" placeholder="Ejemplo 123-1234567-8"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Cedula)" />
+                        </div>
+
+                        @*Email*@
+                        <div class="col-ms">
+                            <label>Email </label>
+                            <InputText @bind-Value="tecnico.Email" placeholder="Usuario@gmail.com"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Email)" />
+                        </div>
+
+                        @*Teléfono*@
+                        <div class="col-ms">
+                            <label>Teléfono </label>
+                            <InputText @bind-Value="tecnico.Telefono" placeholder="Ejemplo 123-123-1234"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Telefono)" />
+                        </div>
+
+                        @*Celular*@
+                        <div class="col-ms">
+                            <label>Celular </label>
+                            <InputText @bind-Value="tecnico.Celular" placeholder="Ejemplo 123-123-1234"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Celular)" />
+                        </div>
+                        @*Usuario*@
+                        <div class="col-ms">
+                            <label>Usuario </label>
+                            <InputText @bind-Value="tecnico.usuario" placeholder="Ingrese su usuario"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.usuario)" />
+                        </div>
+                        @*Clave*@
+                        <div class="col-ms">
+                            <label>Clave </label>
+                            <InputText @bind-Value="tecnico.Clave" placeholder="Ingrese su clave"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Clave)" />
+                        </div>
+                        
                     </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="mb-3 text-center" display: inline-block>
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-primary"
+                        @onclick="Nuevo">
+                        <i class="oi oi-document" /> Nuevo
+                    </button>
+                    <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-success">
+                        <i class="bi bi-save-fill" /> Guardar
+                    </button>
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
+                        @onclick="Eliminar">
+                        <i class="oi oi-trash" /> Eliminar
+                    </button>
                 </div>
-            </div>
-
-            @*Nombres*@
-            <div class="form-group">
-                <label>Nombre</label>
-                <InputText @bind-Value="tecnico.Nombres" class="form-control" placeholder="Nombre" />
-                <ValidationMessage For="@(() => tecnico.Nombres)" />
-            </div>
-
-            @*Direccion*@
-            <div class="form-group">
-                <label>Dirección</label>
-                <InputText @bind-Value="tecnico.Direccion" class="form-control" placeholder="Direccion" />
-                <ValidationMessage For="@(() => tecnico.Direccion)" />
-            </div>
-            @*Cedula*@
-            <div class="form-group">
-                <label>Cédula</label>
-                <InputText @bind-Value="tecnico.Cedula" class="form-control" placeholder="Cedula Ejemplo 123-1234567-8"/>
-                <ValidationMessage For="@(() => tecnico.Cedula)" />
-            </div>
-            @*Email*@
-            <div class="form-group">
-                <label>Email</label>
-                <InputText @bind-Value="tecnico.Email" class="form-control" placeholder="Email "/>
-                <ValidationMessage For="@(() => tecnico.Email)" />
-            </div>
-            @*Telefono*@
-            <div class="form-group">
-                <label>Teléfono</label>
-                <InputText @bind-Value="tecnico.Telefono" class="form-control" placeholder="Telefono ejemplo 123-123-1234" />
-                <ValidationMessage For="@(() => tecnico.Telefono)" />
-            </div>
-            @*Celular*@
-            <div class="form-group">
-                <label>Celular</label>
-                <InputText @bind-Value="tecnico.Celular" class="form-control" placeholder="Celular ejemplo 123-123-1234" />
-                <ValidationMessage For="@(() => tecnico.Celular)" />
-            </div>
-            @*usuario*@
-            <div class="form-group">
-                <label>Usuario</label>
-                <InputText @bind-Value="tecnico.usuario" class="form-control" placeholder="Usuario"/>
-                <ValidationMessage For="@(() => tecnico.usuario)" />
-            </div>
-            @*Clave*@
-            <div class="form-group">
-                <label>Clave</label>
-                <InputText type="password" @bind-Value="tecnico.Clave" class="form-control" placeholder="Clave"/>
-                <ValidationMessage For="@(() => tecnico.Clave)" />
-            </div>
-            @*Fecha*@
-            <div class="form-group">
-                <label>Fecha</label>
-                <InputDate @bind-Value="tecnico.Fecha" class="form-control" />
-                <ValidationMessage For="@(() => tecnico.Fecha)" />
-            </div>
-        </div>
-        <h1>
-            <span class="text-danger">@mensaje</span>
-        </h1>
-
-        <div class="card-footer">
-            <div class="form-group text-center" display: inline-block>
-                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                    <i class="oi oi-file" /> Nuevo
-                </button>
-                <button type="submit" class="btn btn-lg btn-success">
-                    <i class="oi oi-document" /> Guardar
-                </button>
-                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                    <i class="oi oi-trash" /> Eliminar
-                </button>
             </div>
         </div>
     </div>
+
 </EditForm>
 
 @code
