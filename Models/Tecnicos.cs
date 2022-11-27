@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-public class técnicos
+public class Tecnicos
 {
     [Key]
-    public int técnicoId { get; set; }
+    public int TecnicoId { get; set; }
     [Required(ErrorMessage = "Favor de Ingresar el nombre.")]
     public string? Nombres { get; set; }
     [Required(ErrorMessage = "Favor de Ingresar la direccion.")]

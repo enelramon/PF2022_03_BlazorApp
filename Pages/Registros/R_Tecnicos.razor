@@ -1,25 +1,25 @@
-@page "/Registro técnico"
-@page "/técnico/{técnicoId:int}"
+@page "/Registro tecnico"
+@page "/tecnico/{tecnicoId:int}"
 
-@inject técnicosBLL técnicosBLL
+@inject TecnicosBLL tecnicosBLL
 @inject NotificationService notificationService
 
-<EditForm Model="técnico" OnValidSubmit="Guardar">
+<EditForm Model="tecnico" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
     <div class="card shadow-lg">
         <div class="card-header">
-            <h3>Registro De técnico</h3>
+            <h3>Registro De Tecnico</h3>
 
         </div>
         <div class="card-body">
-            @*técnicoId*@
+            @*TecnicoId*@
             <div class="form-row align-items-center">
                 <div class="col">
                     <div class="form-group">
-                        <label>técnicoId</label>
+                        <label>TecnicoId</label>
                         <div class="input-group">
-                            <InputNumber @bind-Value="técnico.técnicoId" class="form-control col-4" />
+                            <InputNumber @bind-Value="tecnico.TecnicoId" class="form-control col-4" />
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">
                                     <i class="oi oi-magnifying-glass" /> Buscar
@@ -31,59 +31,59 @@
             </div>
 
             @*Nombres*@
-            <div class="btn-bg">
+            <div class="form-group">
                 <label>Nombre</label>
-                <InputText @bind-Value="técnico.Nombres" class="form-control" placeholder="Nombre" />
-                <ValidationMessage For="@(() => técnico.Nombres)" />
+                <InputText @bind-Value="tecnico.Nombres" class="form-control" placeholder="Nombre" />
+                <ValidationMessage For="@(() => tecnico.Nombres)" />
             </div>
 
             @*Direccion*@
             <div class="form-group">
                 <label>Dirección</label>
-                <InputText @bind-Value="técnico.Direccion" class="form-control" placeholder="Dirección" />
-                <ValidationMessage For="@(() => técnico.Direccion)" />
+                <InputText @bind-Value="tecnico.Direccion" class="form-control" placeholder="Direccion" />
+                <ValidationMessage For="@(() => tecnico.Direccion)" />
             </div>
             @*Cedula*@
             <div class="form-group">
                 <label>Cédula</label>
-                <InputText @bind-Value="técnico.Cedula" class="form-control" placeholder="Cédula Ejemplo 123-1234567-8"/>
-                <ValidationMessage For="@(() => técnico.Cedula)" />
+                <InputText @bind-Value="tecnico.Cedula" class="form-control" placeholder="Cedula Ejemplo 123-1234567-8"/>
+                <ValidationMessage For="@(() => tecnico.Cedula)" />
             </div>
             @*Email*@
             <div class="form-group">
                 <label>Email</label>
-                <InputText @bind-Value="técnico.Email" class="form-control" placeholder="Email "/>
-                <ValidationMessage For="@(() => técnico.Email)" />
+                <InputText @bind-Value="tecnico.Email" class="form-control" placeholder="Email "/>
+                <ValidationMessage For="@(() => tecnico.Email)" />
             </div>
             @*Telefono*@
             <div class="form-group">
                 <label>Teléfono</label>
-                <InputText @bind-Value="técnico.Telefono" class="form-control" placeholder="Teléfono ejemplo 123-123-1234" />
-                <ValidationMessage For="@(() => técnico.Telefono)" />
+                <InputText @bind-Value="tecnico.Telefono" class="form-control" placeholder="Telefono ejemplo 123-123-1234" />
+                <ValidationMessage For="@(() => tecnico.Telefono)" />
             </div>
             @*Celular*@
             <div class="form-group">
                 <label>Celular</label>
-                <InputText @bind-Value="técnico.Celular" class="form-control" placeholder="Celular ejemplo 123-123-1234" />
-                <ValidationMessage For="@(() => técnico.Celular)" />
+                <InputText @bind-Value="tecnico.Celular" class="form-control" placeholder="Celular ejemplo 123-123-1234" />
+                <ValidationMessage For="@(() => tecnico.Celular)" />
             </div>
             @*usuario*@
             <div class="form-group">
                 <label>Usuario</label>
-                <InputText @bind-Value="técnico.usuario" class="form-control" placeholder="Usuario"/>
-                <ValidationMessage For="@(() => técnico.usuario)" />
+                <InputText @bind-Value="tecnico.usuario" class="form-control" placeholder="Usuario"/>
+                <ValidationMessage For="@(() => tecnico.usuario)" />
             </div>
             @*Clave*@
             <div class="form-group">
                 <label>Clave</label>
-                <InputText type="password" @bind-Value="técnico.Clave" class="form-control" placeholder="Clave"/>
-                <ValidationMessage For="@(() => técnico.Clave)" />
+                <InputText type="password" @bind-Value="tecnico.Clave" class="form-control" placeholder="Clave"/>
+                <ValidationMessage For="@(() => tecnico.Clave)" />
             </div>
             @*Fecha*@
             <div class="form-group">
                 <label>Fecha</label>
-                <InputDate @bind-Value="técnico.Fecha" class="form-control" />
-                <ValidationMessage For="@(() => técnico.Fecha)" />
+                <InputDate @bind-Value="tecnico.Fecha" class="form-control" />
+                <ValidationMessage For="@(() => tecnico.Fecha)" />
             </div>
         </div>
         <h1>
@@ -109,30 +109,30 @@
 @code
 {
     [Parameter]
-    public int técnicoId { get; set; }
-    public técnicos técnico { get; set; } = new técnicos();
+    public int TecnicoId { get; set; }
+    public Tecnicos tecnico { get; set; } = new Tecnicos();
     public String mensaje { get; set; } = "";
 
-    private List<técnicos> Listatécnicos { get; set; } = new List<técnicos>();
+    private List<Tecnicos> ListaTecnicos { get; set; } = new List<Tecnicos>();
 
     protected async override Task OnInitializedAsync()
     {
-        Listatécnicos = await técnicosBLL.GetList(t => true);
+        ListaTecnicos = await tecnicosBLL.GetList(t => true);
 
-        if (técnicoId > 0)
+        if (TecnicoId > 0)
         {
-            this.técnico.técnicoId = técnicoId;
+            this.tecnico.TecnicoId = TecnicoId;
             await this.Buscar();
         }
     }
     private async Task Buscar()
     {
-        if (técnico.técnicoId > 0)
+        if (tecnico.TecnicoId > 0)
         {
-            var encontrado = await técnicosBLL.Buscar(técnico.técnicoId);
+            var encontrado = await tecnicosBLL.Buscar(tecnico.TecnicoId);
 
             if (encontrado != null)
-                this.técnico = encontrado;
+                this.tecnico = encontrado;
         }
         else
         {
@@ -140,7 +140,7 @@
             new NotificationMessage
             {
                 Severity = NotificationSeverity.Warning,
-                Summary = "No Existe este técnico"
+                Summary = "No Existe este tecnico"
             });
         }
     }
@@ -148,13 +148,13 @@
     public void Nuevo()
     {
         mensaje = "";
-        técnico = new técnicos();
+        tecnico = new Tecnicos();
     }
 
     public async Task Guardar()
     {
 
-        bool guardo = await técnicosBLL.Guardar(técnico);
+        bool guardo = await tecnicosBLL.Guardar(tecnico);
 
         if (guardo)
         {
@@ -173,7 +173,7 @@
     {
         bool elimino;
 
-        elimino = await técnicosBLL.Eliminacion(técnico);
+        elimino = await tecnicosBLL.Eliminacion(tecnico);
         if (elimino)
         {
             Nuevo();
