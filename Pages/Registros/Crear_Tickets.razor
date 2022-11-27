@@ -5,7 +5,7 @@
 @inject ClientesBLL clienteBLL
 @inject PrioridadesBLL prioridadesBLL
 @inject SistemasBLL sistemasBLL
-@inject TecnicosBLL tecnicosBLL
+@inject técnicosBLL técnicosBLL
 @inject NotificationService notificacion
 
 
@@ -48,7 +48,7 @@
                         <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="ticket.ClienteId">
                             @foreach (Clientes cliente in listacliente)
                             {
-                                <option value="@cliente.ClienteId">@cliente.Nombres</option>
+                                    <option value="@cliente.ClienteId">@cliente.Nombres</option>
                             }
                         </InputSelect>
                     </div>
@@ -57,7 +57,7 @@
                         <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="ticket.SistemaId">
                             @foreach (Sistemas sistema in listasistemas)
                             {
-                                <option value="@sistema.SistemaID">@sistema.Descripcion</option>
+                                    <option value="@sistema.SistemaID">@sistema.Descripcion</option>
                             }
                         </InputSelect>
                         <ValidationMessage For="@(()=> ticket.SistemaId)" />
@@ -69,7 +69,7 @@
                         <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="ticket.PrioridadId">
                             @foreach (Prioridades prioridad in listaPrioridad)
                             {
-                                <option value="@prioridad.PrioridadId">@prioridad.Descripcion</option>
+                                    <option value="@prioridad.PrioridadId">@prioridad.Descripcion</option>
                             }
                         </InputSelect>
                         <ValidationMessage For="@(()=> ticket.PrioridadId)" />
@@ -94,14 +94,14 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Tecnico id"> TécnicoId </label>
-                        <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="@ticket.TecnicoId">
-                            @foreach (Tecnicos tecnico in listatecnicos)
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="técnico id"> TécnicoId </label>
+                        <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="@ticket.técnicoId">
+                            @foreach (técnicos técnico in listatécnicos)
                             {
-                                <option value="@tecnico.TecnicoId">@tecnico.Nombres</option>
+                                    <option value="@técnico.técnicoId">@técnico.Nombres</option>
                             }
                         </InputSelect>
-                        <ValidationMessage For="@(()=> ticket.TecnicoId)" />
+                        <ValidationMessage For="@(()=> ticket.técnicoId)" />
                     </div>
                     <div class="mb-3 col-6">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Estado </label>
@@ -143,7 +143,7 @@
     public List<Clientes> listacliente { get; set; } = new List<Clientes>();
     public List<Sistemas> listasistemas { get; set; } = new List<Sistemas>();
     public List<Prioridades> listaPrioridad { get; set; } = new List<Prioridades>();
-    public List<Tecnicos> listatecnicos { get; set; } = new List<Tecnicos>();
+    public List<técnicos> listatécnicos { get; set; } = new List<técnicos>();
 
 
     protected override async Task OnInitializedAsync()
@@ -152,7 +152,7 @@
         listacliente = await clienteBLL.GetClientes(c => true);
         listasistemas = await sistemasBLL.GetSistemas(s => true);
         listaPrioridad = prioridadesBLL.GetList(p => true);
-        listatecnicos = await tecnicosBLL.GetList(t => true);
+        listatécnicos = await técnicosBLL.GetList(t => true);
 
         if (ticketId > 0)
         {

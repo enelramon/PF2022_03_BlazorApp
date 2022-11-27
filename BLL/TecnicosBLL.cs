@@ -2,59 +2,59 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using PF2022_03_BlazorApp.DAL;
 
-public class TecnicosBLL
+public class técnicosBLL
 {
     private Contexto _contexto;
 
-    public TecnicosBLL(Contexto contexto)
+    public técnicosBLL(Contexto contexto)
     {
         _contexto = contexto;
     }
-    public async Task<bool> Existe(int tecnicoId)
+    public async Task<bool> Existe(int técnicoId)
     {
-        return await _contexto.Tecnicos.AnyAsync(o => o.TecnicoId == tecnicoId);
+        return await _contexto.técnicos.AnyAsync(o => o.técnicoId == técnicoId);
     }
-    private async Task<bool> Insertar(Tecnicos tecnico)
+    private async Task<bool> Insertar(técnicos técnico)
     {
-        _contexto.Tecnicos.Add(tecnico);
+        _contexto.técnicos.Add(técnico);
         return await _contexto.SaveChangesAsync() > 0;
     }
-    private async Task<bool> Modificar(Tecnicos tecnico)
+    private async Task<bool> Modificar(técnicos técnico)
     {
-        _contexto.Entry(tecnico).State = EntityState.Modified;
+        _contexto.Entry(técnico).State = EntityState.Modified;
         return await _contexto.SaveChangesAsync() > 0;
     }
-    public async Task<bool> Guardar(Tecnicos tecnico)
+    public async Task<bool> Guardar(técnicos técnico)
     {
-        if (!await Existe(tecnico.TecnicoId))
-            return await this.Insertar(tecnico);
+        if (!await Existe(técnico.técnicoId))
+            return await this.Insertar(técnico);
         else
-            return await this.Modificar(tecnico);
+            return await this.Modificar(técnico);
     }
-    public async Task<bool> Eliminar(Tecnicos tecnico)
+    public async Task<bool> Eliminar(técnicos técnico)
     {
-        _contexto.Entry(tecnico).State = EntityState.Deleted;
+        _contexto.Entry(técnico).State = EntityState.Deleted;
         return await _contexto.SaveChangesAsync() > 0;
     }
-    public async Task<bool> Eliminacion(Tecnicos tecnicos)
+    public async Task<bool> Eliminacion(técnicos técnicos)
     {
         bool elimino;
-        if (await Existe(tecnicos.TecnicoId))
-            return elimino = true && await this.Eliminar(tecnicos);
+        if (await Existe(técnicos.técnicoId))
+            return elimino = true && await this.Eliminar(técnicos);
         else
             return elimino = false;
     }
-    public async Task<Tecnicos?> Buscar(int tecnicoId)
+    public async Task<técnicos?> Buscar(int técnicoId)
     {
-        return await _contexto.Tecnicos
-            .Where(o => o.TecnicoId == tecnicoId)
+        return await _contexto.técnicos
+            .Where(o => o.técnicoId == técnicoId)
             .AsTracking()
             .SingleOrDefaultAsync();
 
     }
-    public async Task<List<Tecnicos>> GetList(Expression<Func<Tecnicos, bool>> Criterio)
+    public async Task<List<técnicos>> GetList(Expression<Func<técnicos, bool>> Criterio)
     {
-        return await _contexto.Tecnicos
+        return await _contexto.técnicos
             .AsTracking()
             .Where(Criterio)
             .ToListAsync();
