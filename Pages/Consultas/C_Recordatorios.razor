@@ -3,7 +3,7 @@
 
 <EditForm Model="recordatorios">
     <DataAnnotationsValidator />
-    <div class="shadow d-block p-2 border border-4">
+    <div class="shadow bg-white rz-border-radius-4 shadow d-block p-2 border border-4">
         <div class="card-header text-center">
             <h3>Consulta Recordarorios</h3>
         </div>
@@ -28,7 +28,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" @bind="Criterio" />
                                 <div class="input-group-append">
-                                    <button type="button" class="input-group-text btn btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /></button>
+                                    <button type="button" class="input-group-text btn btn-primary bi bi-binoculars" @onclick="Buscar">Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -36,9 +36,9 @@
                 </div>
             </div>
         </form>
-        <table class="table table-bordered border-primary">
+        <table class="table table-striped border-primary">
             <thead class="thead">
-                <tr class="table-info shadow border border-3 text-center border-primary">
+                <tr class="table-info shadow text-center border-primary">
                     <th>RecordatorioId</th>
                     <th>Dia</th>
                     <th>FroximaFecha</th>
@@ -81,9 +81,6 @@
         {
             switch (Filtro)
             {
-                case "0":
-                    recordatorios = await recordatoriosBLL.GetRecordatorios(r => true);
-                    break;
                 case "1":
                     recordatorios = await recordatoriosBLL.GetRecordatorios(r => r.RecordatorioId.ToString() == (Criterio));
                     break;
@@ -102,8 +99,5 @@
         {
             recordatorios = await recordatoriosBLL.GetRecordatorios(r => true);
         }
-    }
-    public async Task Clear(){
-        recordatorio = new Recordatorios();
     }
 }
