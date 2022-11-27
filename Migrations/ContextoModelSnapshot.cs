@@ -140,10 +140,10 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<int>("SistemaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TecnicoId")
+                    b.Property<int>("TipoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TipoId")
+                    b.Property<int>("técnicoId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("TicketId");
@@ -151,9 +151,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.ToTable("tickets");
                 });
 
-            modelBuilder.Entity("Tecnicos", b =>
+            modelBuilder.Entity("técnicos", b =>
                 {
-                    b.Property<int>("TecnicoId")
+                    b.Property<int>("técnicoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -162,6 +162,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Celular")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Clave")
@@ -173,6 +174,10 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nombres")
@@ -180,15 +185,16 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("usuario")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("TecnicoId");
+                    b.HasKey("técnicoId");
 
-                    b.ToTable("Tecnicos");
+                    b.ToTable("técnicos");
                 });
 #pragma warning restore 612, 618
         }

@@ -43,7 +43,7 @@ namespace PF2022_03_BlazorApp.Migrations
                     PrioridadId = table.Column<int>(type: "INTEGER", nullable: false),
                     Asunto = table.Column<string>(type: "TEXT", nullable: false),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    técnicoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Estado = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -84,7 +84,7 @@ namespace PF2022_03_BlazorApp.Migrations
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     PrioridadId = table.Column<int>(type: "INTEGER", nullable: false),
                     SistemaId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    técnicoId = table.Column<int>(type: "INTEGER", nullable: false),
                     TipoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

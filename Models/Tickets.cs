@@ -29,7 +29,7 @@ namespace PF2022_03_BlazorApp.Models
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "El Id del Técnico es requirido")]
-        public int TecnicoId { get; set; }
+        public int técnicoId { get; set; }
 
         public string Estado { get; set; }
     }

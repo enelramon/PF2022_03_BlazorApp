@@ -30,7 +30,7 @@
                             <option value="1">Estado</option>
                             <option value="2">TicketId</option>
                             <option value="3">PrioridadId</option>
-                            <option value="4">TecnicoId</option>
+                            <option value="4">técnicoId</option>
                         </select>
                     </div>
                     <div class="col">
@@ -61,7 +61,7 @@
                         <th>PrioridadId</th>
                         <th>Asunto</th>
                         <th>Descripcion</th>
-                        <th>TecnicoId</th>
+                        <th>técnicoId</th>
                         <th>Estado</th>
                         <th></th>
                     </tr>
@@ -69,19 +69,19 @@
                 <tbody>
                     @foreach (var item in lista)
                     {
-                        <tr>
-                            <td>@item.TicketId</td>
-                            <td>@item.Fecha</td>
-                            <td>@item.ClienteId</td>
-                            <td>@item.SistemaId</td>
-                            <td>@item.TipoId</td>
-                            <td>@item.PrioridadId</td>
-                            <td>@item.Asunto</td>
-                            <td>@item.Descripcion</td>
-                            <td>@item.TecnicoId</td>
-                            <td>@item.Estado</td>
-                            <td><a href="crearticket/@item.TicketId">Ver</a></td>
-                        </tr>
+                            <tr>
+                                <td>@item.TicketId</td>
+                                <td>@item.Fecha</td>
+                                <td>@item.ClienteId</td>
+                                <td>@item.SistemaId</td>
+                                <td>@item.TipoId</td>
+                                <td>@item.PrioridadId</td>
+                                <td>@item.Asunto</td>
+                                <td>@item.Descripcion</td>
+                                <td>@item.técnicoId</td>
+                                <td>@item.Estado</td>
+                                <td><a href="crearticket/@item.TicketId">Ver</a></td>
+                            </tr>
                     }
                 </tbody>
             </table>
@@ -117,7 +117,7 @@
                     lista = await ticketsBLL.GetTickets(t => t.PrioridadId.ToString() == (Criterio));
                     break;
                 case "4":
-                    lista = await ticketsBLL.GetTickets(t => t.TecnicoId.ToString() == (Criterio));
+                    lista = await ticketsBLL.GetTickets(t => t.técnicoId.ToString() == (Criterio));
                     break;
             }
         }

@@ -26,7 +26,7 @@ builder.Services.AddScoped<PrioridadesBLL>();
 builder.Services.AddScoped<TicketsBLL>();
 builder.Services.AddScoped<RecordatoriosBLL>();
 builder.Services.AddScoped<SistemasBLL>();
-builder.Services.AddScoped<TecnicosBLL>();
+builder.Services.AddScoped<técnicosBLL>();
 
 builder.Services.AddScoped<ICounterViewModel, CounterViewModel>();
 

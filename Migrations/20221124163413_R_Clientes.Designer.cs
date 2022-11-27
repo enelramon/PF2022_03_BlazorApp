@@ -137,7 +137,7 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<int>("SistemaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TecnicoId")
+                    b.Property<int>("técnicoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("TipoId")
@@ -148,9 +148,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.ToTable("tikets");
                 });
 
-            modelBuilder.Entity("Tecnicos", b =>
+            modelBuilder.Entity("técnicos", b =>
                 {
-                    b.Property<int>("TecnicoId")
+                    b.Property<int>("técnicoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -183,9 +183,9 @@ namespace PF2022_03_BlazorApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("TecnicoId");
+                    b.HasKey("técnicoId");
 
-                    b.ToTable("Tecnicos");
+                    b.ToTable("técnicos");
                 });
 #pragma warning restore 612, 618
         }
