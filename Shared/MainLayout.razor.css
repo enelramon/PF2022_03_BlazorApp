@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     background: var(--color-darkblue);
-    background-image: linear-gradient(rgba(62, 170, 202, 0.596), rgba(68, 68, 75, 0.671) ), url(https://www.upn.edu.pe/sites/default/files/media/posgrado-maestria/ingenieria-de-sistemas.jpg );
+    background-image: linear-gradient(rgba(62, 169, 202, 0.705), rgba(68, 68, 75, 0.671) ), url(https://www.upn.edu.pe/sites/default/files/media/posgrado-maestria/ingenieria-de-sistemas.jpg );
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center; 
@@ -14,7 +14,7 @@ main {
 }
 
 .sidebar {
-    background-image: linear-gradient(rgb(34, 30, 30), rgba(112, 163, 192, 0.521) ),url(https://www.upn.edu.pe/sites/default/files/media/posgrado-maestria/ingenieria-de-sistemas.jpg );
+    background-image: linear-gradient(rgba(57, 98, 122, 0.897),rgb(73, 71, 71) ),url(https://www.upn.edu.pe/sites/default/files/media/posgrado-maestria/ingenieria-de-sistemas.jpg );
 }
 
 .top-row {
