@@ -12,24 +12,33 @@
 
 
         <div class="card-body">
+            <label>Introduzca un Rango de Fecha</label>
+            <div class=" input-group mb-4">
+                <input class="rz-border-radius-4 shadow form-control" type="date" @bind="fecha" />
+                <input class="rz-border-radius-4 shadow form-control" type="date" @bind="fecha2" />
+                <button type="button" class="  rz-border-radius-4 shadow btn btn-primary input-group-text"
+                        @onclick="Buscar">
+                    <i class="oi oi-magnifying-glass" />
+                </button>
+            </div>
             <form>
-
                 <div class="row">
                     <div class="col">
                         <label>Filtro</label>
-                        <select class="form-control" @bind="Filtro">
+                        <select class=" rz-border-radius-4 shadow form-control" @bind="Filtro">
                             <option>Elija una Opción</option>
                             <option value="1">Estado</option>
                             <option value="2">TicketId</option>
                             <option value="3">PrioridadId</option>
+                            <option value="4">TecnicoId</option>
                         </select>
                     </div>
                     <div class="col">
                         <div class="input-group d-flex align-items-end">
                             <label>Buscar</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" @bind="Criterio" />
-                                <button type="button" class="btn btn-primary input-group-text"
+                                <input type="text" class=" rz-border-radius-4 shadow form-control" @bind="Criterio" />
+                                <button type="button" class="  rz-border-radius-4 shadow btn btn-primary input-group-text"
                                         @onclick="Buscar">
                                     <i class="oi oi-magnifying-glass" />
                                 </button>
@@ -41,7 +50,7 @@
             </form>
 
 
-            <table class="table table-bordered border-primary">
+            <table class="table table-primary table-striped">
                 <thead class="thead-green">
                     <tr class="table-info">
                         <th>TicketsId</th>
@@ -85,6 +94,8 @@
     [Parameter]
     public Tickets ticket { get; set; } = new Tickets();
     public List<Tickets> lista { get; set; } = new List<Tickets>();
+    public DateTime fecha { get; set; }
+    public DateTime fecha2 { get; set; }
 
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
@@ -105,6 +116,9 @@
                 case "3":
                     lista = await ticketsBLL.GetTickets(t => t.PrioridadId.ToString() == (Criterio));
                     break;
+                case "4":
+                    lista = await ticketsBLL.GetTickets(t => t.TecnicoId.ToString() == (Criterio));
+                    break;
             }
         }
         else
@@ -112,5 +126,9 @@
             lista = await ticketsBLL.GetTickets(t => true);
         }
 
+    }
+    public async Task BuscarFecha()
+    {
+        lista = await ticketsBLL.GetTickets(v => v.Fecha.Date >= fecha.Date || v.Fecha.Date <= fecha2.Date);
     }
 }

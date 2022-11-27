@@ -12,13 +12,13 @@
 <EditForm Model="ticket" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
-    <div class="card shadow-lg">
+    <div class="rz-border-radius-4 shadow  card shadow-lg">
         <div class="d-block p-2 border border-4">
-            <div class="card-header">
+            <div class="rz-border-radius-4 shadow  card-header">
                 <h1>Registro de Tickets</h1>
             </div>
 
-            <div class="border border-4 card card-body">
+            <div class=" rz-border-radius-4 shadow border border-4 card card-body">
 
                 @*TicketId*@
                 <div class="form-row align-items-center">
@@ -26,8 +26,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TicketId </label>
                             <div class="input-group">
-                                <InputNumber @bind-Value="ticket.TicketId" class="form-control col-4" />
-                                <button type="button" class="btn btn-primary input-group-text"
+                                <InputNumber @bind-Value="ticket.TicketId" class=" rz-border-radius-4 shadow form-control col-4" placeholder="Ingrese un Id" />
+                                <button type="button" class="rz-border-radius-4 shadow  btn btn-primary input-group-text"
                                         @onclick="Buscar">
                                     <i class="oi oi-magnifying-glass" />
                                 </button>
@@ -40,12 +40,12 @@
                 <div class="row">
                     <div class="mb-3 col-4">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Fecha </label>
-                        <InputDate class="form-control" @bind-Value="ticket.Fecha" />
+                        <InputDate class=" rz-border-radius-4 shadow form-control" @bind-Value="ticket.Fecha"  />
                         <ValidationMessage For="@(()=> ticket.Fecha)" />
                     </div>
                     <div class="mb-3 col-4">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> ClienteId </label>
-                        <InputSelect class="form-select" @bind-Value="ticket.ClienteId">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Cliente Id"> ClienteId </label>
+                        <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="ticket.ClienteId">
                             @foreach (Clientes cliente in listacliente)
                             {
                                 <option value="@cliente.ClienteId">@cliente.Nombres</option>
@@ -53,8 +53,8 @@
                         </InputSelect>
                     </div>
                     <div class="mb-3 col-4">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> SistemaId </label>
-                        <InputSelect class="form-select" @bind-Value="ticket.SistemaId">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Sistema Id"> SistemaId </label>
+                        <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="ticket.SistemaId">
                             @foreach (Sistemas sistema in listasistemas)
                             {
                                 <option value="@sistema.SistemaID">@sistema.Descripcion</option>
@@ -65,8 +65,8 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> PrioridadId </label>
-                        <InputSelect class="form-select" @bind-Value="ticket.PrioridadId">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Prioridad Id"> PrioridadId </label>
+                        <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="ticket.PrioridadId">
                             @foreach (Prioridades prioridad in listaPrioridad)
                             {
                                 <option value="@prioridad.PrioridadId">@prioridad.Descripcion</option>
@@ -75,27 +75,27 @@
                         <ValidationMessage For="@(()=> ticket.PrioridadId)" />
                     </div>
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TipoId </label>
-                        <InputNumber class="form-control" @bind-Value="ticket.TipoId" />
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Tipo Id"> TipoId </label>
+                        <InputNumber class="rz-border-radius-4 shadow form-control" @bind-Value="ticket.TipoId" />
                         <ValidationMessage For="@(()=> ticket.TipoId)" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Asunto </label>
-                        <InputTextArea class="form-control" @bind-Value="ticket.Asunto" />
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Ingrese un Asunto"> Asunto </label>
+                        <InputTextArea class="rz-border-radius-4 shadow form-control" @bind-Value="ticket.Asunto" />
                         <ValidationMessage For="@(()=> ticket.Asunto)" />
                     </div>
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Descripción </label>
-                        <InputTextArea class="form-control" @bind-Value="ticket.Descripcion" />
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="De una breve Descripción"> Descripción </label>
+                        <InputTextArea class="rz-border-radius-4 shadow form-control" @bind-Value="ticket.Descripcion" />
                         <ValidationMessage For="@(()=> ticket.Descripcion)" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> TécnicoId </label>
-                        <InputSelect class="form-select" @bind-Value="@ticket.TecnicoId">
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Tecnico id"> TécnicoId </label>
+                        <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="@ticket.TecnicoId">
                             @foreach (Tecnicos tecnico in listatecnicos)
                             {
                                 <option value="@tecnico.TecnicoId">@tecnico.Nombres</option>
@@ -105,20 +105,29 @@
                     </div>
                     <div class="mb-3 col-6">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Estado </label>
-                        <InputText readonly="true" class="form-control" @bind-Value="ticket.Estado" />
+                        <InputText readonly="true" class="rz-border-radius-4 shadow form-control" @bind-Value="ticket.Estado" />
                         <ValidationMessage For="@(()=> ticket.Estado)" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-footer d-flex justify-content-center">
+    <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
         <div class="btn-group" role="group">
-            <BSButton class="border border-3" Color="BSColor.Primary" @onclick="Nuevo"><i class="oi oi-document" /> Nuevo</BSButton>
-            <button type="submit" class="btn btn-lg btn-success">
-                <i class="oi oi-document" /> Guardar
+            <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-success"
+                    @onclick="Nuevo">
+                <i class="oi oi-pencil" />
+                Nuevo
             </button>
-            <BSButton class="border border-3" Color="BSColor.Danger" @onclick="Eliminar"><i class="oi oi-trash" /> Eliminar</BSButton>
+            <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-primary">
+                <i class="oi oi-document" />
+                Guardar
+            </button>
+            <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
+                    @onclick="Eliminar">
+                <i class="oi oi-trash" />
+                Eliminar
+            </button>
         </div>
     </div>
 </EditForm>
@@ -180,7 +189,7 @@
         else
         {
 
-            ticket.Estado = "En Proceso";
+            ticket.Estado = "Pendiente";
             guardo = await ticketsbll.Guardar(ticket);
 
             if (guardo)
