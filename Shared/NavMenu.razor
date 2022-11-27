@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Proyecto Aplicada1</a>
+        <a class="navbar-brand" href="">FINAL PROJECT</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,7 +10,7 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
          <RadzenPanelMenu class="rz-shadow-3">
-            <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
+            <RadzenPanelMenuItem class="bg-info" Text="Registros" Icon="app_registration">
                 <RadzenPanelMenuItem Text="Cliente" Path="R_Clientes" Icon="account_circle" />
                 <RadzenPanelMenuItem Text="Técnico" Path="Registro Técnico" Icon="engineering" />
                 <RadzenPanelMenuItem Text="Tickets" Path="ticket" Icon="view_agenda" />
@@ -19,7 +19,7 @@
                 <RadzenPanelMenuItem Text="Sistemas" Path="sistema" Icon=" computer" />
             </RadzenPanelMenuItem>
 
-            <RadzenPanelMenuItem Text="Consultas" Icon="screen_search_desktop">
+            <RadzenPanelMenuItem class="bg-info" Text="Consultas" Icon="screen_search_desktop">
                 <RadzenPanelMenuItem Text="Clientes" Path="C_Clientes" Icon="groups" />
                 <RadzenPanelMenuItem Text="Técnicos" Path="Consulta Técnico" Icon="groups" />
                 <RadzenPanelMenuItem Text="Prioridades" Path="C_Prioridades" Icon="low_priority" />
