@@ -7,64 +7,67 @@
             <h4>Consulta de Clientes</h4>
         </div>
     </div>
-    <form>
-        <div class="input-group d-flex align-items-end">
-            <label>Filtro</label>
-            <select class="form-control" @bind="Filtro">
-                <option value="0">Filtrar todo</option>
-                <option value="1">ClienteId</option>
-                <option value="2">Nombres</option>
-                <option value="3">Cedula</option>
-                <option value="4">Dirrecion</option>
-                <option value="5">Celular</option>
-                <option value="6">Telefono</option>
-                <option value="7">Email</option>
-                <option value="8">Fecha</option>
-            </select>
-            <div class="col-ms">
-                <div class="input-group d-flex align-items-end">
-                    <label>Buscar</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" @bind="Criterio" />
-                        <button type="button" class="btn btn-outline-primary" @onclick="Buscar"> <i
-                                class="oi oi-magnifying-glass" /> Buscar</button>
+    <div class="card-body">
+        <form>
+            <div class="row">
+                <div class="col">
+                    <label>Filtro</label>
+                    <select class="form-control" @bind="Filtro">
+                        <option value="0">Filtrar todo</option>
+                        <option value="1">ClienteId</option>
+                        <option value="2">Nombres</option>
+                        <option value="3">Cédula</option>
+                        <option value="4">Dirreción</option>
+                        <option value="5">Celular</option>
+                        <option value="6">Teléfono</option>
+                        <option value="7">Email</option>
+                        <option value="8">Fecha</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <div class="input-group d-flex align-items-end">
+                        <label>Buscar</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" @bind="Criterio" />
+                            <button type="button" class="btn btn-info" @onclick="Buscar">
+                                <i class="oi oi-magnifying-glass" /> Buscar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-    <table class="table table-striped table-hover mt-4 table-striped" style="cursor: pointer;">
-        <thead class="thead-green">
-            <tr class="table-info">
-                <th>ClienteId</th>
-                <th>Nombres</th>
-                <th>Dirección</th>
-                <th>Fecha</th>
-                <th>Cédula</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Celular</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (var item in lista)
-            {
-                <tr>
-                    <td>@item.ClienteId</td>
-                    <td>@item.Nombres</td>
-                    <td>@item.Direccion</td>
-                    <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
-                    <td>@item.Cedula</td>
-                    <td>@item.Email</td>
-                    <td>@item.Telefono</td>
-                    <td>@item.Celular </td>
-                    <td><a href="R_Clientes/@item.ClienteId.">Ver</a></td>
+        <table class="table table-striped table-hover mt-4 table-striped" style="cursor: pointer;">
+            <thead class="thead-green">
+                <tr class="table-info">
+                    <th>ClienteId</th>
+                    <th>Nombres</th>
+                    <th>Dirección</th>
+                    <th>Fecha</th>
+                    <th>Cédula</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Celular</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    <tr>
+                        <td>@item.ClienteId</td>
+                        <td>@item.Nombres</td>
+                        <td>@item.Direccion</td>
+                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Cedula</td>
+                        <td>@item.Email</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Celular </td>
+                        <td><a href="R_Clientes/@item.ClienteId">Ver</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </EditForm>
 
 @code {
