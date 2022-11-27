@@ -11,8 +11,8 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221126015859_Recordatorios")]
-    partial class Recordatorios
+    [Migration("20221127195053_Tecnicos")]
+    partial class Tecnicos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,10 +142,10 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<int>("SistemaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("técnicoId")
+                    b.Property<int>("TipoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TipoId")
+                    b.Property<int>("técnicoId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("TicketId");
@@ -164,6 +164,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Celular")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Clave")
@@ -175,6 +176,10 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nombres")
@@ -182,6 +187,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("usuario")

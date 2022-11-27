@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PF2022_03_BlazorApp.Migrations
 {
-    public partial class R_Clientes : Migration
+    public partial class Tecnicos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,9 +48,10 @@ namespace PF2022_03_BlazorApp.Migrations
                 {
                     RecordatorioId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: true),
+                    Descripción = table.Column<string>(type: "TEXT", nullable: false),
                     Dia = table.Column<int>(type: "INTEGER", nullable: false),
-                    FroximaFecha = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    FroximaFecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,11 +80,12 @@ namespace PF2022_03_BlazorApp.Migrations
                     Nombres = table.Column<string>(type: "TEXT", nullable: false),
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
                     Cedula = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Telefono = table.Column<string>(type: "TEXT", nullable: true),
-                    Celular = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Telefono = table.Column<string>(type: "TEXT", nullable: false),
+                    Celular = table.Column<string>(type: "TEXT", nullable: false),
                     usuario = table.Column<string>(type: "TEXT", nullable: false),
-                    Clave = table.Column<string>(type: "TEXT", nullable: false)
+                    Clave = table.Column<string>(type: "TEXT", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,10 +93,10 @@ namespace PF2022_03_BlazorApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tikets",
+                name: "tickets",
                 columns: table => new
                 {
-                    TiketId = table.Column<int>(type: "INTEGER", nullable: false)
+                    TicketId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
@@ -104,11 +106,11 @@ namespace PF2022_03_BlazorApp.Migrations
                     Asunto = table.Column<string>(type: "TEXT", nullable: false),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
                     técnicoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Estado = table.Column<string>(type: "TEXT", nullable: true)
+                    Estado = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tikets", x => x.TiketId);
+                    table.PrimaryKey("PK_tickets", x => x.TicketId);
                 });
         }
 
@@ -130,7 +132,7 @@ namespace PF2022_03_BlazorApp.Migrations
                 name: "técnicos");
 
             migrationBuilder.DropTable(
-                name: "tikets");
+                name: "tickets");
         }
     }
 }
