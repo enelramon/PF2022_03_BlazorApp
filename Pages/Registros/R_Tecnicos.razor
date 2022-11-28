@@ -1,138 +1,155 @@
-@page "/Registro técnico"
-@page "/técnico/{técnicoId:int}"
+@page "/Registro tecnico"
+@page "/tecnico/{tecnicoId:int}"
 
-@inject técnicosBLL técnicosBLL
+@inject TecnicosBLL tecnicosBLL
 @inject NotificationService notificationService
 
-<EditForm Model="técnico" OnValidSubmit="Guardar">
+<EditForm Model="tecnico" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-
-    <div class="card shadow-lg">
-        <div class="card-header">
-            <h3>Registro De técnico</h3>
-
+    <div class="rz-border-radius-4 shadow d-block p-2 border border-4 bg-white">
+        <div class="rz-border-radius-4 shadow card-header text-center">
+            <h3>Registro de Técnicos</h3>
         </div>
-        <div class="card-body">
-            @*técnicoId*@
-            <div class="form-row align-items-center">
-                <div class="col">
-                    <div class="form-group">
-                        <label>técnicoId</label>
-                        <div class="input-group">
-                            <InputNumber @bind-Value="técnico.técnicoId" class="form-control col-4" />
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">
-                                    <i class="oi oi-magnifying-glass" /> Buscar
-                                </button>
+
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <form class="row gy-3">
+                    @*TecnicoId*@
+                    <div class="form-row align-items-center">
+                        <div class="col-ms">
+                            <label>TecnicoId</label>
+                            <div class="input-group mb-3">
+                                <InputNumber @bind-Value="tecnico.TecnicoId"
+                                    class="rz-border-radius-4 shadow form-control" />
+                                <div class="input-group-append">
+                                    <div class="input-group-append">
+                                        <button type="button"
+                                            class="rz-border-radius-4 shadow form-control col-4 btn btn-primary  "
+                                            @onclick="Buscar">Buscar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        @*Nombre*@
+                        <div class="col-ms">
+                            <label>Nombres </label>
+                            <InputText @bind-Value="tecnico.Nombres" placeholder="Ingrese su nombre"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Nombres)" />
+                        </div>
+
+                        @*Dirección*@
+                        <div class="col-ms">
+                            <label>Dirección </label>
+                            <InputText @bind-Value="tecnico.Direccion" placeholder="Ingrese su dirección"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Direccion)" />
+                        </div>
+
+                        @*Fecha*@
+                        <div class="col-ms">
+                            <label>Fecha </label>
+                            <InputDate @bind-Value="tecnico.Fecha" class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Fecha)" />
+                        </div>
+
+                        @*Cédula*@
+                        <div class="col-ms">
+                            <label>Cédula </label>
+                            <InputText @bind-Value="tecnico.Cedula" placeholder="Ejemplo 123-1234567-8"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Cedula)" />
+                        </div>
+
+                        @*Email*@
+                        <div class="col-ms">
+                            <label>Email </label>
+                            <InputText @bind-Value="tecnico.Email" placeholder="Usuario@gmail.com"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Email)" />
+                        </div>
+
+                        @*Teléfono*@
+                        <div class="col-ms">
+                            <label>Teléfono </label>
+                            <InputText @bind-Value="tecnico.Telefono" placeholder="Ejemplo 123-123-1234"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Telefono)" />
+                        </div>
+
+                        @*Celular*@
+                        <div class="col-ms">
+                            <label>Celular </label>
+                            <InputText @bind-Value="tecnico.Celular" placeholder="Ejemplo 123-123-1234"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Celular)" />
+                        </div>
+                        @*Usuario*@
+                        <div class="col-ms">
+                            <label>Usuario </label>
+                            <InputText @bind-Value="tecnico.usuario" placeholder="Ingrese su usuario"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.usuario)" />
+                        </div>
+                        @*Clave*@
+                        <div class="col-ms">
+                            <label>Clave </label>
+                            <InputText type="password" @bind-Value="tecnico.Clave" placeholder="Ingrese su clave"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => tecnico.Clave)" />
+                        </div>
+                        
                     </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="mb-3 text-center" display: inline-block>
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-primary"
+                        @onclick="Nuevo">
+                        <i class="oi oi-document" /> Nuevo
+                    </button>
+                    <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-success">
+                        <i class="bi bi-save-fill" /> Guardar
+                    </button>
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
+                        @onclick="Eliminar">
+                        <i class="oi oi-trash" /> Eliminar
+                    </button>
                 </div>
-            </div>
-
-            @*Nombres*@
-            <div class="btn-bg">
-                <label>Nombre</label>
-                <InputText @bind-Value="técnico.Nombres" class="form-control" placeholder="Nombre" />
-                <ValidationMessage For="@(() => técnico.Nombres)" />
-            </div>
-
-            @*Direccion*@
-            <div class="form-group">
-                <label>Dirección</label>
-                <InputText @bind-Value="técnico.Direccion" class="form-control" placeholder="Dirección" />
-                <ValidationMessage For="@(() => técnico.Direccion)" />
-            </div>
-            @*Cedula*@
-            <div class="form-group">
-                <label>Cédula</label>
-                <InputText @bind-Value="técnico.Cedula" class="form-control" placeholder="Cédula Ejemplo 123-1234567-8"/>
-                <ValidationMessage For="@(() => técnico.Cedula)" />
-            </div>
-            @*Email*@
-            <div class="form-group">
-                <label>Email</label>
-                <InputText @bind-Value="técnico.Email" class="form-control" placeholder="Email "/>
-                <ValidationMessage For="@(() => técnico.Email)" />
-            </div>
-            @*Telefono*@
-            <div class="form-group">
-                <label>Teléfono</label>
-                <InputText @bind-Value="técnico.Telefono" class="form-control" placeholder="Teléfono ejemplo 123-123-1234" />
-                <ValidationMessage For="@(() => técnico.Telefono)" />
-            </div>
-            @*Celular*@
-            <div class="form-group">
-                <label>Celular</label>
-                <InputText @bind-Value="técnico.Celular" class="form-control" placeholder="Celular ejemplo 123-123-1234" />
-                <ValidationMessage For="@(() => técnico.Celular)" />
-            </div>
-            @*usuario*@
-            <div class="form-group">
-                <label>Usuario</label>
-                <InputText @bind-Value="técnico.usuario" class="form-control" placeholder="Usuario"/>
-                <ValidationMessage For="@(() => técnico.usuario)" />
-            </div>
-            @*Clave*@
-            <div class="form-group">
-                <label>Clave</label>
-                <InputText type="password" @bind-Value="técnico.Clave" class="form-control" placeholder="Clave"/>
-                <ValidationMessage For="@(() => técnico.Clave)" />
-            </div>
-            @*Fecha*@
-            <div class="form-group">
-                <label>Fecha</label>
-                <InputDate @bind-Value="técnico.Fecha" class="form-control" />
-                <ValidationMessage For="@(() => técnico.Fecha)" />
-            </div>
-        </div>
-        <h1>
-            <span class="text-danger">@mensaje</span>
-        </h1>
-
-        <div class="card-footer">
-            <div class="form-group text-center" display: inline-block>
-                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                    <i class="oi oi-file" /> Nuevo
-                </button>
-                <button type="submit" class="btn btn-lg btn-success">
-                    <i class="oi oi-document" /> Guardar
-                </button>
-                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                    <i class="oi oi-trash" /> Eliminar
-                </button>
             </div>
         </div>
     </div>
+
 </EditForm>
 
 @code
 {
     [Parameter]
-    public int técnicoId { get; set; }
-    public técnicos técnico { get; set; } = new técnicos();
+    public int TecnicoId { get; set; }
+    public Tecnicos tecnico { get; set; } = new Tecnicos();
     public String mensaje { get; set; } = "";
 
-    private List<técnicos> Listatécnicos { get; set; } = new List<técnicos>();
+    private List<Tecnicos> ListaTecnicos { get; set; } = new List<Tecnicos>();
 
     protected async override Task OnInitializedAsync()
     {
-        Listatécnicos = await técnicosBLL.GetList(t => true);
+        ListaTecnicos = await tecnicosBLL.GetList(t => true);
 
-        if (técnicoId > 0)
+        if (TecnicoId > 0)
         {
-            this.técnico.técnicoId = técnicoId;
+            this.tecnico.TecnicoId = TecnicoId;
             await this.Buscar();
         }
     }
     private async Task Buscar()
     {
-        if (técnico.técnicoId > 0)
+        if (tecnico.TecnicoId > 0)
         {
-            var encontrado = await técnicosBLL.Buscar(técnico.técnicoId);
+            var encontrado = await tecnicosBLL.Buscar(tecnico.TecnicoId);
 
             if (encontrado != null)
-                this.técnico = encontrado;
+                this.tecnico = encontrado;
         }
         else
         {
@@ -140,7 +157,7 @@
             new NotificationMessage
             {
                 Severity = NotificationSeverity.Warning,
-                Summary = "No Existe este técnico"
+                Summary = "No Existe este tecnico"
             });
         }
     }
@@ -148,13 +165,13 @@
     public void Nuevo()
     {
         mensaje = "";
-        técnico = new técnicos();
+        tecnico = new Tecnicos();
     }
 
     public async Task Guardar()
     {
 
-        bool guardo = await técnicosBLL.Guardar(técnico);
+        bool guardo = await tecnicosBLL.Guardar(tecnico);
 
         if (guardo)
         {
@@ -173,7 +190,7 @@
     {
         bool elimino;
 
-        elimino = await técnicosBLL.Eliminacion(técnico);
+        elimino = await tecnicosBLL.Eliminacion(tecnico);
         if (elimino)
         {
             Nuevo();

@@ -72,10 +72,10 @@ namespace PF2022_03_BlazorApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "técnicos",
+                name: "Tecnicos",
                 columns: table => new
                 {
-                    técnicoId = table.Column<int>(type: "INTEGER", nullable: false)
+                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombres = table.Column<string>(type: "TEXT", nullable: false),
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
@@ -89,7 +89,7 @@ namespace PF2022_03_BlazorApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_técnicos", x => x.técnicoId);
+                    table.PrimaryKey("PK_Tecnicos", x => x.TecnicoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,7 +105,7 @@ namespace PF2022_03_BlazorApp.Migrations
                     PrioridadId = table.Column<int>(type: "INTEGER", nullable: false),
                     Asunto = table.Column<string>(type: "TEXT", nullable: false),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    técnicoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Estado = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -129,7 +129,7 @@ namespace PF2022_03_BlazorApp.Migrations
                 name: "Sistemas");
 
             migrationBuilder.DropTable(
-                name: "técnicos");
+                name: "Tecnicos");
 
             migrationBuilder.DropTable(
                 name: "tickets");

@@ -1,68 +1,160 @@
-@page "/Consulta Técnico"
-@inject técnicosBLL técnicosBLL;
+@page "/Consulta tecnico"
+@inject TecnicosBLL TecnicosBLL;
 
 <EditForm Model="Informacion">
     <DataAnnotationsValidator />
     <div class="card-header">
-        <h4>Consulta de técnicos</h4>
+        <h4>Consulta de Tecnicos</h4>
     </div>
-
-    <div class="card-body">
+    <div class="card-body bg-white">
+    @* <div class="card-body">
         <form>
             <div>
 
-                <button type="button" @onclick="Buscar" class="MiBotontécnico"> <i class="oi oi-magnifying-glass" />
+                <button type="button" @onclick="Buscar" class="MiBotonTecnico"> <i class="oi oi-magnifying-glass" />
                     Buscar </button>
             </div>
         </form>
-    </div>
-    <table class="styled-table">
-        <thead class="styled-table thead tr">
-            <tr class="styled-table tbody tr">
-                <th>técnicoId</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Cédula</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Celular</th>
-                <th>Usuario</th>
-                <th>Clave</th>
-                <th>Fecha</th>
-            </tr>
-        </thead>
-        <tbody>
+    </div> *@
+
+        <div class="input-group">
+          @*Fecha*@
+            <div class="col-2">
+              <label> Desde</label>
+                  <div class="mb-3">
+                      <InputDate @bind-Value="FechaDesde" class="form-control" />
+                       <ValidationMessage For="@(() => FechaDesde)" />
+                     </div>
+               </div>
+        <div class="col-2 mx-3">
+            <label> Hasta</label>
+            <div class="mb-3">
+                <InputDate @bind-Value="FechaHasta" class="form-control" />
+                <ValidationMessage For="@(() => FechaHasta)" />
+            </div>
+        </div>
+         </div>
+
+     <div class="col-2 mx-3">
+            <div class="row">
+                <select class="form-select" @bind="Filtro">
+                    <option disabled>Seleccione una opcion</option>
+                    <option value="0">Todo</option>
+                    <option value="1">TecnicoId</option>
+                    <option value="2">Nombre</option>
+                    <option value="3">Dirección</option>
+                    <option value="4">Celular</option>
+                    <option value="5">Email</option>
+                    <option value="6">Telefono</option>
+                    <option value="7">Cedula</option>
+                    <option value="8">Usuario</option>
+                    
+                    
+                </select>
+            </div>
+        </div>
+        <div class="col">
+                    <div class="input-group d-flex align-items-end">
+                        <label>Buscar</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" @bind="Criterio" />
+                            <button type="button" class="btn btn-info" @onclick="Buscar">
+                                <i class="oi oi-magnifying-glass" /> Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            <table class="table table-striped table-hover mt-4 table-striped" style="cursor: pointer;">
+                <thead class="thead-green">
+                    <tr class="table-info">
+                        <th>TecnicoId</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Cédula</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Celular</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                        <th>Clave</th>
+                    </tr>
+                </thead>
+                    <tbody>
             @foreach (var item in Informacion)
             {
-                        <tr class="styled-table tbody tr">
-                            <td>@item.técnicoId</td>
-                            <td>@item.Nombres</td>
-                            <td>@item.Direccion</td>
-                            <td>@item.Cedula</td>
-                            <td>@item.Email</td>
-                            <td>@item.Telefono</td>
-                            <td>@item.Celular</td>
-                            <td>@item.usuario</td>
-                            <td>@item.Clave</td>
-                            <td>@item.Fecha</td>
-                            <td><a href="técnico/@item.técnicoId">Ver</a></td>
-                        </tr>
+                <tr class="styled-table tbody tr">
+                    <td>@item.TecnicoId</td>
+                    <td>@item.Nombres</td>
+                    <td>@item.Direccion</td>
+                    <td>@item.Cedula</td>
+                    <td>@item.Email</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Celular</td>
+                    <td>@item.usuario</td>
+                    <td>@item.Fecha</td>
+                    <td>@item.Clave</td>
+                    <td><a href="tecnico/@item.TecnicoId">Ver</a></td>
+                </tr>
             }
         </tbody>
-        <h6>Conteo: @Informacion.Count()</h6>
-    </table>
+        </table>
+        <h6>Tecnicos: @Informacion.Count()</h6>
+    </div>     
 
 </EditForm>
 
 @code {
 
-    public técnicos técnico { set; get; } = new técnicos();
+    public Tecnicos tecnico { set; get; } = new Tecnicos();
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
-    public List<técnicos> Informacion { get; set; } = new List<técnicos>();
+    public DateTime FechaDesde { get; set; }
+    public DateTime FechaHasta { get; set; } = DateTime.Now;
+    public List<Tecnicos> Informacion { get; set; } = new List<Tecnicos>();
     public async Task Buscar()
     {
-        Informacion = await técnicosBLL.GetList(o => true);
+        Informacion = await TecnicosBLL.GetList(e => true);
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "0":
+                    Informacion = await TecnicosBLL.GetList(e => true);
+                    break;
+                case "1":
+                    Informacion = await TecnicosBLL.GetList(e => e.TecnicoId.ToString() == (Criterio));
+                    break;
+                case "2":
+                    Informacion = await TecnicosBLL.GetList(e => e.Nombres.ToString() == (Criterio));
+                    break;
+                case "3":
+                    Informacion = await TecnicosBLL.GetList(e => e.Direccion.ToString() == (Criterio));
+                    break;
+                case "4":
+                    Informacion = await TecnicosBLL.GetList(e => e.Celular.ToString() == (Criterio));
+                    break;
+                case "5":
+                    Informacion = await TecnicosBLL.GetList(e => e.Email.ToString() == (Criterio));
+                    break;
+                case "6":
+                    Informacion = await TecnicosBLL.GetList(e => e.Telefono.ToString() == (Criterio));
+                    break;
+                case "7":
+                    Informacion = await TecnicosBLL.GetList(e => e.Cedula.ToString() == (Criterio));
+                    break;
+                case "8":
+                    Informacion = await TecnicosBLL.GetList(e => e.usuario.ToString() == (Criterio));
+                    break;
+                    
+            }
+        }
+        else
+        {
+            Informacion = await TecnicosBLL.GetList(x => (x.Fecha >= FechaDesde) && (x.Fecha <= FechaHasta));
+
+            if (Criterio == null)
+                Informacion = await TecnicosBLL.GetList(o => true);
+        }
+
     }
 
 }

@@ -140,10 +140,10 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<int>("SistemaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TipoId")
+                    b.Property<int>("TecnicoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("técnicoId")
+                    b.Property<int>("TipoId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("TicketId");
@@ -151,9 +151,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.ToTable("tickets");
                 });
 
-            modelBuilder.Entity("técnicos", b =>
+            modelBuilder.Entity("Tecnicos", b =>
                 {
-                    b.Property<int>("técnicoId")
+                    b.Property<int>("TecnicoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -192,9 +192,9 @@ namespace PF2022_03_BlazorApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("técnicoId");
+                    b.HasKey("TecnicoId");
 
-                    b.ToTable("técnicos");
+                    b.ToTable("Tecnicos");
                 });
 #pragma warning restore 612, 618
         }

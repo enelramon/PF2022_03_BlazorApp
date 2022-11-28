@@ -11,7 +11,7 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221127195053_Tecnicos")]
+    [Migration("20221127231029_Tecnicos")]
     partial class Tecnicos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,10 +142,10 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<int>("SistemaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TipoId")
+                    b.Property<int>("TecnicoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("técnicoId")
+                    b.Property<int>("TipoId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("TicketId");
@@ -153,9 +153,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.ToTable("tickets");
                 });
 
-            modelBuilder.Entity("técnicos", b =>
+            modelBuilder.Entity("Tecnicos", b =>
                 {
-                    b.Property<int>("técnicoId")
+                    b.Property<int>("TecnicoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -194,9 +194,9 @@ namespace PF2022_03_BlazorApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("técnicoId");
+                    b.HasKey("TecnicoId");
 
-                    b.ToTable("técnicos");
+                    b.ToTable("Tecnicos");
                 });
 #pragma warning restore 612, 618
         }
