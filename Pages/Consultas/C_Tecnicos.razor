@@ -6,8 +6,8 @@
     <div class="card-header">
         <h4>Consulta de Tecnicos</h4>
     </div>
-
-    <div class="card-body">
+    <div class="card-body bg-white">
+    @* <div class="card-body">
         <form>
             <div>
 
@@ -15,17 +15,17 @@
                     Buscar </button>
             </div>
         </form>
-    </div>
+    </div> *@
 
-     <div class="input-group">
-        @*Fecha*@
-        <div class="col-2">
-            <label> Desde</label>
-            <div class="mb-3">
-                <InputDate @bind-Value="FechaDesde" class="form-control" />
-                <ValidationMessage For="@(() => FechaDesde)" />
-            </div>
-        </div>
+        <div class="input-group">
+          @*Fecha*@
+            <div class="col-2">
+              <label> Desde</label>
+                  <div class="mb-3">
+                      <InputDate @bind-Value="FechaDesde" class="form-control" />
+                       <ValidationMessage For="@(() => FechaDesde)" />
+                     </div>
+               </div>
         <div class="col-2 mx-3">
             <label> Hasta</label>
             <div class="mb-3">
@@ -33,11 +33,11 @@
                 <ValidationMessage For="@(() => FechaHasta)" />
             </div>
         </div>
-    </div>
+         </div>
 
      <div class="col-2 mx-3">
             <div class="row">
-                <select class="form-select">
+                <select class="form-select" @bind="Filtro">
                     <option disabled>Seleccione una opcion</option>
                     <option value="0">Todo</option>
                     <option value="1">TecnicoId</option>
@@ -53,41 +53,52 @@
                 </select>
             </div>
         </div>
-    <table class="styled-table">
-        <thead class="styled-table thead tr">
-            <tr class="styled-table tbody tr">
-                <th>TecnicoId</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Cédula</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Celular</th>
-                <th>Usuario</th>
-                <th>Fecha</th>
-                <th>Clave</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="col">
+                    <div class="input-group d-flex align-items-end">
+                        <label>Buscar</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" @bind="Criterio" />
+                            <button type="button" class="btn btn-info" @onclick="Buscar">
+                                <i class="oi oi-magnifying-glass" /> Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            <table class="table table-striped table-hover mt-4 table-striped" style="cursor: pointer;">
+                <thead class="thead-green">
+                    <tr class="table-info">
+                        <th>TecnicoId</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Cédula</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Celular</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                        <th>Clave</th>
+                    </tr>
+                </thead>
+                    <tbody>
             @foreach (var item in Informacion)
             {
-                        <tr class="styled-table tbody tr">
-                            <td>@item.TecnicoId</td>
-                            <td>@item.Nombres</td>
-                            <td>@item.Direccion</td>
-                            <td>@item.Cedula</td>
-                            <td>@item.Email</td>
-                            <td>@item.Telefono</td>
-                            <td>@item.Celular</td>
-                            <td>@item.usuario</td>
-                            <td>@item.Fecha</td>
-                            <td>@item.Clave</td>
-                            <td><a href="tecnico/@item.TecnicoId">Ver</a></td>
-                        </tr>
+                <tr class="styled-table tbody tr">
+                    <td>@item.TecnicoId</td>
+                    <td>@item.Nombres</td>
+                    <td>@item.Direccion</td>
+                    <td>@item.Cedula</td>
+                    <td>@item.Email</td>
+                    <td>@item.Telefono</td>
+                    <td>@item.Celular</td>
+                    <td>@item.usuario</td>
+                    <td>@item.Fecha</td>
+                    <td>@item.Clave</td>
+                    <td><a href="tecnico/@item.TecnicoId">Ver</a></td>
+                </tr>
             }
         </tbody>
-        <h6>Conteo: @Informacion.Count()</h6>
-    </table>
+        </table>
+        <h6>Tecnicos: @Informacion.Count()</h6>
+    </div>     
 
 </EditForm>
 
