@@ -44,7 +44,7 @@ public class TecnicosBLL
         else
             return elimino = false;
     }
-    public async Task<Tecnicos?> Buscar(int tecnicoId)
+    public async Task<Tecnicos?> Buscar(int tecnicoId) 
     {
         return await _contexto.Tecnicos
             .Where(o => o.TecnicoId == tecnicoId)

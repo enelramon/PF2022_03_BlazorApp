@@ -16,6 +16,43 @@
             </div>
         </form>
     </div>
+
+     <div class="input-group">
+        @*Fecha*@
+        <div class="col-2">
+            <label> Desde</label>
+            <div class="mb-3">
+                <InputDate @bind-Value="FechaDesde" class="form-control" />
+                <ValidationMessage For="@(() => FechaDesde)" />
+            </div>
+        </div>
+        <div class="col-2 mx-3">
+            <label> Hasta</label>
+            <div class="mb-3">
+                <InputDate @bind-Value="FechaHasta" class="form-control" />
+                <ValidationMessage For="@(() => FechaHasta)" />
+            </div>
+        </div>
+    </div>
+
+     <div class="col-2 mx-3">
+            <div class="row">
+                <select class="form-select">
+                    <option disabled>Seleccione una opcion</option>
+                    <option value="0">Todo</option>
+                    <option value="1">TecnicoId</option>
+                    <option value="2">Nombre</option>
+                    <option value="3">Dirección</option>
+                    <option value="4">Celular</option>
+                    <option value="5">Email</option>
+                    <option value="6">Telefono</option>
+                    <option value="7">Cedula</option>
+                    <option value="8">Usuario</option>
+                    
+                    
+                </select>
+            </div>
+        </div>
     <table class="styled-table">
         <thead class="styled-table thead tr">
             <tr class="styled-table tbody tr">
@@ -27,8 +64,8 @@
                 <th>Teléfono</th>
                 <th>Celular</th>
                 <th>Usuario</th>
-                <th>Clave</th>
                 <th>Fecha</th>
+                <th>Clave</th>
             </tr>
         </thead>
         <tbody>
@@ -43,8 +80,8 @@
                             <td>@item.Telefono</td>
                             <td>@item.Celular</td>
                             <td>@item.usuario</td>
-                            <td>@item.Clave</td>
                             <td>@item.Fecha</td>
+                            <td>@item.Clave</td>
                             <td><a href="tecnico/@item.TecnicoId">Ver</a></td>
                         </tr>
             }
@@ -59,10 +96,54 @@
     public Tecnicos tecnico { set; get; } = new Tecnicos();
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
+    public DateTime FechaDesde { get; set; }
+    public DateTime FechaHasta { get; set; } = DateTime.Now;
     public List<Tecnicos> Informacion { get; set; } = new List<Tecnicos>();
     public async Task Buscar()
     {
-        Informacion = await TecnicosBLL.GetList(o => true);
+        Informacion = await TecnicosBLL.GetList(e => true);
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "0":
+                    Informacion = await TecnicosBLL.GetList(e => true);
+                    break;
+                case "1":
+                    Informacion = await TecnicosBLL.GetList(e => e.TecnicoId.ToString() == (Criterio));
+                    break;
+                case "2":
+                    Informacion = await TecnicosBLL.GetList(e => e.Nombres.ToString() == (Criterio));
+                    break;
+                case "3":
+                    Informacion = await TecnicosBLL.GetList(e => e.Direccion.ToString() == (Criterio));
+                    break;
+                case "4":
+                    Informacion = await TecnicosBLL.GetList(e => e.Celular.ToString() == (Criterio));
+                    break;
+                case "5":
+                    Informacion = await TecnicosBLL.GetList(e => e.Email.ToString() == (Criterio));
+                    break;
+                case "6":
+                    Informacion = await TecnicosBLL.GetList(e => e.Telefono.ToString() == (Criterio));
+                    break;
+                case "7":
+                    Informacion = await TecnicosBLL.GetList(e => e.Cedula.ToString() == (Criterio));
+                    break;
+                case "8":
+                    Informacion = await TecnicosBLL.GetList(e => e.usuario.ToString() == (Criterio));
+                    break;
+                    
+            }
+        }
+        else
+        {
+            Informacion = await TecnicosBLL.GetList(x => (x.Fecha >= FechaDesde) && (x.Fecha <= FechaHasta));
+
+            if (Criterio == null)
+                Informacion = await TecnicosBLL.GetList(o => true);
+        }
+
     }
 
 }
