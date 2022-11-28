@@ -112,7 +112,7 @@
 
     public bool Validar()
     {
-        if (ticket.Estado == "Atendido")
+        if (ticket.Estado == "Atendido" || ticket.Estado == "En Proceso")
         {
             return false;
         }
