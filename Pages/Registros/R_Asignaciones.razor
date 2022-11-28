@@ -1,0 +1,198 @@
+﻿@page "/R_Asignaciones"
+
+@inject TecnicosBLL tecnicosBLL
+@inject TicketsBLL ticketsBLL
+@inject AsignacionesBLL asignacionesBLL
+@inject NotificationService notificacion
+
+<EditForm Model="asignacion">
+    <div class="rz-border-radius-4 shadow bg-white d-block p-2 border border-4">
+        <div class="rz-border-radius-4 shadow card-header text-center">
+            <h3>Registro Asignaciones</h3>
+        </div>
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <table class="table table-primary table-striped">
+
+                                <thead class="thead-green">
+                                    <tr class="table-info">
+                                        <th>Tecnicos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Listtecnico)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.TecnicoId - @item.Nombres
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="container">
+                <div class="row">
+                <div class="col">
+                <label class="form-label">TecnicoId</label>
+                <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="asignacion.TecnicoId">
+                <option value="0" disabled> Seleccione un Tecnico </option>
+                @foreach (var asignacion in Listtecnico)
+                {
+
+                <option value="@asignacion.TecnicoId">@asignacion.TecnicoId - @asignacion.Nombres</option>
+                }
+                </InputSelect>
+                <ValidationMessage For="@(() =>asignacion.TecnicoId)" />
+                <button type="button" class="btn btn-outline-secondary" @onclick="Agregar">Agregar</button>
+                </div>
+                <div class="col">
+                <label class="form-label">TickedId</label>
+                <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="asignacion.TicketId">
+                <option value="0" disabled> Seleccione un Tecnico </option>
+                @foreach (var ticked in Listtikect)
+                {
+
+                <option value="@ticked.TicketId">@ticked.TicketId - @ticked.Asunto</option>
+                }
+                </InputSelect>
+                <ValidationMessage For="@(() =>asignacion.TecnicoId)" />
+                </div>
+                </div>
+                </div>
+                </div>
+                <div class="container">
+                <div class="row">
+                <div class="col-6">
+                <table class="table table-primary table-striped">
+                <thead class="thead-green">
+                <tr class="table-info">
+                <th>Asignaciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in lista)
+                {
+                <tr>
+                @item.AsignacionId
+                </tr>
+                }
+                </tbody>
+                </table>
+                </div>*@
+                <div class="row">
+                    <div class="col-4">
+                        <table class="table table-primary table-striped">
+                            <thead class="thead-green">
+                                <tr class="table-info">
+                                    <th>Tickets Pendiente</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (Tickets item in Listtikect)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.TicketId - @item.Asunto
+                                        </td>
+                                        <td><a href="A_Tecnico/@item.TicketId">Ver</a></td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table class="table table-primary table-striped">
+                            <thead class="thead-green">
+                                <tr class="table-info">
+                                    <th>Tickets En Procesos</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (Tickets item in TicketsEnProceso)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.TicketId - @item.Asunto
+                                        </td>
+                                        <td><a href="cerrartickets/@item.TicketId">Ver</a></td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table class="table table-primary table-striped">
+                            <thead class="thead-green">
+                                <tr class="table-info">
+                                    <th>Tickets Atendidos</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (Tickets item in TicketsAtendidos)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.TicketId - @item.Asunto
+                                        </td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @* </div>*@
+</EditForm>
+
+@code {
+    [Parameter]
+    public int AsignacionId { get; set; }
+    public Asignaciones asignacion { get; set; } = new Asignaciones();
+    public Tecnicos tecnico { get; set; } = new Tecnicos();
+    public Tickets ticket { get; set; } = new Tickets();
+
+    public List<Asignaciones> lista { get; set; } = new List<Asignaciones>();
+    public List<Tecnicos> Listtecnico = new List<Tecnicos>();
+    public List<Tickets> Listtikect = new List<Tickets>();
+    public List<Tickets> TicketsEnProceso = new List<Tickets>();
+    public List<Tickets> TicketsAtendidos = new List<Tickets>();
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        Listtecnico = await tecnicosBLL.GetList(c => true);
+        Listtikect = await ticketsBLL.GetTickets(t => t.Estado == "Pendiente");
+        TicketsEnProceso = await ticketsBLL.GetTickets(t => t.Estado == "En Proceso");
+        TicketsAtendidos = await ticketsBLL.GetTickets(t => t.Estado == "Atendido");
+        if (AsignacionId > 0)
+        {
+
+            this.asignacion.AsignacionId = AsignacionId;
+
+        }
+    }
+
+}

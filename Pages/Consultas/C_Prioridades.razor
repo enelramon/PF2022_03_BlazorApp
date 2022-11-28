@@ -4,64 +4,67 @@
 
 <EditForm Model="lista">
     <DataAnnotationsValidator />
-    <div class="card">
-        <div class="card-header">
+    <div class="rz-border-radius-4 shadow bg-white d-block p-2 border border-4">
+        <div class="rz-border-radius-4 shadow card-header text-center">
             <h3>Consultas de Prioridades</h3>
-            
+
         </div>
 
 
-        <div class="card-body">
-            <form>
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Filtro</label>
+                            <select class="rz-border-radius-4 shadow form-control col-4" @bind="Filtro">
+                                <option value="0">Selecione un Filtro</option>
+                                <option value="1">PrioridadId</option>
+                                <option value="2">Descripcion</option>
+                                <option value="3">Orden</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <div class="input-group d-flex align-items-end">
+                                <label class="form-label">Buscar</label>
+                                <div class="input-group">
+                                    <input type="text" class="rz-border-radius-4 shadow form-control col-4" @bind="Criterio" />
+                                    <button type="button" class="rz-border-radius-4 shadow btn btn-info input-group-text" @onclick="Buscar">
+                                        <i class="oi oi-magnifying-glass" />Buscar
+                                    </button>
+                                </div>
 
-                <div class="row">
-                    <div class="col">
-                        <label>Filtro</label>
-                        <select class="form-control" @bind="Filtro">
-                            <option value="0">Selecione un Filtro</option>
-                            <option value="1">PrioridadId</option>
-                            <option value="2">Descripcion</option>
-                            <option value="3">Orden</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <div class="input-group d-flex align-items-end">
-                            <label>Buscar</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" @bind="Criterio" />
-                                <button type="button" class="btn btn-info bi bi-binoculars" @onclick="Buscar">   Buscar</button>
                             </div>
-
                         </div>
                     </div>
-                </div>
 
 
 
 
 
-            </form>
-            <table class="table table-primary table-striped">
-                <thead class="thead-green">
-                    <tr class="table-info">
-                        <th>PrioridadId</th>
-                        <th>Descripcion</th>
-                        <th>Orden</th>
-                        <th>Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in lista)
-                    {
-                        <tr>
-                            <td>@item.PrioridadId</td>
-                            <td>@item.Descripcion</td>
-                            <td>@item.Orden</td>
-                            <td><a href="R_Prioridades/@item.PrioridadId">View</a></td>
+                </form>
+                <table class="table table-primary table-striped">
+                    <thead class="thead-green">
+                        <tr class="table-info">
+                            <th>PrioridadId</th>
+                            <th>Descripcion</th>
+                            <th>Orden</th>
+                            <th>Link</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in lista)
+                        {
+                            <tr>
+                                <td>@item.PrioridadId</td>
+                                <td>@item.Descripcion</td>
+                                <td>@item.Orden</td>
+                                <td><a href="R_Prioridades/@item.PrioridadId">View</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </EditForm>
