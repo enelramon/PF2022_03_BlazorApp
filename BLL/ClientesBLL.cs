@@ -47,18 +47,18 @@ namespace PF2022_03_BlazorApp.BLL
 
         public  async Task <Clientes?> Buscar(int ClienteId)
         {
-            return _contexto.Clientes
+            return await _contexto.Clientes
                 .Where(s => s.ClienteId == ClienteId)
                 .AsTracking()
-                .SingleOrDefault();
+                .SingleOrDefaultAsync();
         }
 
          public async Task <List<Clientes>> GetClientes (Expression<Func<Clientes, bool>> Criterio)
         {
-            return _contexto.Clientes
+            return await _contexto.Clientes
                 .AsTracking()
                 .Where(Criterio)
-                .ToList();
+                .ToListAsync();
         }
     }
 }
