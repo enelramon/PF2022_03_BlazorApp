@@ -25,7 +25,7 @@
                     <div class="form-row align-items-center">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">RecordatorioId</label>
+                                <label class="form-label">RecordatorioClienteId</label>
                                 <div class="input-group">
                                     <InputNumber @bind-Value="Recordatorio.RecordatorioId" placeholder="Ingrese un ID"
                                         class="rz-border-radius-4 shadow form-control col-4" />
@@ -187,10 +187,5 @@
             Recordatorio = new Recordatorios();
             recordatorio.ShowNotification("Recordatorio editado", NotificationSeverity.Success);
         }
-    }
-
-    private async Task CargarRecordatorio()
-    {
-        ListaRecordatorios = await recordatoriosBLL.GetRecordatorios(r => true);
     }
 }

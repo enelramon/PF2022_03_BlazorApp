@@ -9,6 +9,7 @@ namespace PF2022_03_BlazorApp.DAL
         public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Prioridades> Prioridades { get; set; }
         public DbSet<Recordatorios> Recordatorios { get; set; }
+        public DbSet<RecordatorioTecnicos> RecordatorioTecnicos { get; set; }
         public DbSet<Sistemas> Sistemas { get; set; }
         public DbSet<Tecnicos> Tecnicos { get; set; }
         public DbSet<Asignaciones> Asignaciones { get; set; }

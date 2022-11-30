@@ -20,7 +20,7 @@
                         <label>Filtro</label>
                         <select class="form-control" @bind="Filtro">
                             <option value="0">Mostrar Lista</option>
-                            <option value="1">RecordatorioId</option>
+                            <option value="1">RecordatorioTecnicoId</option>
                             <option value="2">Dia</option>
                             <option value="3">TecnicoId</option>
                             <option value="4">ProximaFecha</option>
@@ -44,7 +44,7 @@
         <table class="table table-striped border-primary">
             <thead class="thead">
                 <tr class="table-info shadow text-center border-primary">
-                    <th>RecordatorioId</th>
+                    <th>RecordatorioTecnicoId</th>
                     <th>Dia</th>
                     <th>FroximaFecha</th>
                     <th>TecnicoId</th>
@@ -55,15 +55,15 @@
                 @foreach (var recordar in recordatoriosT)
                 {
                     <tr class="shadow text-center border border-3 border-primary">
-                        <td>@recordar.RecordatorioId</td>
+                        <td>@recordar.RecordatorioTecnicoId</td>
                         <td>@recordar.Dia</td>
-                        <td>@recordar.FroximaFecha.ToString("dd - MM - yyyy")</td>
                         <td>@recordar.TecnicoId</td>
+                        <td>@recordar.FroximaFecha.ToString("dd - MM - yyyy")</td>
                         <td>@recordar.Descripción</td>
                     </tr>
                     <tr text="shadow text-center border border-3 border-primary">
-                        <a href="Recordatorio/@recordar.RecordatorioId">Editar</a>(ID - @(recordar.RecordatorioId))
-                        <a href="Recordatorio/@recordar.RecordatorioId">Eliminar</a>(ID - @(recordar.RecordatorioId))
+                        <a href="Recordatorio/@recordar.RecordatorioTecnicoId">Editar</a>(ID - @(recordar.RecordatorioTecnicoId))
+                        <a href="Recordatorio/@recordar.RecordatorioTecnicoId">Eliminar</a>(ID - @(recordar.RecordatorioTecnicoId))
                         <p/>
                     </tr>
                 }
@@ -76,7 +76,7 @@
 </EditForm>
 
 @code {
-    private List<Recordatorios> recordatoriosT { get; set; } = new List<Recordatorios>();
+    private List<RecordatorioTecnicos> recordatoriosT { get; set; } = new List<RecordatorioTecnicos>();
     private string? Filtro;
     private string? Criterio;
     private async Task Buscar()
@@ -86,22 +86,22 @@
             switch (Filtro)
             {
                 case "1":
-                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.RecordatorioId.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorioTecnicos(t => t.RecordatorioTecnicoId.ToString() == (Criterio));
                     break;
                 case "2":
-                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.Dia.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorioTecnicos(t => t.Dia.ToString() == (Criterio));
                     break;
                 case "3":
-                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.TecnicoId.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorioTecnicos(t => t.TecnicoId.ToString() == (Criterio));
                     break;
                 case "4":
-                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.FroximaFecha.Day.ToString() == (Criterio) || r.FroximaFecha.Month.ToString() == (Criterio) || r.FroximaFecha.Year.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorioTecnicos(t => t.FroximaFecha.Day.ToString() == (Criterio) || t.FroximaFecha.Month.ToString() == (Criterio) || t.FroximaFecha.Year.ToString() == (Criterio));
                     break;
             }
         }
         else
         {
-            recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => true);
+            recordatoriosT = await recordatoriosBLL.GetRecordatorioTecnicos(t => true);
         }
     }
 }

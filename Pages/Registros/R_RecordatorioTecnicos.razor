@@ -1,11 +1,11 @@
 @page "/RecordatorioT"
-@page "/RecordatorioT/{RecordatorioId:int}"
+@page "/RecordatorioT/{RecordatorioTecnicoId:int}"
 
 @inject RecordatoriosBLL recordatoriosBLL
 @inject NotificationService recordatorio
 @inject TecnicosBLL tecnicosBLL
 
-<EditForm Model="RecordatorioT" OnValidSubmit="GuardarRecordatorio">
+<EditForm Model="RecordatorioT" OnValidSubmit="GuardarRecordatorios">
     <DataAnnotationsValidator />
 
     <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-primary" data-toggle="tooltip" data-placement="right" title="Regresar al menu" href="m_recordatorios" > <i class="oi oi-arrow-circle-left" /></a>
@@ -25,19 +25,19 @@
                     <div class="form-row align-items-center">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">RecordatorioId</label>
+                                <label class="form-label">RecordatorioTecnicoId</label>
                                 <div class="input-group">
-                                    <InputNumber @bind-Value="RecordatorioT.RecordatorioId" placeholder="Ingrese un ID"
+                                    <InputNumber @bind-Value="RecordatorioT.RecordatorioTecnicoId" placeholder="Ingrese un ID"
                                         class="rz-border-radius-4 shadow form-control col-4" />
                                     <div class="input-group-append">
                                         <button type="button"
                                             class="rz-border-radius-4 shadow btn btn-primary input-group-text"
-                                            @onclick="BuscarRecordatorio">
+                                            @onclick="BuscarRecordatorios">
                                             <i class="oi oi-magnifying-glass" />
                                         </button>
                                     </div>
                                 </div>
-                                <ValidationMessage For="@(() => RecordatorioT.RecordatorioId)" />
+                                <ValidationMessage For="@(() => RecordatorioT.RecordatorioTecnicoId)" />
                             </div>
                         </div>
                     </div>
@@ -87,13 +87,13 @@
         <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
             <div class="btn-group" role="group">
                 <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-primary"
-                    @onclick="GuardarRecordatorio"> <i class="oi oi-document" />
+                    @onclick="GuardarRecordatorios"> <i class="oi oi-document" />
                     Guardar</button>
                 <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-success"
-                    @onclick="EditarRecordatorio"> <i class="oi oi-pencil" />
+                    @onclick="EditarRecordatorios"> <i class="oi oi-pencil" />
                     Editar</button>
                 <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-danger"
-                    @onclick="EliminarRecordatorio"><i class="oi oi-trash" />
+                    @onclick="EliminarRecordatorios"><i class="oi oi-trash" />
                     Eliminar</button>
             </div>
         </div>
@@ -103,29 +103,29 @@
 @code {
 
     [Parameter]
-    public int RecordatorioId { get; set; }
+    public int RecordatorioTecnicoId { get; set; }
     private Tecnicos tecnicos { get; set; } = new Tecnicos();
-    private Recordatorios RecordatorioT { get; set; } = new Recordatorios();
-    private List<Recordatorios> ListaRecordatorios { get; set; } = new List<Recordatorios>();
+    private RecordatorioTecnicos RecordatorioT { get; set; } = new RecordatorioTecnicos();
+    private List<RecordatorioTecnicos> ListaRecordatorios { get; set; } = new List<RecordatorioTecnicos>();
     private List<Tecnicos> ListaTecnicos { get; set; } = new List<Tecnicos>();
 
     protected async override Task OnInitializedAsync()
     {
-        ListaRecordatorios = await recordatoriosBLL.GetRecordatorios(r => true);
+        ListaRecordatorios = await recordatoriosBLL.GetRecordatorioTecnicos(r => true);
         ListaTecnicos = await tecnicosBLL.GetList(t => true);
 
-        if (RecordatorioId > 0)
+        if (RecordatorioTecnicoId > 0)
         {
-            this.RecordatorioT.RecordatorioId = RecordatorioId;
-            await this.BuscarRecordatorio();
+            this.RecordatorioT.RecordatorioTecnicoId = RecordatorioTecnicoId;
+            await this.BuscarRecordatorios();
         }
     }
 
-    private async Task BuscarRecordatorio()
+    private async Task BuscarRecordatorios()
     {
-        if (RecordatorioT.RecordatorioId > 0 || RecordatorioT.Dia > 0)
+        if (RecordatorioT.RecordatorioTecnicoId > 0 || RecordatorioT.Dia > 0)
         {
-            var encontrado = await recordatoriosBLL.Buscar(RecordatorioT.RecordatorioId, RecordatorioT.Dia);
+            var encontrado = await recordatoriosBLL.BuscarTecnicos(RecordatorioT.RecordatorioTecnicoId, RecordatorioT.Dia);
 
             if (encontrado != null)
             {
@@ -138,31 +138,31 @@
             }
         }
     }
-    private async Task GuardarRecordatorio()
+    private async Task GuardarRecordatorios()
     {
-        bool guardo;
+        bool guardar;
 
-        if (RecordatorioT.Dia > 32 || RecordatorioT.Dia < 1)
+        if (RecordatorioT.Dia < 31 || RecordatorioT.Dia > 0)
         {
-            guardo = false;
-            recordatorio.ShowNotification("Recordatorio no guardado", NotificationSeverity.Error);
+            guardar = true;
+            guardar = await recordatoriosBLL.GuardarTecnicos(RecordatorioT);
+            RecordatorioT = new RecordatorioTecnicos();
+            recordatorio.ShowNotification("Recordatorio guardado", NotificationSeverity.Success);
         }
         else
         {
-            guardo = true;
-            guardo = await recordatoriosBLL.Guardar(RecordatorioT);
-            RecordatorioT = new Recordatorios();
-            recordatorio.ShowNotification("Recordatorio guardado", NotificationSeverity.Success);
+            guardar = false;
+            recordatorio.ShowNotification("Recordatorio no guardado", NotificationSeverity.Error);
         }
     }
 
-    private async Task EliminarRecordatorio()
+    private async Task EliminarRecordatorios()
     {
-        bool elimino = await recordatoriosBLL.Eliminacion(RecordatorioT);
+        bool elimino = await recordatoriosBLL.EliminacionTecnicos(RecordatorioT);
 
         if (elimino)
         {
-            RecordatorioT = new Recordatorios();
+            RecordatorioT = new RecordatorioTecnicos();
             recordatorio.ShowNotification("Recordatorio eliminado", NotificationSeverity.Success);
         }
         else
@@ -171,7 +171,7 @@
         }
     }
 
-    private async Task EditarRecordatorio()
+    private async Task EditarRecordatorios()
     {
         bool editar;
 
@@ -183,14 +183,9 @@
         else
         {
             editar = true;
-            editar = await recordatoriosBLL.Editar(RecordatorioT);
-            RecordatorioT = new Recordatorios();
+            editar = await recordatoriosBLL.EditarTecnicos(RecordatorioT);
+            RecordatorioT = new RecordatorioTecnicos();
             recordatorio.ShowNotification("Recordatorio editado", NotificationSeverity.Success);
         }
-    }
-
-    private async Task CargarRecordatorio()
-    {
-        ListaRecordatorios = await recordatoriosBLL.GetRecordatorios(r => true);
     }
 }

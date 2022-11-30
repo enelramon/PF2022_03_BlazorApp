@@ -39,10 +39,10 @@
                                 <RadzenPanelMenu class="rz-shadow-3">
                                     <RadzenPanelMenuItem class="bg-info" Text="Registrar"
                                         Icon="app_registration">
-                                        <RadzenPanelMenuItem Text="Recordatorio Clientes" Path="Recordatorio"
+                                        <RadzenPanelMenuItem Text="Recordatorio clientes" Path="Recordatorio"
                                             Icon="account_circle" />
                                         <RadzenPanelMenuItem Text="Recordatorios tecnicos" Path="RecordatorioT"
-                                            Icon="account_circle" />
+                                            Icon="engineering" />
                                     </RadzenPanelMenuItem>
                                 </RadzenPanelMenu>
                             </div>
@@ -66,7 +66,7 @@
                                             <RadzenPanelMenuItem Text="Consuta recordatorios clientes" Path="recordatorios"
                                                 Icon="account_circle" />
                                             <RadzenPanelMenuItem Text="Consuta recordatorios Tecnicos" Path="recordatoriosT"
-                                                Icon="account_circle" />
+                                                Icon="engineering" />
                                         </RadzenPanelMenuItem>
                                     </RadzenPanelMenu>
                                 </div>
@@ -105,9 +105,30 @@
                                         }
                                     </form>
                                 </div>
+                                <div class="container overflow-hidden d-flex justify-content-end">
+                                    <form class="row gy-3">
+                                        @foreach (var recordar in chat)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="col-18">
+                                                        <RadzenAlert
+                                                        class="text-white rz-border-radius-4 shadow rz-info rz-series-3"
+                                                        Icon="face">
+                                                            <p />
+                                                            <br />
+                                                            @recordar.Descripción
+                                                            <p />
+                                                            @recordar.FroximaFecha.ToString("hh:MM | MM - dd")
+                                                        </RadzenAlert>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </form>
+                                </div>
                             </div>
                         </BSModalBody>
-
                         <BSModalFooter class="border border-4">
                             <form class="input-group align-items-end card-body">
                                 <div class="container overflow-hidden">
@@ -162,6 +183,7 @@
     private BSModal BSChat { get; set; } = new BSModal();
     private Recordatorios m_recordatorios { get; set; } = new Recordatorios();
     private List<Recordatorios> chats { get; set; } = new List<Recordatorios>();
+    private List<RecordatorioTecnicos> chat { get; set; } = new List<RecordatorioTecnicos>();
 
     private async Task Buscar()
     {
@@ -176,7 +198,7 @@
                     chats = await recordatoriosBLL.GetRecordatorios(r => r.RecordatorioId.ToString() == (Criterio));
                     break;
                 case "3":
-                    chats = await recordatoriosBLL.GetRecordatorios(r => r.TecnicoId.ToString() == (Criterio));
+                    chat = await recordatoriosBLL.GetRecordatorioTecnicos(r => r.TecnicoId.ToString() == (Criterio));
                     break;
                 case "4":
                     chats = await recordatoriosBLL.GetRecordatorios(r => r.FroximaFecha.Day.ToString() == (Criterio) ||

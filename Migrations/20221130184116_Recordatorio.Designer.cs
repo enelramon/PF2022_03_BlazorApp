@@ -11,8 +11,8 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221130131401_Recordatorios")]
-    partial class Recordatorios
+    [Migration("20221130184116_Recordatorio")]
+    partial class Recordatorio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,12 +112,33 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<DateTime>("FroximaFecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TecnicoId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("RecordatorioId");
 
                     b.ToTable("Recordatorios");
+                });
+
+            modelBuilder.Entity("PF2022_03_BlazorApp.Models.RecordatorioTecnicos", b =>
+                {
+                    b.Property<int>("RecordatorioTecnicoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripción")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Dia")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FroximaFecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TecnicoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RecordatorioTecnicoId");
+
+                    b.ToTable("RecordatorioTecnicos");
                 });
 
             modelBuilder.Entity("PF2022_03_BlazorApp.Models.Sistemas", b =>
