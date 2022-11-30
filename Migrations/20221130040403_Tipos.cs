@@ -5,10 +5,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PF2022_03_BlazorApp.Migrations
 {
-    public partial class Tecnicos : Migration
+    public partial class Tipos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Asignaciones",
+                columns: table => new
+                {
+                    AsignacionId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrdenId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TicketId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Asignaciones", x => x.AsignacionId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Clientes",
                 columns: table => new
@@ -112,10 +127,26 @@ namespace PF2022_03_BlazorApp.Migrations
                 {
                     table.PrimaryKey("PK_tickets", x => x.TicketId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Tipos",
+                columns: table => new
+                {
+                    TipoId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tipos", x => x.TipoId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Asignaciones");
+
             migrationBuilder.DropTable(
                 name: "Clientes");
 
@@ -133,6 +164,9 @@ namespace PF2022_03_BlazorApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "tickets");
+
+            migrationBuilder.DropTable(
+                name: "Tipos");
         }
     }
 }
