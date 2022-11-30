@@ -17,6 +17,26 @@ namespace PF2022_03_BlazorApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
 
+            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Asignaciones", b =>
+                {
+                    b.Property<int>("AsignacionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OrdenId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TecnicoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AsignacionId");
+
+                    b.ToTable("Asignaciones");
+                });
+
             modelBuilder.Entity("PF2022_03_BlazorApp.Models.Clientes", b =>
                 {
                     b.Property<int>("ClienteId")
@@ -149,6 +169,21 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.HasKey("TicketId");
 
                     b.ToTable("tickets");
+                });
+
+            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Tipos", b =>
+                {
+                    b.Property<int>("TipoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TipoId");
+
+                    b.ToTable("Tipos");
                 });
 
             modelBuilder.Entity("Tecnicos", b =>

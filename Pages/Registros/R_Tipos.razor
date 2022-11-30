@@ -1,0 +1,111 @@
+﻿@page "/R_Tipos"
+@page "/R_Tipos/{TipoId:int}"
+
+@inject NotificationService notificacion
+@inject TiposBLL tiposBll
+
+<EditForm Model="tipo" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="card-header">
+            <h3>Registro de Tipos</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                @*TipoId*@
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>TipoId</label>
+                            <div class="input-group">
+                                <InputNumber @bind-Value="tipo.TipoId" class="form-control col-4" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Descripcion*@
+                <div class="form-group">
+                    <label>Descripcion</label>
+                    <InputText @bind-Value="tipo.Descripcion" class="form-control" />
+                    <ValidationMessage For="@(() => tipo.Descripcion)" />
+                </div>
+            </form>
+        </div>
+    <div class="card-footer">
+        <div class="form-group text-center" display: inline-block>
+            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo"><i class="oi oi-file" />Nuevo</button>
+            <button type="submit" class="btn btn-lg btn-success"><i class="oi oi-document" />Guardar</button>
+            <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar"><i class="oi oi-trash" />Eliminar</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    
+[Parameter]
+    public int TipoId { get; set; }
+    public Tipos tipo { get; set; } = new Tipos();
+
+    public List<Tipos> lista { get; set; } = new List<Tipos>();
+
+    protected override void OnInitialized()
+    {
+        if (TipoId > 0)
+        {
+            this.tipo.TipoId = TipoId;
+            this.Buscar();
+        }
+    }
+    private void Buscar()
+    {
+        if (tipo.TipoId > 0)
+        {
+            var encontrado = tiposBll.Buscar(tipo.TipoId);
+
+            if (encontrado != null)
+                this.tipo = encontrado;
+        }
+    }
+    public void Guardar()
+    {
+
+        bool guardo;
+
+        guardo = tiposBll.Guardar(tipo);
+        if (guardo)
+        {
+            notificacion.ShowNotification("Guardado correctamente.");
+            Nuevo();
+        }
+        else
+        {
+            notificacion.ShowNotification("No fue guardado correctamente", NotificationSeverity.Error);
+        }
+
+    }
+    public void Nuevo()
+    {
+        tipo = new Tipos();
+    }
+
+    public void Eliminar()
+    {
+        bool elimino;
+
+        elimino = tiposBll.Eliminar(tipo);
+
+        if (elimino)
+        {
+            notificacion.ShowNotification("Eliminado correctamente.", NotificationSeverity.Error);
+            Nuevo();
+        }
+        else
+        {
+            notificacion.ShowNotification("No se pudo eliminar correctamente.", NotificationSeverity.Warning);
+        }
+    }
+
+}
