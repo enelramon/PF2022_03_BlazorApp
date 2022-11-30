@@ -1,0 +1,189 @@
+@page "/m_recordatorios"
+
+@inject RecordatoriosBLL recordatoriosBLL
+@inject NotificationService recordatorio
+@inject ClientesBLL clienteBLL
+@inject TecnicosBLL tecnicosBLL
+
+<EditForm Model="m_recordatorios">
+    <DataAnnotationsValidator />
+    <div class="rz-border-radius-4 shadow bg-white d-block p-2 border border-4">
+        <div class="rz-border-radius-4 shadow card-header text-center">
+            <h3  class="rz-border-radius-4 shadow card-header text-center">Menu Recordatorios</h3>
+            
+            <div class="rz-border-radius-4 card-body d-flex justify-content-center">
+                <div class="btn-group" role="group">
+                    <button type="button"
+                        class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-danger"
+                        @onclick="@(() => BSChat.ShowAsync())"><i class="oi oi-person" />
+                        Chat</button>
+                </div>
+            </div> 
+
+        </div>
+
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden d-flex justify-content-center">
+                <form class="row gy-3">
+
+                    <div class="rz-border-radius-4 shadow card" style="width: 18rem;">
+                        <br />
+                        <img src="https://th.bing.com/th/id/OIP.XhptJY7iUw4-AZUdEAhtDgHaHa?pid=ImgDet&w=207&h=207&c=7"
+                            class="card-img-top" alt="la imagen no esta Disponible">
+                        <div class="card-body">
+                            <h5 class="card-title">Consulta de recordatorios</h5>
+                            <p class="card-text">Puedes registrar un recordatorio para un cliente y para el tecnico</p>
+                            <br />
+
+                            <div class="small">
+                                <RadzenPanelMenu class="rz-shadow-3">
+                                    <RadzenPanelMenuItem class="bg-info" Text="Registrar"
+                                        Icon="app_registration">
+                                        <RadzenPanelMenuItem Text="Recordatorio Clientes" Path="Recordatorio"
+                                            Icon="account_circle" />
+                                        <RadzenPanelMenuItem Text="Recordatorios tecnicos" Path="RecordatorioT"
+                                            Icon="account_circle" />
+                                    </RadzenPanelMenuItem>
+                                </RadzenPanelMenu>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="rz-border-radius-4 shadow card" style="width: 19rem;">
+                            <img src="https://th.bing.com/th/id/OIP.EshI4KkhDg2xpJFmGjWSfgHaHA?pid=ImgDet&w=207&h=195&c=7"
+                                class="card-img-top" alt="la imagen no esta Disponible">
+                            <div class="card-body">
+                                <h5 class="card-title">Consulta de recordatorios</h5>
+                                <p class="card-text">Puedes consultar un recordatorio para un cliente y para el tecnico
+                                </p>
+                                <br />
+                                <div class="small">
+                                    <RadzenPanelMenu class="rz-shadow-3">
+                                        <RadzenPanelMenuItem class="bg-info" Text="Consultar"
+                                            Icon="app_registration">
+                                            <RadzenPanelMenuItem Text="Consuta recordatorios clientes" Path="recordatorios"
+                                                Icon="account_circle" />
+                                            <RadzenPanelMenuItem Text="Consuta recordatorios Tecnicos" Path="recordatoriosT"
+                                                Icon="account_circle" />
+                                        </RadzenPanelMenuItem>
+                                    </RadzenPanelMenu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <BSModal Size="Size.ExtraSmall" IsCentered="true" @ref="BSChat">
+
+                        @*Mensajes*@
+                        <BSModalHeader class="shadow border border-4" OnClick="@(() => BSChat.HideAsync())">Mensajes
+                        </BSModalHeader>
+
+                        @*Generar Mensajes*@
+                        <BSModalBody class="border border-4">
+                            <div class="card card-body">
+                                <div class="container overflow-hidden">
+                                    <form class="row gy-3">
+                                        @foreach (var recordar in chats)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="col-18">
+                                                        <RadzenAlert
+                                                        class="text-white rz-border-radius-4 shadow rz-success rz-series-3"
+                                                        Icon="account_circle">
+                                                            <p />
+                                                            <br />
+                                                            @recordar.Descripción
+                                                            <p />
+                                                            @recordar.FroximaFecha.ToString("hh:MM | MM - dd")
+                                                        </RadzenAlert>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </form>
+                                </div>
+                            </div>
+                        </BSModalBody>
+
+                        <BSModalFooter class="border border-4">
+                            <form class="input-group align-items-end card-body">
+                                <div class="container overflow-hidden">
+
+                                    @*Filtro*@
+                                    <div class="row gy-3">
+                                        <div class="col-md-6">
+                                            <label>Filtro</label>
+                                            <select class="rz-border-radius-4 border border-4 shadow form-control"
+                                                @bind="Filtro">
+                                                <option>Seleccionar filtro</option>
+                                                <option value="1">ClienteId</option>
+                                                <option value="2">RecordatorioId</option>
+                                                <option value="3">TecnicoId</option>
+                                                <option value="4">ProximaFecha</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Buscar</label>
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                        class="rz-border-radius-4 shadow border border-4 form-control"
+                                                        placeholder="Ingresar criterio" @bind="Criterio" />
+                                                    <div class="input-group-append">
+                                                        <button type="button"
+                                                            class="rz-border-radius-4 shadow border border-4input-group-text btn btn-primary"
+                                                            @onclick="Buscar"> <i
+                                                                class="oi oi-magnifying-glass" /></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </BSModalFooter>
+                    </BSModal>
+                </form>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    
+    [Parameter]
+    public int RecordatorioId { get; set; }
+    public string? Filtro;
+    public string? Criterio;
+    private BSModal BSChat { get; set; } = new BSModal();
+    private Recordatorios m_recordatorios { get; set; } = new Recordatorios();
+    private List<Recordatorios> chats { get; set; } = new List<Recordatorios>();
+
+    private async Task Buscar()
+    {
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "1":
+                    chats = await recordatoriosBLL.GetRecordatorios(r => r.ClienteId.ToString() == (Criterio));
+                    break;
+                case "2":
+                    chats = await recordatoriosBLL.GetRecordatorios(r => r.RecordatorioId.ToString() == (Criterio));
+                    break;
+                case "3":
+                    chats = await recordatoriosBLL.GetRecordatorios(r => r.TecnicoId.ToString() == (Criterio));
+                    break;
+                case "4":
+                    chats = await recordatoriosBLL.GetRecordatorios(r => r.FroximaFecha.Day.ToString() == (Criterio) ||
+                    r.FroximaFecha.Month.ToString() == (Criterio) || r.FroximaFecha.Minute.ToString() == (Criterio) ||
+                    r.FroximaFecha.Second.ToString() == (Criterio));
+                    break;
+            }
+        }
+    }
+}

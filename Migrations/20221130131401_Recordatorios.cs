@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PF2022_03_BlazorApp.Migrations
 {
-    public partial class Tipos : Migration
+    public partial class Recordatorios : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,7 +66,8 @@ namespace PF2022_03_BlazorApp.Migrations
                     Descripción = table.Column<string>(type: "TEXT", nullable: false),
                     Dia = table.Column<int>(type: "INTEGER", nullable: false),
                     FroximaFecha = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

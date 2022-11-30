@@ -1,11 +1,16 @@
-@page "/recordatorios"
+@page "/recordatoriosT"
 @inject RecordatoriosBLL recordatoriosBLL
 
-<EditForm Model="recordatorios">
+<EditForm Model="recordatoriosT">
     <DataAnnotationsValidator />
+
+    <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-primary" data-toggle="tooltip" data-placement="right" title="Regresar al menu" href="m_recordatorios" > <i class="oi oi-arrow-circle-left" /></a>
+    <br/>
+    <p/>
+
     <div class="shadow bg-white rz-border-radius-4 shadow d-block p-2 border border-4">
         <div class="card-header text-center">
-            <h3>Consulta Recordarorios</h3>
+            <h3>Consulta Recordarorios (Tecnicos)</h3>
         </div>
         
         <form class="input-group align-items-end card-body">
@@ -17,7 +22,7 @@
                             <option value="0">Mostrar Lista</option>
                             <option value="1">RecordatorioId</option>
                             <option value="2">Dia</option>
-                            <option value="3">ClienteId</option>
+                            <option value="3">TecnicoId</option>
                             <option value="4">ProximaFecha</option>
                         </select>
                     </div>
@@ -42,18 +47,18 @@
                     <th>RecordatorioId</th>
                     <th>Dia</th>
                     <th>FroximaFecha</th>
-                    <th>ClienteId</th>
+                    <th>TecnicoId</th>
                     <th>Descripcion</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var recordar in recordatorios)
+                @foreach (var recordar in recordatoriosT)
                 {
                     <tr class="shadow text-center border border-3 border-primary">
                         <td>@recordar.RecordatorioId</td>
                         <td>@recordar.Dia</td>
                         <td>@recordar.FroximaFecha.ToString("dd - MM - yyyy")</td>
-                        <td>@recordar.ClienteId</td>
+                        <td>@recordar.TecnicoId</td>
                         <td>@recordar.Descripción</td>
                     </tr>
                     <tr text="shadow text-center border border-3 border-primary">
@@ -64,15 +69,14 @@
                 }
             </tbody>
             <div style="cursor: pointer; ">
-                <h5> Conteo: @recordatorios.Count()</h5>
+                <h5> Conteo: @recordatoriosT.Count()</h5>
             </div>
         </table>
     </div>
 </EditForm>
 
 @code {
-    private List<Recordatorios> recordatorios { get; set; } = new List<Recordatorios>();
-    private Recordatorios recordatorio { get; set; } = new Recordatorios();
+    private List<Recordatorios> recordatoriosT { get; set; } = new List<Recordatorios>();
     private string? Filtro;
     private string? Criterio;
     private async Task Buscar()
@@ -82,22 +86,22 @@
             switch (Filtro)
             {
                 case "1":
-                    recordatorios = await recordatoriosBLL.GetRecordatorios(r => r.RecordatorioId.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.RecordatorioId.ToString() == (Criterio));
                     break;
                 case "2":
-                    recordatorios = await recordatoriosBLL.GetRecordatorios(r => r.Dia.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.Dia.ToString() == (Criterio));
                     break;
                 case "3":
-                    recordatorios = await recordatoriosBLL.GetRecordatorios(r => r.ClienteId.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.TecnicoId.ToString() == (Criterio));
                     break;
                 case "4":
-                    recordatorios = await recordatoriosBLL.GetRecordatorios(r => r.FroximaFecha.Day.ToString() == (Criterio) || r.FroximaFecha.Month.ToString() == (Criterio) || r.FroximaFecha.Year.ToString() == (Criterio));
+                    recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => r.FroximaFecha.Day.ToString() == (Criterio) || r.FroximaFecha.Month.ToString() == (Criterio) || r.FroximaFecha.Year.ToString() == (Criterio));
                     break;
             }
         }
         else
         {
-            recordatorios = await recordatoriosBLL.GetRecordatorios(r => true);
+            recordatoriosT = await recordatoriosBLL.GetRecordatorios(r => true);
         }
     }
 }

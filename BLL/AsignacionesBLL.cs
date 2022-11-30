@@ -37,10 +37,10 @@ namespace PF2022_03_BlazorApp.BLL
         }
         public async Task<Asignaciones?> Buscar(int asignacionId)
         {
-            return _contexto.Asignaciones
+            return await _contexto.Asignaciones
             .Where(o => o.AsignacionId == asignacionId)
             .AsNoTracking()
-            .SingleOrDefault();
+            .SingleOrDefaultAsync();
 
         }
         public async Task<List<Asignaciones>> Filtro(int id)

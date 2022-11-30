@@ -11,8 +11,8 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221130040403_Tipos")]
-    partial class Tipos
+    [Migration("20221130131401_Recordatorios")]
+    partial class Recordatorios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,6 +111,9 @@ namespace PF2022_03_BlazorApp.Migrations
 
                     b.Property<DateTime>("FroximaFecha")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("TecnicoId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("RecordatorioId");
 

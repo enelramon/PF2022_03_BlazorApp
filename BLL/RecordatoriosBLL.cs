@@ -21,11 +21,10 @@ namespace PF2022_03_BlazorApp.BLL
         }
         public async Task<bool> Guardar(Recordatorios recordatorios)
         {
-            bool guardo;
             if (!await Existe(recordatorios.RecordatorioId, recordatorios.Dia))
-                return guardo = true && await this.Insertar(recordatorios);
+                return await this.Insertar(recordatorios);
             else
-                return guardo = false;
+                return await this.Modificar(recordatorios);
         }
 
         private async Task<bool> Insertar(Recordatorios recordatorios)

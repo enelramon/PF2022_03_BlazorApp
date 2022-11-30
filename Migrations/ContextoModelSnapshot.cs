@@ -110,6 +110,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<DateTime>("FroximaFecha")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("TecnicoId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("RecordatorioId");
 
                     b.ToTable("Recordatorios");
