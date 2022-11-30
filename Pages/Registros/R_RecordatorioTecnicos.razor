@@ -140,19 +140,19 @@
     }
     private async Task GuardarRecordatorios()
     {
-        bool guardar;
+        bool guardo;
 
-        if (RecordatorioT.Dia < 31 || RecordatorioT.Dia > 0)
+        if (RecordatorioT.Dia > 32 || RecordatorioT.Dia < 1)
         {
-            guardar = true;
-            guardar = await recordatoriosBLL.GuardarTecnicos(RecordatorioT);
-            RecordatorioT = new RecordatorioTecnicos();
-            recordatorio.ShowNotification("Recordatorio guardado", NotificationSeverity.Success);
+            guardo = false;
+            recordatorio.ShowNotification("Recordatorio no guardado", NotificationSeverity.Error);
         }
         else
         {
-            guardar = false;
-            recordatorio.ShowNotification("Recordatorio no guardado", NotificationSeverity.Error);
+            guardo = true;
+            guardo = await recordatoriosBLL.GuardarTecnicos(RecordatorioT);
+            RecordatorioT = new RecordatorioTecnicos();
+            recordatorio.ShowNotification("Recordatorio guardado", NotificationSeverity.Success);
         }
     }
 

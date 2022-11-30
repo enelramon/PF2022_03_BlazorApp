@@ -85,14 +85,14 @@
                             <div class="card card-body">
                                 <div class="container overflow-hidden">
                                     <form class="row gy-3">
-                                        @foreach (var recordar in chats)
+                                        @foreach (var recordar in chat)
                                         {
                                             <tr>
                                                 <td>
                                                     <div class="col-18">
                                                         <RadzenAlert
-                                                        class="text-white rz-border-radius-4 shadow rz-success rz-series-3"
-                                                        Icon="account_circle">
+                                                        class="text-white rz-border-radius-4 shadow rz-info rz-series-3"
+                                                        Icon="face">
                                                             <p />
                                                             <br />
                                                             @recordar.Descripción
@@ -107,14 +107,14 @@
                                 </div>
                                 <div class="container overflow-hidden d-flex justify-content-end">
                                     <form class="row gy-3">
-                                        @foreach (var recordar in chat)
+                                        @foreach (var recordar in chats)
                                         {
                                             <tr>
                                                 <td>
                                                     <div class="col-18">
                                                         <RadzenAlert
-                                                        class="text-white rz-border-radius-4 shadow rz-info rz-series-3"
-                                                        Icon="face">
+                                                        class="text-white rz-border-radius-4 shadow rz-success rz-series-3"
+                                                        Icon="account_circle">
                                                             <p />
                                                             <br />
                                                             @recordar.Descripción
