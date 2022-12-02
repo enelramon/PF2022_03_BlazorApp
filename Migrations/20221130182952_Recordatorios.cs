@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PF2022_03_BlazorApp.Migrations
 {
-    public partial class Tipos : Migration
+    public partial class Recordatorios : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,6 +71,22 @@ namespace PF2022_03_BlazorApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recordatorios", x => x.RecordatorioId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecordatorioTecnicos",
+                columns: table => new
+                {
+                    RecordatorioTecnicoId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Descripción = table.Column<string>(type: "TEXT", nullable: false),
+                    Dia = table.Column<int>(type: "INTEGER", nullable: false),
+                    FroximaFecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecordatorioTecnicos", x => x.RecordatorioTecnicoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,6 +171,9 @@ namespace PF2022_03_BlazorApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Recordatorios");
+
+            migrationBuilder.DropTable(
+                name: "RecordatorioTecnicos");
 
             migrationBuilder.DropTable(
                 name: "Sistemas");

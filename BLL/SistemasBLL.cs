@@ -46,18 +46,18 @@ namespace PF2022_03_BlazorApp.BLL
 
         public  async Task <Sistemas?> Buscar(int SistemaID)
         {
-            return _contexto.Sistemas
+            return await _contexto.Sistemas
                 .Where(s => s.SistemaID == SistemaID)
                 .AsTracking()
-                .SingleOrDefault();
+                .SingleOrDefaultAsync();
  
         }
-         public async Task <List<Sistemas>> GetSistemas  (Expression<Func<Sistemas, bool>> Criterio)
+        public async Task <List<Sistemas>> GetSistemas (Expression<Func<Sistemas, bool>> Criterio)
         {
-            return _contexto.Sistemas
+            return await  _contexto.Sistemas
                 .AsTracking()
                 .Where(Criterio)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

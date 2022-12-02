@@ -37,10 +37,10 @@ namespace PF2022_03_BlazorApp.BLL
         }
         public async Task<Prioridades?> Buscar(int prioridadId)
         {
-            return _contexto.Prioridades
+            return await _contexto.Prioridades
             .Where(o => o.PrioridadId == prioridadId)
             .AsNoTracking()
-            .SingleOrDefault();
+            .SingleOrDefaultAsync();
 
         }
 
