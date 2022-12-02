@@ -4,13 +4,13 @@
 <EditForm Model="recordatoriosT">
     <DataAnnotationsValidator />
 
-    <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-primary" data-toggle="tooltip" data-placement="right" title="Regresar al menu" href="m_recordatorios" > <i class="oi oi-arrow-circle-left" /></a>
+    <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-primary" data-toggle="tooltip" data-placement="right" title="Regresar al registro" href="RecordatorioT" > <i class="oi oi-arrow-circle-left" /></a>
     <br/>
     <p/>
 
     <div class="shadow bg-white rz-border-radius-4 shadow d-block p-2 border border-4">
         <div class="card-header text-center">
-            <h3>Consulta Recordarorios (Tecnicos)</h3>
+            <h3>Consulta Recordarorios (Tecnico)</h3>
         </div>
         
         <form class="input-group align-items-end card-body">
@@ -62,8 +62,8 @@
                         <td>@recordar.Descripción</td>
                     </tr>
                     <tr text="shadow text-center border border-3 border-primary">
-                        <a href="Recordatorio/@recordar.RecordatorioTecnicoId">Editar</a>(ID - @(recordar.RecordatorioTecnicoId))
-                        <a href="Recordatorio/@recordar.RecordatorioTecnicoId">Eliminar</a>(ID - @(recordar.RecordatorioTecnicoId))
+                        <a href="RecordatorioT/@recordar.RecordatorioTecnicoId">Editar</a>(ID - @(recordar.RecordatorioTecnicoId))
+                        <a href="RecordatorioT/@recordar.RecordatorioTecnicoId">Eliminar</a>(ID - @(recordar.RecordatorioTecnicoId))
                         <p/>
                     </tr>
                 }
