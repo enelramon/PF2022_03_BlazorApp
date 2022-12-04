@@ -1,161 +1,177 @@
 @page "/sistema"
-@page "/sistema/{SistemaID:int}"
-
+@page "/sistema/{SistemaId:int}"
 
 @inject SistemasBLL sistemasBLL
 @inject NotificationService notificationService
-@inject ICounterViewModel counterViewModel
 
 <EditForm Model="sistema" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
-    <div class="card">
-        <div class="card-header">
-            <h1>Registro de Sistemas </h1>
+    <div class="rz-border-radius-4 shadow bg-white d-block p-2 border border-4">
+        <div class="rz-border-radius-4 shadow card-header text-center">
+            <h3>Registro Sistemas</h3>
         </div>
 
-        <div class="card-body">
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <form class="row gy-3">
 
-            <div class="row justify-content-between">
-
-                <div class="col-3">
-                    <label>SistemaId</label>
-                    <div class="input-group mb-3">
-                        <input type="number" class="form-control" @bind-value="sistema.SistemaID"
-                            aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                    @* SistemaId *@
+                    <div class="form-row align-items-center">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">SistemaId</label>
+                                <div class="input-group">
+                                    <InputNumber @bind-Value="sistema.SistemaId"
+                                        class=" rz-border-radius-4 form-control col-4" />
+                                    <div class="input-group-append">
+                                        <button type="button"
+                                            class=" rz-border-radius-4 btn btn-primary input-group-text"
+                                            @onclick="Buscar">
+                                            <i class="oi oi-magnifying-glass" />
+                                        </button>
+                                    </div>
+                                    <ValidationMessage For="@(() => sistema.SistemaId)" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-               </div>
+
+                    @* Descripcion *@
+                    <div class="col">
+                        <label>Descripción </label>
+                        <div class="input-group input-group-col-4">
+                            <InputText @bind-Value="sistema.Descripcion" class=" rz-border-radius-4 form-control" />
+                        </div>
+                        <ValidationMessage For="@(() => sistema.Descripcion )" />
+                    </div>
+                </form>
             </div>
+        </div>
 
+        <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <button type="submit" class=" rz-border-radius-4 border border-4 btn-lg btn-primary">
+                    <i class="oi oi-file" /> Nuevo</button>
 
-            @* Descripcion *@
-            <label>Descripción </label>
-            <div class="input-group input-group-lg">
+                <button type="submit" class=" rz-border-radius-4 border border-4 btn-lg btn-success"><i
+                    class="oi oi-document" /> Guardar</button>
 
-                <InputText @bind-Value="sistema.Descripcion" class="form-control" />
-                <ValidationMessage For="@(() => sistema.Descripcion )" />
-
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-danger"
+                    @onclick="Eliminar"><i class="oi oi-trash" /> Eliminar</button>
             </div>
         </div>
-
-    </div>
-
-    <div class="card-footer">
-
-        <div class="mb-3 text-center" display: inline-block>
-            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                <i class="oi oi-file" />Nuevo
-            </button>
-
-            <button type="submit" class="bi bi-file-earmark-text-fill btn btn-lg btn-success"> Guardar</button>
-            <button type="submit" class="bi bi-trash btn btn-lg btn-danger"> Eliminar</button>
-
-        </div>
-        <div class="row">
-            <p role="status">Current count: @(counterViewModel.GetCount())</p>
-
-            <button class="btn btn-primary" @onclick="@counterViewModel.IncrementCount">Click me</button>
-
-        </div>
-
-  
     </div>
 </EditForm>
 
 @code {
 
     [Parameter]
-
-
-    public int SistemaID { get; set; }
+    public int SistemaId { get; set; }
     public Sistemas sistema { get; set; } = new Sistemas();
-
     public List<Sistemas> listSistemas { get; set; } = new List<Sistemas>();
-
     public String mensaje { get; set; } = "";
 
-
-    protected async override Task  OnInitializedAsync()
+    protected async override Task OnInitializedAsync()
     {
-        if (SistemaID > 0)
+        if (SistemaId > 0)
         {
-            this.sistema.SistemaID = SistemaID;
+            this.sistema.SistemaId = SistemaId;
             await this.Buscar();
-
         }
 
-        listSistemas =  await sistemasBLL.GetSistemas(o => true);
-
+        listSistemas = await sistemasBLL.GetSistemas(o => true);
     }
 
-    private async Task  Buscar()
+    private async Task Buscar()
     {
-        if (sistema.SistemaID > 0)
+        if (sistema.SistemaId > 0)
         {
-            var encontrado = await sistemasBLL.Buscar(sistema.SistemaID);
-
-            if (encontrado != null)
+            var encontrado = await sistemasBLL.Buscar(sistema.SistemaId);
+            if (encontrado != null){
                 this.sistema = encontrado;
+
+                ShowNotification(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Registro encontrado"
+                });
+            }
+            else
+            {
+                ShowNotification(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Registro no encontrado"
+                });
+            }
         }
     }
 
-    public  async Task  Nuevo()
+    public void Nuevo()
     {
         sistema = new Sistemas();
         mensaje = "";
     }
-
 
     bool Validar()
     {
         return true;
     }
 
-    private async Task   Guardar()
+    private async Task Guardar()
     {
         bool guardo;
-
         guardo = await sistemasBLL.Guardar(sistema);
 
         if (guardo)
         {
-
             ShowNotification(
             new NotificationMessage
             {
                 Severity = NotificationSeverity.Success,
                 Summary = "Guardado correctamente"
             });
-
             Nuevo();
+        }else
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "No se guardado correctamente"
+            });
         }
     }
 
-    private async Task  Eliminar()
+    private async Task Eliminar()
     {
         bool elimino;
-
-        elimino = await sistemasBLL.Eliminar(sistema);
+        elimino = await sistemasBLL.Eliminacion(sistema);
 
         if (elimino)
         {
-
             ShowNotification(
             new NotificationMessage
             {
                 Severity = NotificationSeverity.Success,
                 Summary = "Se elimino correctamente "
             });
-
             Nuevo();
+        }else
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "No se elimino correctamente "
+            });
         }
-
     }
     void ShowNotification(NotificationMessage message)
     {
         notificationService.Notify(message);
-
     }
-
 }
