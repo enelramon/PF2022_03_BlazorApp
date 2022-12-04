@@ -90,15 +90,13 @@
             </div>
             <div class="card-footer">
                 <div class="mb-3 text-center" display: inline-block>
-                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-primary"
-                        @onclick="Nuevo">
+                    <button type="button" class="rz-border-radius-4 btn btn-primary btn-lg" @onclick="Nuevo">
                         <i class="oi oi-document" /> Nuevo
                     </button>
-                    <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-success">
+                    <button type="submit" class="rz-border-radius-4 btn btn-success btn-lg">
                         <i class="bi bi-save-fill" /> Guardar
                     </button>
-                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
-                        @onclick="Eliminar">
+                    <button type="button" class="rz-border-radius-4 btn btn-danger btn-lg" @onclick="Eliminar">
                         <i class="oi oi-trash" /> Eliminar
                     </button>
                 </div>
@@ -107,6 +105,7 @@
     </div>
 
 </EditForm>
+
 @code {
     [Parameter]
     public int ClienteId { get; set; }
