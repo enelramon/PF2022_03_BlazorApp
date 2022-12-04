@@ -4,15 +4,10 @@ namespace PF2022_03_BlazorApp.Models
 {
     public class Sistemas
     {
-
-       [Key]
-
-        public int SistemaID {get; set; }
-
-        [Required(ErrorMessage = "La Descripcion es Obligatoria")]
-
+        [Key]
+        public int SistemaId {get; set; }
+        
+        [Required(ErrorMessage = "La Descripción es Obligatoria")]
         public String?  Descripcion {get; set; }
-
-
     }
 }

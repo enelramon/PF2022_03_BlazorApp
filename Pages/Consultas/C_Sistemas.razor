@@ -4,62 +4,100 @@
 
 <EditForm Model="sistemas">
     <DataAnnotationsValidator />
-    <div class="card">
-        <div class="card-header">
-            <h3>Consulta  de Sistemas</h3>
+    <div class="shadow bg-white rz-border-radius-4 shadow d-block p-2 border border-4">
 
+        <div class="card-header text-center">
+            <h3>Consulta Sistema</h3>
         </div>
-        <div class="card-body">
-            <form>
-                <div class="input-group d-flex align-items-end">
-                    <select class="form-control col-2" @bind="Filtro">
-                        <option value="1">SistemaId</option>
-                    </select>
 
-                    <button type="button" class="btn btn-warning" @onclick="Buscar">
-                        <i class="oi oi-magnifying-glass mr-2" /> Buscar
-                    </button>
+        <form class="card-body">
+            <div>
+                <div class="row">
+                    <div class="col">
+                        <label>Filtro</label>
+                        <select class="form-control" @bind="Filtro">
+                            <option value="0">Elija una Opción</option>
+                            <option value="1">SistemaId</option>
+                            <option value="2">Descripción</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="input-group d-flex align-items-end">
+                            <label>Buscar</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" @bind="Criterio" />
+                                <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">
+                                    <i class="oi oi-magnifying-glass" /> Buscar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
-        <table class="table table-secondary">
-            <thead class="thead-dark">
-                <tr class="table-info">
+            </div>
+        </form>
+        <table class="table table-striped border-primary">
+            <thead class="thead">
+                <tr class="table-info shadow text-center border-primary">
                     <th>SistemaId</th>
-                    <th>Descripcion</th>   
+                    <th>Descripción</th>
+                    <th>Link</th>
                 </tr>
             </thead>
             <tbody>
-
-                @foreach (var sistemas in listaSistemas)
+                @foreach (var sistema in listaSistemas)
                 {
-                    <tr>
-                        <td>@sistemas.SistemaID</td>
-                        <td>@sistemas.Descripcion</td>
-                        @* <td><a href="sistemas/@sistemas.SistemaID">Ver</a></td> *@
-                    </tr> 
+                    <tr class="shadow text-center border border-3">
+                        <td>@sistema.SistemaId</td>
+                        <td>@sistema.Descripcion</td>
+                        <td><a href="sistema/@sistema.SistemaId">Ver</a></td>
+                    </tr>
                 }
-
             </tbody>
         </table>
     </div>
+ 
 </EditForm>
 
 @code {
 
     public Sistemas sistemas { set; get; } = new Sistemas();
-    public string? Filtro { get; set; }
-    public string? Criterio { get; set; }
+
+    public string? Filtro;
+
+    public string? Criterio;
+
     public List<Sistemas> listaSistemas { get; set; } = new List<Sistemas>();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-    }
-    public  async Task  Buscar()
-    { 
-            listaSistemas =  await sistemasBLL.GetSistemas(o => true);
     }
 
-} 
+    public async Task Buscar()
+    {
+        listaSistemas = await sistemasBLL.GetSistemas(o => true);
+
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "0":
+                    listaSistemas = await sistemasBLL.GetSistemas(o => true);
+                    break;
+                case "1":
+                    listaSistemas = await sistemasBLL.GetSistemas(o => o.SistemaId.ToString() == (Criterio));
+                    break;
+                case "2":
+                    listaSistemas = await sistemasBLL.GetSistemas(o => o.Descripcion!.ToLower().Contains(Criterio.ToLower()));
+                    break;
+            }
+        }
+        else
+        {
+
+            listaSistemas = await sistemasBLL.GetSistemas(o => true);
+        }
+    }
+
+}
