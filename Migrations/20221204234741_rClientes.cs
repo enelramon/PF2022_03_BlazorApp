@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PF2022_03_BlazorApp.Migrations
 {
-    public partial class Tecnicos : Migration
+    public partial class rClientes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,9 +19,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Cedula = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Telefono = table.Column<string>(type: "TEXT", nullable: true),
-                    Celular = table.Column<string>(type: "TEXT", nullable: true)
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Telefono = table.Column<string>(type: "TEXT", nullable: false),
+                    Celular = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

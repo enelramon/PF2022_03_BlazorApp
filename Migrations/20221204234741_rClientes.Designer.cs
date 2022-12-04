@@ -11,8 +11,8 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221127195053_Tecnicos")]
-    partial class Tecnicos
+    [Migration("20221204234741_rClientes")]
+    partial class rClientes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Celular")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Direccion")
@@ -37,6 +38,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Fecha")
@@ -47,6 +49,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ClienteId");

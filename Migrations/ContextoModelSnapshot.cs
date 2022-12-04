@@ -28,6 +28,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Celular")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Direccion")
@@ -35,6 +36,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Fecha")
@@ -45,6 +47,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ClienteId");
