@@ -26,10 +26,12 @@ public class Tecnicos
     public string Celular { get; set; } = null!;
     [Required(ErrorMessage = "Favor de Ingresar el usuario.")]
     public string usuario { get; set; } = null!;
-    [Required(ErrorMessage = "Favor de Ingresar la clave.")]
+    [RegularExpression(@"^.{8,}$", ErrorMessage = "La clave debe contar con al menos 8 carácteres")]
+    [Required(ErrorMessage = "Favor de introducir una clave")]
     [DataType(DataType.Password)]
     public string Clave { get; set; } = null!;
     [Required(ErrorMessage = "Favor de Ingresar la Fecha")]
     public DateTime Fecha { get; set; } = DateTime.Now;
 
 }
+
