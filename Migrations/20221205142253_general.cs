@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PF2022_03_BlazorApp.Migrations
 {
-    public partial class Seguimientos : Migration
+    public partial class general : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
