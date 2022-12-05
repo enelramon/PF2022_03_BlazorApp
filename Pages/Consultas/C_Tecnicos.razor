@@ -40,8 +40,6 @@
                     <option value="7">Cedula</option>
                     <option value="8">Usuario</option>
                     <option value="9">Fecha</option>
-
-
                 </select>
             </div>
         </div>
@@ -73,19 +71,19 @@
             <tbody>
                 @foreach (var item in Informacion)
                 {
-                        <tr>
-                            <td>@item.TecnicoId</td>
-                            <td>@item.Nombres</td>
-                            <td>@item.Direccion</td>
-                            <td>@item.Cedula</td>
-                            <td>@item.Email</td>
-                            <td>@item.Telefono</td>
-                            <td>@item.Celular</td>
-                            <td>@item.usuario</td>
-                            <td>@item.Fecha</td>
-                            <td>@item.Clave</td>
-                            <td><a href="tecnico/@item.TecnicoId">Ver</a></td>
-                        </tr>
+                    <tr>
+                        <td>@item.TecnicoId</td>
+                        <td>@item.Nombres</td>
+                        <td>@item.Direccion</td>
+                        <td>@item.Cedula</td>
+                        <td>@item.Email</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Celular</td>
+                        <td>@item.usuario</td>
+                        <td>@item.Fecha</td>
+                        <td>@item.Clave</td>
+                        <td><a href="tecnico/@item.TecnicoId">Ver</a></td>
+                    </tr>
                 }
             </tbody>
         </table>
