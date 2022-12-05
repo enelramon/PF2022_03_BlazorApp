@@ -1,0 +1,279 @@
+﻿@page "/seguimientos"
+@page "/seguimientos/{SeguimientoId:int}"
+
+@inject NotificationService notificacion
+@inject SeguimientosBLL seguimientosBLL
+@inject ClientesBLL clientesBLL
+@inject TecnicosBLL tecnicosBLL
+
+<EditForm Model="seguimientos" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="rz-border-radius-4 shadow d-block p-2 border border-4 bg-white">
+        <div class="rz-border-radius-4 shadow card-header text-center">
+            <h3>Registro de Seguientos</h3>
+        </div>
+
+        <div class="rz-border-radius-4 shadow border border-4 card card-body">
+            <div class="container overflow-hidden">
+                <form class="row gy-3">
+                    @*SeguimientoId*@
+                    <div class="form-row align-items-center">
+                        <div class="col-ms">
+                            <label>SeguimientoId</label>
+                            <div class="input-group mb-3">
+                                <InputNumber @bind-Value="seguimientos.SeguimientoId"
+                                    class="rz-border-radius-4 shadow form-control" />
+                                <div class="input-group-append">
+                                    <div class="input-group-append">
+                                        <button type="button"
+                                            class="rz-border-radius-4 shadow form-control col-4 btn btn-primary  "
+                                            @onclick="Buscar">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Fecha*@
+                        <div class="col-ms">
+                            <label>Fecha </label>
+                            <InputDate @bind-Value="seguimientos.Fecha" placeholder="Ingrese una Fecha"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => seguimientos.Fecha)" />
+                        </div>
+
+                        @*ClienteId*@
+                        <div class="col-ms">
+                            <label>ClienteId </label>
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.ClienteId"
+                                placeholder="Elija un Cliente">
+                                @foreach (var cliente in listaClientesId)
+
+                                {
+                                    <option value="@cliente.ClienteId"> @cliente.Nombres</option>
+
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => seguimientos.ClienteId)" />
+                        </div>
+
+                        @*Mensaje*@
+                        <div class="col-ms">
+                            <label>Mensaje </label>
+                            <InputText @bind-Value="seguimientos.Mensaje" placeholder="Ingrese un mensaje"
+                                class="rz-border-radius-4 shadow form-control" />
+                            <ValidationMessage For="@(() => seguimientos.Mensaje)" />
+                        </div>
+
+                        @*TecnicoId*@
+                        <div class="col-ms">
+                            <label>TecnicoId</label>
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TecnicoId"
+                                placeholder="Elija un Tecnico">
+                                @foreach (var tecnico in listaTecnicosId)
+
+                                {
+                                    <option value="@tecnico.TecnicoId"> @tecnico.Nombres</option>
+
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => seguimientos.TecnicoId)" />
+                        </div>
+
+                        @*Tipo de contacto*@
+                        <div class="col-ms">
+                            <label>Tipo de contacto </label>
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TipoContacto"
+                                placeholder="Elija el tipo de contacto">
+                                <option value="0"> Email </option>
+                                <option value="1"> Llamada </option>
+                                <option value="2"> Visita </option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => seguimientos.TipoContacto)" />
+                        </div>
+
+                        @*Celular*@
+                        <div class="col-ms">
+                            <label>Celular </label>
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TipoSeguimiento"
+                                placeholder="Elija el tipo de contacto">
+                                <option value="0"> Inicio </option>
+                                <option value="1"> Continuacion </option>
+                                <option value="2"> Fin </option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => seguimientos.TipoSeguimiento)" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="mb-3 text-center" display: inline-block>
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-primary"
+                        @onclick="Nuevo">
+                        <i class="oi oi-document" /> Nuevo
+                    </button>
+                    <button type="submit" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-success">
+                        <i class="bi bi-save-fill" /> Guardar
+                    </button>
+                    <button type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-danger"
+                        @onclick="Eliminar">
+                        <i class="oi oi-trash" /> Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+@code {
+
+    [Parameter]
+
+    public int SeguimientoId { get; set; }
+
+
+
+    public int ClienteId { get; set; }
+
+
+
+    public Seguimientos seguimientos { get; set; } = new Seguimientos();
+
+    public Clientes cliente { get; set; } = new Clientes();
+
+    public Tecnicos tecnicos { get; set; } = new Tecnicos();
+
+
+
+    public List<Seguimientos> lista { get; set; } = new List<Seguimientos>();
+
+    public List<Clientes> listaClientesId { get; set; } = new List<Clientes>();
+
+    public List<Tecnicos> listaTecnicosId { get; set; } = new List<Tecnicos>();
+
+
+
+    protected async override Task OnInitializedAsync()
+
+    {
+
+        seguimientos.Fecha = DateTime.Now;
+
+        if (SeguimientoId > 0)
+
+        {
+
+            this.seguimientos.SeguimientoId = SeguimientoId;
+
+            await this.Buscar();
+
+        }
+
+        lista = await seguimientosBLL.GetSeguimientos(o => true);
+
+        listaClientesId = await clientesBLL.GetClientes(c => true);
+
+        listaTecnicosId = await tecnicosBLL.GetList(tecnicos => true);
+
+    }
+
+
+
+    private async Task Buscar()
+
+    {
+
+        if (seguimientos.SeguimientoId > 0)
+
+        {
+
+            var encontrado = await seguimientosBLL.Buscar(seguimientos.SeguimientoId);
+
+            if (encontrado != null)
+
+            {
+
+                this.seguimientos = encontrado;
+
+                notificacion.ShowNotification("Registro encontrado", NotificationSeverity.Success);
+
+            }
+
+            else
+
+            {
+
+                notificacion.ShowNotification("Registro no encontrado", NotificationSeverity.Warning);
+
+            }
+
+        }
+
+    }
+
+
+
+    public async Task Nuevo()
+
+    {
+
+        seguimientos = new Seguimientos();
+
+    }
+
+
+
+    private async Task Guardar()
+
+    {
+
+        bool guardado = await seguimientosBLL.Guardar(seguimientos);
+
+        if (guardado)
+
+        {
+
+            Nuevo();
+
+            notificacion.ShowNotification("Guardado correctamente.");
+
+        }
+
+        else
+
+        {
+
+            notificacion.ShowNotification("No fue guardado, intentelo de nuevo.", NotificationSeverity.Error);
+
+        }
+
+    }
+
+
+
+    private async Task Eliminar()
+
+    {
+
+        var elimino = await seguimientosBLL.Eliminacion(seguimientos);
+
+        if (elimino)
+
+        {
+
+            Nuevo();
+
+            notificacion.ShowNotification("Eliminado correctamente.");
+
+        }
+
+        else
+
+        {
+
+            notificacion.ShowNotification("No fue eliminado. Actualize el navegador y vuelva a intentarlo.",
+
+            NotificationSeverity.Error);
+
+        }
+
+    }
+}

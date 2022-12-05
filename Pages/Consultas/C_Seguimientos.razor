@@ -1,0 +1,100 @@
+﻿@page "/seguimiento"
+@inject SeguimientosBLL seguimientosBLL
+
+<EditForm Model="seguimiento">
+    <DataAnnotationsValidator />
+    <div class="shadow bg-white rz-border-radius-4 shadow d-block p-2 border border-4">
+        <div class="card-header text-center">
+            <h3>Consulta Seguimientos</h3>
+        </div>
+        
+        <form class="input-group align-items-end card-body">
+            <div class="container overflow-hidden">
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <label>Filtro</label>
+                        <select class="form-control" @bind="Filtro">
+                            <option value="0">Mostrar Lista</option>
+                            <option value="1">SeguimientoId</option>
+                            <option value="3">ClienteId</option>
+                            <option value="4">Fecha</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Buscar</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" @bind="Criterio" />
+                                <div class="input-group-append">
+                                    <button type="button" class="input-group-text btn btn-primary bi bi-binoculars" @onclick="Buscar">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped border-primary">
+            <thead class="thead">
+                <tr class="table-info shadow text-center border-primary">
+                    <th>SeguimientoId</th>
+                    <th>Fecha</th>
+                    <th>ClienteId</th>
+                    <th>Mensaje</th>
+                    <th>TecnicoId</th>
+                    <th>TipoContacto</th>
+                    <th>TipoSeguimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var seguimiento in Listseguimientos)
+                {
+                    <tr class="shadow text-center border border-3 border-primary">
+                        <td>@seguimiento.SeguimientoId</td>
+                        <td>@seguimiento.Fecha</td>
+                        <td>@seguimiento.ClienteId</td>
+                        <td>@seguimiento.Mensaje</td>
+                        <td>@seguimiento.TecnicoId</td>
+                        <td>@seguimiento.TipoContacto</td>
+                        <td>@seguimiento.TipoSeguimiento</td>
+                    </tr>
+                    <tr text="shadow text-center border border-3 border-primary">
+                        <a href="seguimientos/@seguimiento.SeguimientoId">Editar</a>(ID - @(seguimiento.SeguimientoId))
+                        <a href="seguimientos/@seguimiento.SeguimientoId">Eliminar</a>(ID - @(seguimiento.SeguimientoId))
+                        <p/>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+@code {
+    private List<Seguimientos> Listseguimientos { get; set; } = new List<Seguimientos>();
+    private Seguimientos seguimiento { get; set; } = new Seguimientos();
+    private string? Filtro;
+    private string? Criterio;
+    private async Task Buscar()
+    {
+        if(Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "1":
+                    Listseguimientos = await seguimientosBLL.GetSeguimientos(s => s.SeguimientoId.ToString() == (Criterio));
+                    break;
+                case "2":
+                    Listseguimientos = await seguimientosBLL.GetSeguimientos(s => s.ClienteId.ToString() == (Criterio));
+                    break;
+                case "3":
+                    Listseguimientos = await seguimientosBLL.GetSeguimientos(s => s.Fecha.Day.ToString() == (Criterio) || s.Fecha.Month.ToString() == (Criterio) || s.Fecha.Year.ToString() == (Criterio));
+                    break;
+            }
+        }
+        else
+        {
+            Listseguimientos = await seguimientosBLL.GetSeguimientos(s => true);
+        }
+    }
+}
