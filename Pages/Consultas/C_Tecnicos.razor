@@ -30,16 +30,16 @@
             <div class="row">
                 <select class="form-select" @bind="Filtro">
                     <option disabled selected>Seleccione</option>
-                    <option value="0">Todo</option>
-                    <option value="1">TecnicoId</option>
-                    <option value="2">Nombre</option>
-                    <option value="3">Dirección</option>
-                    <option value="4">Celular</option>
-                    <option value="5">Email</option>
-                    <option value="6">Telefono</option>
-                    <option value="7">Cedula</option>
-                    <option value="8">Usuario</option>
-                    <option value="9">Fecha</option>
+                    <option value="Todo">Todo</option>
+                    <option value="TecnicoId">TecnicoId</option>
+                    <option value="Nombres">Nombre</option>
+                    <option value="Direccion">Dirección</option>
+                    <option value="Celular">Celular</option>
+                    <option value="Email">Email</option>
+                    <option value="Telefono">Telefono</option>
+                    <option value="Cedula">Cedula</option>
+                    <option value="Usuario">Usuario</option>
+                    <option value="Fecha">Fecha</option>
                 </select>
             </div>
         </div>
@@ -100,52 +100,114 @@
     public DateTime FechaDesde { get; set; }
     public DateTime FechaHasta { get; set; } = DateTime.Now;
     public List<Tecnicos> Informacion { get; set; } = new List<Tecnicos>();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
     public async Task Buscar()
     {
-        Informacion = await TecnicosBLL.GetList(e => true);
         if (Criterio != null)
-        {
-            switch (Filtro)
+        {    switch (Filtro)
             {
-                case "0":
+                case "Todo":
                     Informacion = await TecnicosBLL.GetList(e => true);
                     break;
-                case "1":
-                    Informacion = await TecnicosBLL.GetList(e => e.TecnicoId.ToString() == (Criterio));
+                case "TecnicoId":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => o.TecnicoId.ToString() == (Criterio));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "2":
-                    Informacion = await TecnicosBLL.GetList(e => e.Nombres.ToString() == (Criterio));
+                case "Nombres":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => o.Nombres.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "3":
-                    Informacion = await TecnicosBLL.GetList(e => e.Direccion.ToString() == (Criterio));
+                case "Direccion":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(e => e.Direccion.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "4":
-                    Informacion = await TecnicosBLL.GetList(e => e.Celular.ToString() == (Criterio));
+                case "Celular":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(e => e.Celular.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "5":
-                    Informacion = await TecnicosBLL.GetList(e => e.Email.ToString() == (Criterio));
+                case "Email":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(e => e.Email.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "6":
-                    Informacion = await TecnicosBLL.GetList(e => e.Telefono.ToString() == (Criterio));
+                case "Telefono":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(e => e.Telefono.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "7":
-                    Informacion = await TecnicosBLL.GetList(e => e.Cedula.ToString() == (Criterio));
+                case "Cedula":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(e => e.Cedula.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "8":
-                    Informacion = await TecnicosBLL.GetList(e => e.usuario.ToString() == (Criterio));
+                case "Usuario":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(e => e.usuario.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-                case "9":
-                    Informacion = await TecnicosBLL.GetList(x => (x.Fecha >= FechaDesde) && (x.Fecha <= FechaHasta));
+                case "Fecha":
+                    if (Criterio != null)
+                    {
+                        Informacion = await TecnicosBLL.GetList(x => (x.Fecha >= FechaDesde) && (x.Fecha <= FechaHasta));
+                    }
+                    else
+                    {
+                        Informacion = await TecnicosBLL.GetList(o => true);
+                    }
                     break;
-
-            }
+            }       
         }
         else
         {
-            if (Criterio == null)
-                Informacion = await TecnicosBLL.GetList(o => true);
+            Informacion = await TecnicosBLL.GetList(o => true);
         }
-
     }
-
-}
+}        
+        
