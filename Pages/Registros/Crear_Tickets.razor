@@ -163,7 +163,7 @@
         listasistemas = await sistemasBLL.GetSistemas(s => true);
         listaPrioridad = await prioridadesBLL.GetList(p => true);
         listatecnicos = await tecnicosBLL.GetList(t => true);
-        listatipos = tiposbll.GetTipos(t => true);
+        listatipos = await tiposbll.GetTipos(t => true);
 
 
         if (ticketId > 0)
