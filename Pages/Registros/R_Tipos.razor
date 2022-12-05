@@ -6,98 +6,79 @@
 
 <EditForm Model="tipo" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-
-    <div class="rz-border-radius-4 shadow  card shadow-lg">
-        <div class=" rz-border-radius-4 shadow d-block p-2 border border-4">
-            <div class=" rz-border-radius-4 shadow  card-header">
-                <h3>Registro de Tipos</h3>
-            </div>
-            <div class="rz-border-radius-4 shadow  card-body">
-                <form>
-                    @*TipoId*@
-                    <div class="form-row align-items-center">
-                        <div class="col">
-                            <div class="form-group">
-                                <label>TipoId</label>
-                                <div class="input-group">
-                                    <InputNumber @bind-Value="tipo.TipoId" class="rz-border-radius-4 shadow  form-control col-4" />
-                                    <div class="input-group-append">
-                                        <button type="button" class=" rz-border-radius-4 shadow  btn btn-primary input-group-text"
-                                                @onclick="Buscar">
-                                            Buscar
-                                        </button>
-                                    </div>
+    <div class="card-header">
+            <h3>Registro de Tipos</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                @*TipoId*@
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>TipoId</label>
+                            <div class="input-group">
+                                <InputNumber @bind-Value="tipo.TipoId" class="form-control col-4" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar">Buscar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @*Descripcion*@
-                    <div class="form-group">
-                        <label>Descripcion</label>
-                        <InputText @bind-Value="tipo.Descripcion" class="rz-border-radius-4 shadow form-control" />
-                        <ValidationMessage For="@(() => tipo.Descripcion)" />
-                    </div>
-                </form>
-            </div>
+                </div>
+                @*Descripcion*@
+                <div class="form-group">
+                    <label>Descripcion</label>
+                    <InputText @bind-Value="tipo.Descripcion" class="form-control" />
+                    <ValidationMessage For="@(() => tipo.Descripcion)" />
+                </div>
+            </form>
         </div>
-          <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
-        <div class="btn-group" role="group">
-            <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-success"
-                    @onclick="Nuevo">
-                <i class="oi oi-pencil" />
-                Nuevo
-            </button>
-            <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-primary">
-                <i class="oi oi-document" />
-                Guardar
-            </button>
-            <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
-                    @onclick="Eliminar">
-                <i class="oi oi-trash" />
-                Eliminar
-            </button>
+    <div class="card-footer">
+        <div class="form-group text-center" display: inline-block>
+            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo"><i class="oi oi-file" />Nuevo</button>
+            <button type="submit" class="btn btn-lg btn-success"><i class="oi oi-document" />Guardar</button>
+            <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar"><i class="oi oi-trash" />Eliminar</button>
         </div>
     </div>
-    </div>
-  
 </EditForm>
 
 @code {
-
-    [Parameter]
+    
+[Parameter]
     public int TipoId { get; set; }
     public Tipos tipo { get; set; } = new Tipos();
 
     public List<Tipos> lista { get; set; } = new List<Tipos>();
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
         if (TipoId > 0)
         {
             this.tipo.TipoId = TipoId;
-            this.Buscar();
+            await this.Buscar();
         }
     }
-    private void Buscar()
+    private async Task Buscar()
     {
         if (tipo.TipoId > 0)
         {
-            var encontrado = tiposBll.Buscar(tipo.TipoId);
+            var encontrado = await tiposBll.Buscar(tipo.TipoId);
 
             if (encontrado != null)
                 this.tipo = encontrado;
         }
     }
-    public void Guardar()
+    public async Task Guardar()
     {
 
         bool guardo;
 
-        guardo = tiposBll.Guardar(tipo);
+        guardo = await tiposBll.Guardar(tipo);
         if (guardo)
         {
-            notificacion.ShowNotification("Guardado correctamente.");
             Nuevo();
+            notificacion.ShowNotification("Guardado correctamente.");
         }
         else
         {
@@ -105,16 +86,16 @@
         }
 
     }
-    public void Nuevo()
+    public async Task Nuevo()
     {
         tipo = new Tipos();
     }
 
-    public void Eliminar()
+    public async Task Eliminar()
     {
         bool elimino;
 
-        elimino = tiposBll.Eliminar(tipo);
+        elimino = await tiposBll.Eliminar(tipo);
 
         if (elimino)
         {
