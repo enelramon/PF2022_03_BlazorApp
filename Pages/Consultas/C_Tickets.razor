@@ -100,6 +100,13 @@
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
 
+    protected override Task OnInitializedAsync()
+    {
+        fecha = DateTime.Now;
+        fecha2 = DateTime.Now;
+        return base.OnInitializedAsync();
+    }
+
     public async Task Buscar()
     {
 

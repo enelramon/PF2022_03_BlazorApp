@@ -6,6 +6,7 @@
 @inject PrioridadesBLL prioridadesBLL
 @inject SistemasBLL sistemasBLL
 @inject TecnicosBLL tecnicosBLL
+@inject TiposBLL tiposbll
 @inject NotificationService notificacion
 
 
@@ -51,6 +52,7 @@
                                         <option value="@cliente.ClienteId">@cliente.Nombres</option>
                             }
                         </InputSelect>
+                        <ValidationMessage For="@(()=> ticket.ClienteId)" />
                     </div>
                     <div class="mb-3 col-4">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Sistema Id"> SistemaId </label>
@@ -76,13 +78,18 @@
                     </div>
                     <div class="mb-3 col-6">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Tipo Id"> TipoId </label>
-                        <InputNumber class="rz-border-radius-4 shadow form-control" @bind-Value="ticket.TipoId" />
+                        <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="ticket.TipoId">
+                            @foreach (Tipos tipos in listatipos)
+                            {
+                                <option value="@tipos.TipoId">@tipos.Descripcion</option>
+                            }
+                        </InputSelect>
                         <ValidationMessage For="@(()=> ticket.TipoId)" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Ingrese un Asunto"> Asunto </label>
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Asunto"> Asunto </label>
                         <InputTextArea class="rz-border-radius-4 shadow form-control" @bind-Value="ticket.Asunto" />
                         <ValidationMessage For="@(()=> ticket.Asunto)" />
                     </div>
@@ -94,7 +101,7 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Tecnico id"> tecnicoId </label>
+                        <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Tecnico id"> TécnicoId </label>
                         <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="@ticket.TecnicoId">
                             <option value="0">No Permitido</option>
                             @foreach (Tecnicos tecnico in listatecnicos)
@@ -112,25 +119,26 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
-        <div class="btn-group" role="group">
-            <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-success"
-                    @onclick="Nuevo">
-                <i class="oi oi-pencil" />
-                Nuevo
-            </button>
-            <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-primary">
-                <i class="oi oi-document" />
-                Guardar
-            </button>
-            <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
-                    @onclick="Eliminar">
-                <i class="oi oi-trash" />
-                Eliminar
-            </button>
+        <div class="shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-success"
+                        @onclick="Nuevo">
+                    <i class="oi oi-pencil" />
+                    Nuevo
+                </button>
+                <button type="submit" class="rz-border-radius-4 shadow border border-4 btn btn-primary">
+                    <i class="oi oi-document" />
+                    Guardar
+                </button>
+                <button type="button" class="rz-border-radius-4 shadow border border-4 btn btn-danger"
+                        @onclick="Eliminar">
+                    <i class="oi oi-trash" />
+                    Eliminar
+                </button>
+            </div>
         </div>
     </div>
+  
 </EditForm>
 
 
@@ -145,6 +153,7 @@
     public List<Sistemas> listasistemas { get; set; } = new List<Sistemas>();
     public List<Prioridades> listaPrioridad { get; set; } = new List<Prioridades>();
     public List<Tecnicos> listatecnicos { get; set; } = new List<Tecnicos>();
+    public List<Tipos> listatipos { get; set; } = new List<Tipos>();
 
 
     protected override async Task OnInitializedAsync()
@@ -152,8 +161,10 @@
         ticket.Fecha = FechaActual;
         listacliente = await clienteBLL.GetClientes(c => true);
         listasistemas = await sistemasBLL.GetSistemas(s => true);
-        listaPrioridad = prioridadesBLL.GetList(p => true);
+        listaPrioridad = await prioridadesBLL.GetList(p => true);
         listatecnicos = await tecnicosBLL.GetList(t => true);
+        listatipos = tiposbll.GetTipos(t => true);
+
 
         if (ticketId > 0)
         {
@@ -191,6 +202,7 @@
         {
 
             ticket.Estado = "Pendiente";
+            ticket.TecnicoId = 0;
             guardo = await ticketsbll.Guardar(ticket);
 
             if (guardo)

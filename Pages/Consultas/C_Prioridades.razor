@@ -78,7 +78,7 @@
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
 
-    public void Buscar()
+    public async Task Buscar()
     {
 
         if (Criterio != null)
@@ -86,45 +86,45 @@
             switch (Filtro)
             {
                 case "0":
-                    lista = prioridadesBLL.GetList(o => true);
+                    lista = await prioridadesBLL.GetList(o => true);
                     break;
                 case "1":
                     if (Criterio != null)
                     {
-                        lista = prioridadesBLL.GetList(o => o.PrioridadId.ToString() == (Criterio));
+                        lista = await prioridadesBLL.GetList(o => o.PrioridadId.ToString() == (Criterio));
                     }
                     else
                     {
-                        lista = prioridadesBLL.GetList(o => true);
+                        lista = await prioridadesBLL.GetList(o => true);
                     }
 
                     break;
                 case "2":
                     if (Criterio != null)
                     {
-                        lista = prioridadesBLL.GetList(o => o.Descripcion.ToLower().Contains(Criterio.ToLower()));
+                        lista = await prioridadesBLL.GetList(o => o.Descripcion.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        lista = prioridadesBLL.GetList(o => true);
+                        lista = await prioridadesBLL.GetList(o => true);
                     }
 
                     break;
                 case "3":
                     if (Criterio != null)
                     {
-                        lista = prioridadesBLL.GetList(o => o.Orden.ToLower().Contains(Criterio.ToLower()));
+                        lista = await prioridadesBLL.GetList(o => o.Orden.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        lista = prioridadesBLL.GetList(o => true);
+                        lista = await prioridadesBLL.GetList(o => true);
                     }
                     break;
             }
         }
         else
         {
-            lista = prioridadesBLL.GetList(o => true);
+            lista = await prioridadesBLL.GetList(o => true);
         }
 
     }

@@ -35,8 +35,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="row">
                     <div class="mb-3 col-4">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Fecha </label>
@@ -142,7 +140,7 @@
         ticket.Fecha = FechaActual;
         listacliente = await clienteBLL.GetClientes(c => true);
         listasistemas = await sistemasBLL.GetSistemas(s => true);
-        listaPrioridad = prioridadesBLL.GetList(p => true);
+        listaPrioridad = await prioridadesBLL.GetList(p => true);
         listatecnicos = await tecnicosBLL.GetList(t => true);
 
         if (ticketId > 0)
@@ -174,8 +172,8 @@
 
         if (!Validar())
         {
-            Nuevo();
-            notificacion.ShowNotification("Fecha de creacion menor fecha actual.", NotificationSeverity.Error);
+            
+            notificacion.ShowNotification("Asigne un tecnico para guardar.", NotificationSeverity.Error);
         }
         else
         {
@@ -209,7 +207,7 @@
     }
     public bool Validar()
     {
-        if (ticket.Fecha.Date < FechaActual.Date)
+        if (ticket.TecnicoId <= 0)
         {
             return false;
         }
