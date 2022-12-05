@@ -27,6 +27,7 @@ public class Tecnicos
     [Required(ErrorMessage = "Favor de Ingresar el usuario.")]
     public string usuario { get; set; } = null!;
     [Required(ErrorMessage = "Favor de Ingresar la clave.")]
+    [DataType(DataType.Password)]
     public string Clave { get; set; } = null!;
     [Required(ErrorMessage = "Favor de Ingresar la Fecha")]
     public DateTime Fecha { get; set; } = DateTime.Now;
