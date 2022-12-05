@@ -6,7 +6,7 @@ public class Tecnicos
     [Key]
     public int TecnicoId { get; set; }
     [Required(ErrorMessage = "Favor de Ingresar el nombre.")]
-    [RegularExpression(@"^[a-zA-Z''-'\s]{1,85}$",ErrorMessage = "Caracteres no permitidos solo mayuscula y minuscula.")]
+    [RegularExpression(@"^[a-zA-Z''-'\s]{1,85}$", ErrorMessage = "Caracteres no permitidos solo mayuscula y minuscula.")]
     public string Nombres { get; set; } = null!;
     [Required(ErrorMessage = "Favor de Ingresar la direccion.")]
     public string Direccion { get; set; } = null!;
@@ -26,7 +26,7 @@ public class Tecnicos
     [Required(ErrorMessage = "Favor introducir su celular.")]
     public string Celular { get; set; } = null!;
     [Required(ErrorMessage = "Favor de Ingresar el usuario.")]
-    [RegularExpression(@"^[a-zA-Z123456789''-'\s]{10,40}$",ErrorMessage = "Debe introducir entre 10 y 40 caracteres para su usuario.(Solo mayuscula,minuscula y numeros)")]
+    [RegularExpression(@"^[a-zA-Z123456789''-'\s]{10,40}$", ErrorMessage = "Debe introducir entre 10 y 40 caracteres para su usuario.(Solo mayuscula,minuscula y numeros)")]
     public string usuario { get; set; } = null!;
     [RegularExpression(@"^.{12,}$", ErrorMessage = "La clave debe contar con al menos 12 carácteres")]
     [Required(ErrorMessage = "Favor de introducir una clave")]
@@ -34,6 +34,5 @@ public class Tecnicos
     public string Clave { get; set; } = null!;
     [Required(ErrorMessage = "Favor de Ingresar la Fecha")]
     public DateTime Fecha { get; set; } = DateTime.Now;
-
 }
 
