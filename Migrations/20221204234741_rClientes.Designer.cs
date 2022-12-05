@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PF2022_03_BlazorApp.DAL;
 
@@ -10,32 +11,13 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20221204234741_rClientes")]
+    partial class rClientes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
-
-            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Asignaciones", b =>
-                {
-                    b.Property<int>("AsignacionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OrdenId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TecnicoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AsignacionId");
-
-                    b.ToTable("Asignaciones");
-                });
 
             modelBuilder.Entity("PF2022_03_BlazorApp.Models.Clientes", b =>
                 {
@@ -118,33 +100,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.ToTable("Recordatorios");
                 });
 
-            modelBuilder.Entity("PF2022_03_BlazorApp.Models.RecordatorioTecnicos", b =>
-                {
-                    b.Property<int>("RecordatorioTecnicoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descripción")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Dia")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("FroximaFecha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("TecnicoId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("RecordatorioTecnicoId");
-
-                    b.ToTable("RecordatorioTecnicos");
-                });
-
             modelBuilder.Entity("PF2022_03_BlazorApp.Models.Sistemas", b =>
                 {
-                    b.Property<int>("SistemaId")
+                    b.Property<int>("SistemaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -152,7 +110,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SistemaId");
+                    b.HasKey("SistemaID");
 
                     b.ToTable("Sistemas");
                 });
@@ -187,10 +145,10 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.Property<int>("SistemaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TecnicoId")
+                    b.Property<int>("TipoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TipoId")
+                    b.Property<int>("técnicoId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("TicketId");
@@ -198,24 +156,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.ToTable("tickets");
                 });
 
-            modelBuilder.Entity("PF2022_03_BlazorApp.Models.Tipos", b =>
+            modelBuilder.Entity("técnicos", b =>
                 {
-                    b.Property<int>("TipoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("TipoId");
-
-                    b.ToTable("Tipos");
-                });
-
-            modelBuilder.Entity("Tecnicos", b =>
-                {
-                    b.Property<int>("TecnicoId")
+                    b.Property<int>("técnicoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -254,9 +197,9 @@ namespace PF2022_03_BlazorApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("TecnicoId");
+                    b.HasKey("técnicoId");
 
-                    b.ToTable("Tecnicos");
+                    b.ToTable("técnicos");
                 });
 #pragma warning restore 612, 618
         }
