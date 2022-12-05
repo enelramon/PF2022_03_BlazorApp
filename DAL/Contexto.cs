@@ -14,6 +14,7 @@ namespace PF2022_03_BlazorApp.DAL
         public DbSet<Tecnicos> Tecnicos { get; set; }
         public DbSet<Asignaciones> Asignaciones { get; set; }
         public DbSet<Tipos> Tipos { get; set; }
+        public DbSet<Seguimientos> Seguimientos { get; set; }
 
         public Contexto(DbContextOptions<Contexto> options)
         : base(options)

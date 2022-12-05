@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PF2022_03_BlazorApp.Migrations
 {
-    public partial class Recordatorios : Migration
+    public partial class Seguimientos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,9 +34,9 @@ namespace PF2022_03_BlazorApp.Migrations
                     Direccion = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Cedula = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Telefono = table.Column<string>(type: "TEXT", nullable: true),
-                    Celular = table.Column<string>(type: "TEXT", nullable: true)
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Telefono = table.Column<string>(type: "TEXT", nullable: false),
+                    Celular = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,16 +90,34 @@ namespace PF2022_03_BlazorApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Seguimientos",
+                columns: table => new
+                {
+                    SeguimientoId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Mensaje = table.Column<string>(type: "TEXT", nullable: false),
+                    TecnicoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TipoContacto = table.Column<string>(type: "TEXT", nullable: false),
+                    TipoSeguimiento = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seguimientos", x => x.SeguimientoId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sistemas",
                 columns: table => new
                 {
-                    SistemaID = table.Column<int>(type: "INTEGER", nullable: false)
+                    SistemaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sistemas", x => x.SistemaID);
+                    table.PrimaryKey("PK_Sistemas", x => x.SistemaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,6 +192,9 @@ namespace PF2022_03_BlazorApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "RecordatorioTecnicos");
+
+            migrationBuilder.DropTable(
+                name: "Seguimientos");
 
             migrationBuilder.DropTable(
                 name: "Sistemas");

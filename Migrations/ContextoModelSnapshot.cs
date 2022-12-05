@@ -213,6 +213,38 @@ namespace PF2022_03_BlazorApp.Migrations
                     b.ToTable("Tipos");
                 });
 
+            modelBuilder.Entity("Seguimientos", b =>
+                {
+                    b.Property<int>("SeguimientoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TecnicoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TipoContacto")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoSeguimiento")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SeguimientoId");
+
+                    b.ToTable("Seguimientos");
+                });
+
             modelBuilder.Entity("Tecnicos", b =>
                 {
                     b.Property<int>("TecnicoId")
