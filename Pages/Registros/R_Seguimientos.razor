@@ -43,7 +43,7 @@
                         @*ClienteId*@
                         <div class="col-ms">
                             <label>ClienteId </label>
-                            <InputSelect class="form-select" @bind-Value="seguimientos.ClienteId"
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.ClienteId"
                                 placeholder="Elija un Cliente">
                                 @foreach (var cliente in listaClientesId)
 
@@ -66,7 +66,7 @@
                         @*TecnicoId*@
                         <div class="col-ms">
                             <label>TecnicoId</label>
-                            <InputSelect class="form-select" @bind-Value="seguimientos.TecnicoId"
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TecnicoId"
                                 placeholder="Elija un Tecnico">
                                 @foreach (var tecnico in listaTecnicosId)
 
@@ -81,7 +81,7 @@
                         @*Tipo de contacto*@
                         <div class="col-ms">
                             <label>Tipo de contacto </label>
-                            <InputSelect class="form-select" @bind-Value="seguimientos.TipoContacto"
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TipoContacto"
                                 placeholder="Elija el tipo de contacto">
                                 <option value="0"> Email </option>
                                 <option value="1"> Llamada </option>
@@ -89,10 +89,11 @@
                             </InputSelect>
                             <ValidationMessage For="@(() => seguimientos.TipoContacto)" />
                         </div>
+
                         @*Celular*@
                         <div class="col-ms">
                             <label>Celular </label>
-                            <InputSelect class="form-select" @bind-Value="seguimientos.TipoSeguimiento"
+                            <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TipoSeguimiento"
                                 placeholder="Elija el tipo de contacto">
                                 <option value="0"> Inicio </option>
                                 <option value="1"> Continuacion </option>
@@ -252,7 +253,7 @@
 
     {
 
-        var elimino = await seguimientosBLL.Eliminar(seguimientos);
+        var elimino = await seguimientosBLL.Eliminacion(seguimientos);
 
         if (elimino)
 

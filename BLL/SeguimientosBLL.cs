@@ -37,13 +37,21 @@ namespace PF2022_03_BlazorApp.BLL
             int cantidad = await _contexto.SaveChangesAsync();
             return cantidad > 0;
         }
+        public async Task<bool> Eliminacion(Seguimientos seguimiento)
+        {
+            bool elimino;
+            if (await Existe(seguimiento.SeguimientoId))
+                return elimino = true && await this.Eliminar(seguimiento);
+            else
+                return elimino = false;
+        }
 
         public async Task<bool> Modificar(Seguimientos seguimiento)
         {
             _contexto.Entry(seguimiento).State = EntityState.Modified;
             return await _contexto.SaveChangesAsync() > 0;
         }
-        public async Task<bool> Eliminar(Seguimientos seguimiento)
+        private async Task<bool> Eliminar(Seguimientos seguimiento)
         {
             _contexto.Entry(seguimiento).State = EntityState.Deleted;
             return await _contexto.SaveChangesAsync() > 0;
