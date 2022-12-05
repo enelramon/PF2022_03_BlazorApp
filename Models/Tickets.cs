@@ -10,16 +10,16 @@ namespace PF2022_03_BlazorApp.Models
         [Required(ErrorMessage = "La Fecha es requerida")]
         public DateTime Fecha { get; set; }
 
-        [Required(ErrorMessage = "Debe ingresar el id de un cliente ")]
+        [Range(minimum:1 , maximum:10000000000, ErrorMessage ="Debe ingresar el Id del Cliente")]
         public int ClienteId { get; set; }
 
-        [Required(ErrorMessage = "Debe ingresar el id de un Sistema  ")]
+        [Range(minimum: 1, maximum: 10000000000, ErrorMessage = "Debe ingresar el Id del Sistema")]
         public int SistemaId { get; set; }
 
-        [Required(ErrorMessage = "Debe ingresar un tipo ")]
+        [Range(minimum: 1, maximum: 10000000000, ErrorMessage = "Debe ingresar el un Tipo")]
         public int TipoId { get; set; }
 
-        [Required(ErrorMessage = "Debe ingresar la prioridad")]
+        [Range(minimum: 1, maximum: 10000000000, ErrorMessage = "Debe ingresar una Prioridad")]
         public int PrioridadId { get; set; }
 
         [Required(ErrorMessage = "El Asunto es requerido ")]
@@ -28,7 +28,7 @@ namespace PF2022_03_BlazorApp.Models
         [Required(ErrorMessage = "La descripción es requerida")]
         public string Descripcion { get; set; }
 
-        [Required(ErrorMessage = "El Id del Tecnico es requirido")]
+        [Range(minimum: 0, maximum: 10000000000, ErrorMessage = "Debe ingresar el id de un Técnico")]
         public int TecnicoId { get; set; }
 
         public string Estado { get; set; }

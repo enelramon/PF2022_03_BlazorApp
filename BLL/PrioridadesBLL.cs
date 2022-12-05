@@ -49,12 +49,12 @@ namespace PF2022_03_BlazorApp.BLL
             _contexto.Entry(prioridad).State = EntityState.Deleted;
             return await _contexto.SaveChangesAsync() > 0;
         }
-        public List<Prioridades> GetList(Expression<Func<Prioridades, bool>> Criterio)
+        public async Task<List<Prioridades>> GetList(Expression<Func<Prioridades, bool>> Criterio)
         {
-            return _contexto.Prioridades
+            return await _contexto.Prioridades
                 .AsNoTracking()
                 .Where(Criterio)
-                .ToList();
+                .ToListAsync();
         }
     }
 }
