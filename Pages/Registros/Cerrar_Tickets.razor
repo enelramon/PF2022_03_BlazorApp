@@ -36,7 +36,7 @@
                 <InputText readonly="true" class=" rz-border-radius-4 shadow form-control" @bind-Value="ticket.Estado" />
                 <ValidationMessage For="@(()=> ticket.Estado)" />
             </div>
-            <p>Solo Presionar el boton si el estado del ticket se encuentra Pendiente</p>
+            <p>Solo Presionar el boton si el estado del ticket se encuentra "En Proceso"</p>
         </div>
     </div>
     <div class="card-footer d-flex justify-content-center">
@@ -105,14 +105,14 @@
             if (guardo)
             {
                 Nuevo();
-                notificacion.ShowNotification("Guardo correctamente.", NotificationSeverity.Success);
+                notificacion.ShowNotification("El Ticket ha sido atendido.", NotificationSeverity.Success);
             }
         }
     }
 
     public bool Validar()
     {
-        if (ticket.Estado == "Atendido" || ticket.Estado == "En Proceso")
+        if (ticket.Estado == "Atendido" || ticket.Estado == "Pendiente")
         {
             return false;
         }

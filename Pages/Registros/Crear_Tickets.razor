@@ -96,13 +96,13 @@
                     <div class="mb-3 col-6">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center" placeholder="Tecnico id"> tecnicoId </label>
                         <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="@ticket.TecnicoId">
-                            <option value="0" disabled>No Permitido</option>
+                            <option value="0">No Permitido</option>
                             @foreach (Tecnicos tecnico in listatecnicos)
                             {
                                         <option disabled value="@tecnico.TecnicoId">@tecnico.Nombres</option>
                             }
                         </InputSelect>
-                        <ValidationMessage For="@(()=> ticket.TecnicoId)" />
+                       
                     </div>
                     <div class="mb-3 col-6">
                         <label class="control-label col-sm-4 d-flex justify-content-center align-items-center"> Estado </label>
