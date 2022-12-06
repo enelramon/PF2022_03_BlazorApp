@@ -131,7 +131,7 @@
     {
         if (RecordatorioT.RecordatorioTecnicoId > 0 || RecordatorioT.Dia > 0)
         {
-            var encontrado = await recordatoriosBLL.BuscarTecnicos(RecordatorioT.RecordatorioTecnicoId, RecordatorioT.Dia);
+            var encontrado = await recordatoriosBLL.BuscarTecnicos(RecordatorioT.RecordatorioTecnicoId);
 
             if (encontrado != null)
             {
@@ -144,11 +144,27 @@
             }
         }
     }
+
+    private bool Validar()
+    {
+        if(RecordatorioT.RecordatorioTecnicoId > 0)
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
     private async Task GuardarRecordatorios()
     {
+        if(!Validar())
+        {
+            recordatorio.ShowNotification("El Id no puede ser menor a 1", NotificationSeverity.Error);
+        }
+
         bool guardo;
 
-        if (RecordatorioT.Dia > 32 || RecordatorioT.Dia < 1)
+        if (RecordatorioT.Dia > 32 || RecordatorioT.Dia < 1 || RecordatorioT.RecordatorioTecnicoId < 1)
         {
             guardo = false;
             recordatorio.ShowNotification("Recordatorio no guardado", NotificationSeverity.Error);
@@ -164,6 +180,11 @@
 
     private async Task EliminarRecordatorios()
     {
+        if(!Validar())
+        {
+            recordatorio.ShowNotification("El Id no puede ser menor a 1", NotificationSeverity.Error);
+        }
+
         bool elimino = await recordatoriosBLL.EliminacionTecnicos(RecordatorioT);
 
         if (elimino)
@@ -179,19 +200,21 @@
 
     private async Task EditarRecordatorios()
     {
-        bool editar;
-
-        if (RecordatorioT.Dia > 32 || RecordatorioT.Dia < 1)
+        if(!Validar())
         {
-            editar = false;
-            recordatorio.ShowNotification("Recordatorio no editado", NotificationSeverity.Error);
+            recordatorio.ShowNotification("El Id no puede ser menor a 1", NotificationSeverity.Error);
+        }
+        
+        bool edito = await recordatoriosBLL.EditarTecnicos(RecordatorioT);
+
+        if (edito)
+        {
+            RecordatorioT = new RecordatorioTecnicos();
+            recordatorio.ShowNotification("Recordatorio editado", NotificationSeverity.Success);
         }
         else
         {
-            editar = true;
-            editar = await recordatoriosBLL.EditarTecnicos(RecordatorioT);
-            RecordatorioT = new RecordatorioTecnicos();
-            recordatorio.ShowNotification("Recordatorio editado", NotificationSeverity.Success);
+            recordatorio.ShowNotification("Recordatorio no editado", NotificationSeverity.Error);
         }
     }
 }
