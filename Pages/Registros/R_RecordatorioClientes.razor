@@ -131,7 +131,7 @@
     {
         if (Recordatorio.RecordatorioId > 0 || Recordatorio.Dia > 0)
         {
-            var encontrado = await recordatoriosBLL.Buscar(Recordatorio.RecordatorioId, Recordatorio.Dia);
+            var encontrado = await recordatoriosBLL.Buscar(Recordatorio.RecordatorioId);
 
             if (encontrado != null)
             {
@@ -144,11 +144,28 @@
             }
         }
     }
+
+    private bool Validar()
+    {
+        if(Recordatorio.RecordatorioId > 0)
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
     private async Task GuardarRecordatorio()
     {
+        if(!Validar())
+        {
+            recordatorio.ShowNotification("El Id no puede ser menor a 1", NotificationSeverity.Error);
+        }
+
         bool guardo;
 
-        if (Recordatorio.Dia > 32 || Recordatorio.Dia < 1)
+        if (Recordatorio.Dia > 32 || Recordatorio.Dia < 1 || Recordatorio.RecordatorioId < 1)
         {
             guardo = false;
             recordatorio.ShowNotification("Recordatorio no guardado", NotificationSeverity.Error);
@@ -164,7 +181,12 @@
 
     private async Task EliminarRecordatorio()
     {
-        bool elimino = await recordatoriosBLL.Eliminacion(Recordatorio);
+        if(!Validar())
+        {
+            recordatorio.ShowNotification("El Id no puede ser menor a 1", NotificationSeverity.Error);
+        }
+
+        bool elimino = await recordatoriosBLL.Eliminacion(Recordatorio);;
 
         if (elimino)
         {
@@ -179,19 +201,21 @@
 
     private async Task EditarRecordatorio()
     {
-        bool editar;
-
-        if (Recordatorio.Dia > 32 || Recordatorio.Dia < 1)
+        if(!Validar())
         {
-            editar = false;
-            recordatorio.ShowNotification("Recordatorio no editado", NotificationSeverity.Error);
+            recordatorio.ShowNotification("El Id no puede ser menor a 1", NotificationSeverity.Error);
+        }
+
+        bool edito = await recordatoriosBLL.Editar(Recordatorio);
+
+        if (edito)
+        {
+            Recordatorio = new Recordatorios();
+            recordatorio.ShowNotification("Recordatorio editado", NotificationSeverity.Success);
         }
         else
         {
-            editar = true;
-            editar = await recordatoriosBLL.Editar(Recordatorio);
-            Recordatorio = new Recordatorios();
-            recordatorio.ShowNotification("Recordatorio editado", NotificationSeverity.Success);
+            recordatorio.ShowNotification("Recordatorio no editado", NotificationSeverity.Error);
         }
     }
 }

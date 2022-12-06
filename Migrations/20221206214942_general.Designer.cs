@@ -11,7 +11,7 @@ using PF2022_03_BlazorApp.DAL;
 namespace PF2022_03_BlazorApp.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221205142253_general")]
+    [Migration("20221206214942_general")]
     partial class general
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
