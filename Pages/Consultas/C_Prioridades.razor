@@ -10,7 +10,6 @@
 
         </div>
 
-
         <div class="rz-border-radius-4 shadow border border-4 card card-body">
             <div class="container overflow-hidden">
                 <form>
@@ -75,8 +74,8 @@
     public Prioridades prioridad { get; set; } = new Prioridades();
     public List<Prioridades> lista { get; set; } = new List<Prioridades>();
 
-    public string? Filtro { get; set; }
-    public string? Criterio { get; set; }
+    public string? Filtro;
+    public string? Criterio;
 
     public async Task Buscar()
     {

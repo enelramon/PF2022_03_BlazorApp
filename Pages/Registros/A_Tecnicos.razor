@@ -55,7 +55,7 @@
                         <InputSelect readonly="true" class="form-select" @bind-Value="ticket.SistemaId">
                             @foreach (Sistemas sistema in listasistemas)
                             {
-                                <option disabled value="@sistema.SistemaId">@sistema.Descripcion</option>
+                                <option disabled value="@sistema.SistemaId">@sistema.Descripción</option>
                             }
                         </InputSelect>
                         <ValidationMessage For="@(()=> ticket.SistemaId)" />

@@ -113,7 +113,7 @@ namespace PF2022_03_BlazorApp.Migrations
                 {
                     SistemaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: false)
+                    Descripción = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
