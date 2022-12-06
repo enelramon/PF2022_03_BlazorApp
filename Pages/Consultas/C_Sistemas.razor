@@ -49,7 +49,7 @@
                 {
                     <tr class="shadow text-center border border-3">
                         <td>@sistema.SistemaId</td>
-                        <td>@sistema.Descripcion</td>
+                        <td>@sistema.Descripción</td>
                         <td><a href="sistema/@sistema.SistemaId">Ver</a></td>
                     </tr>
                 }
@@ -89,13 +89,12 @@
                     listaSistemas = await sistemasBLL.GetSistemas(o => o.SistemaId.ToString() == (Criterio));
                     break;
                 case "2":
-                    listaSistemas = await sistemasBLL.GetSistemas(o => o.Descripcion!.ToLower().Contains(Criterio.ToLower()));
+                    listaSistemas = await sistemasBLL.GetSistemas(o => o.Descripción!.ToLower().Contains(Criterio.ToLower()));
                     break;
             }
         }
         else
         {
-
             listaSistemas = await sistemasBLL.GetSistemas(o => true);
         }
     }

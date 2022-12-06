@@ -148,7 +148,7 @@ namespace PF2022_03_BlazorApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Descripcion")
+                    b.Property<string>("Descripción")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

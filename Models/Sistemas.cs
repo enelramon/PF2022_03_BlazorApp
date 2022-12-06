@@ -8,6 +8,6 @@ namespace PF2022_03_BlazorApp.Models
         public int SistemaId {get; set; }
         
         [Required(ErrorMessage = "La Descripción es Obligatoria")]
-        public String?  Descripcion {get; set; }
+        public string? Descripción {get; set; }
     }
 }
