@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
 public class Seguimientos
 {
     [Key]
@@ -22,5 +21,4 @@ public class Seguimientos
 
     [Required(ErrorMessage = "Elija una opcion")]
     public string? TipoSeguimiento { get; set; }
-
 }
