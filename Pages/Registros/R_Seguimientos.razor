@@ -83,9 +83,9 @@
                             <label>Tipo de contacto </label>
                             <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TipoContacto"
                                 placeholder="Elija el tipo de contacto">
-                                <option value="0"> Email </option>
-                                <option value="1"> Llamada </option>
-                                <option value="2"> Visita </option>
+                                <option value="1"> Email </option>
+                                <option value="2"> Llamada </option>
+                                <option value="3"> Visita </option>
                             </InputSelect>
                             <ValidationMessage For="@(() => seguimientos.TipoContacto)" />
                         </div>
@@ -95,9 +95,9 @@
                             <label>Celular </label>
                             <InputSelect class="rz-border-radius-4 shadow form-select" @bind-Value="seguimientos.TipoSeguimiento"
                                 placeholder="Elija el tipo de contacto">
-                                <option value="0"> Inicio </option>
-                                <option value="1"> Continuacion </option>
-                                <option value="2"> Fin </option>
+                                <option value="1"> Inicio </option>
+                                <option value="2"> Continuacion </option>
+                                <option value="3"> Fin </option>
                             </InputSelect>
                             <ValidationMessage For="@(() => seguimientos.TipoSeguimiento)" />
                         </div>
@@ -121,7 +121,6 @@
             </div>
         </div>
     </div>
-
 </EditForm>
 @code {
 
