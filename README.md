@@ -22,5 +22,5 @@ cerrar el tikets para que no aparezca en los tikets en espera.
   5- Un tecnico encargado de crear el tikets y de notificarlo al tecnico encargad@ de dar seguimiento.
   
  # Video de explicacion del funcionamiento de la web                                                                  
-                                [![Alt text](https://img.youtube.com/vi/2moC-6wAiwY/0.jpg)](https://www.youtube.com/watch?v=2moC-6wAiwY)
+   [![Alt text](https://img.youtube.com/vi/2moC-6wAiwY/0.jpg)](https://www.youtube.com/watch?v=2moC-6wAiwY)
  
