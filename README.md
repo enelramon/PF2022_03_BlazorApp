@@ -18,7 +18,9 @@ Descripcion: La web esta orientada al area de organizacion a nuestros clientes.
 cerrar el tikets para que no aparezca en los tikets en espera.
 
 * Detalle tecnicos:
+
   4- Abria una tecnica en cargada solo del area de seguimiento del tikets.
+  
   5- Un tecnico encargado de crear el tikets y de notificarlo al tecnico encargad@ de dar seguimiento.
   
  # Video de explicacion del funcionamiento de la web                                                                  
